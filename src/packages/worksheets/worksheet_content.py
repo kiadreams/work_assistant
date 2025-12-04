@@ -91,7 +91,7 @@ class WorkSheetContent:
         ),
     }
 
-    image_of_cells = {'E36': Image('src/images/img.png'), }
+    image_of_cells = {'E36': 'src/images/img.png'}
 
     @staticmethod
     def change_cells(cells: dict[str, str], steps: tuple[int, ...]) -> dict[str, str]:
