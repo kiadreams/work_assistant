@@ -1,6 +1,6 @@
 import os
 from src.packages.worksheets.worksheets import WorkSheets
-from src.packages.models.device import Device
+from src.packages.models.employees import EmployeePosition, Employee, Department
 
 from src.packages.databases.engin_db import create_db_tables
 

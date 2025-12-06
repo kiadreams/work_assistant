@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 from src.packages.models.work import Work
-from src.packages.models.employee import Employee
+from src.packages.models.employees import Employee
 
 
 @dataclass
