@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 
 from src.packages.models.device import Device
-from src.packages.databases.types_of_work import TypeOfWork
+from src.packages.models.types_of_value import TypeOfWork
 
 
 @dataclass
