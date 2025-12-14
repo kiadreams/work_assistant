@@ -6,29 +6,46 @@
 from PySide6 import QtCore
 
 qt_resource_data = b"\
-\x00\x00\x01D\
+\x00\x00\x02R\
 Q\
-MainWindow {\x0d\x0a  \
-  background-col\
-or: rgb(55, 55, \
-55);\x0d\x0a}\x0d\x0a\x0d\x0aQPush\
-Button {\x0d\x0a    fo\
-nt-size: 14px;\x0d\x0a\
-    padding: 10p\
-x;\x0d\x0a    text-tra\
-nsform: uppercas\
-e;\x0d\x0a}\x0d\x0a\x0d\x0aQPushBu\
-tton#psb_exit {\x0d\
-\x0a    padding: 5p\
-x;\x0d\x0a}\x0d\x0a\x0d\x0aQLabel#\
-lbl_app_title {\x0d\
+MainWindow {\x0a   \
+ background-colo\
+r: qlineargradie\
+nt(spread:pad, x\
+1:0, y1:0, x2:1,\
+ y2:1, stop:0 rg\
+ba(188, 81, 255,\
+ 247), stop:0.95\
+9596 rgba(140, 2\
+55, 255, 255));\x0a\
+}\x0a\x0aQPushButton {\
 \x0a    font-size: \
-22px;\x0d\x0a    color\
-: blue;\x0d\x0a    tex\
+14px;\x0a    paddin\
+g: 10px;\x0a    tex\
 t-transform: upp\
-ercase;\x0d\x0a    tex\
-t-align: center;\
-\x0d\x0a}\
+ercase;\x0a    bord\
+er-radius: 10px;\
+\x0a    background-\
+color: #f0f0f0;\x0a\
+}\x0a\x0aQPushButton:h\
+over {\x0a    backg\
+round-color: ste\
+elblue;\x0a    bord\
+er-color: darkbl\
+ue;\x0a    color: w\
+hite;\x0a}\x0a\x0aQPushBu\
+tton#psb_exit {\x0a\
+    padding: 5px\
+;\x0a}\x0a\x0aQLabel#lbl_\
+app_title {\x0a    \
+font-size: 22px;\
+\x0a    font-weight\
+: bold;\x0a    colo\
+r: blue;\x0a    tex\
+t-transform: upp\
+ercase;\x0a    text\
+-align: center;\x0a\
+}\
 "
 
 qt_resource_name = b"\
@@ -48,7 +65,7 @@ qt_resource_struct = b"\
 \x00\x00\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x02\
 \x00\x00\x00\x00\x00\x00\x00\x00\
 \x00\x00\x00\x12\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\
-\x00\x00\x01\x9b\x1d\xc1\xccN\
+\x00\x00\x01\x9b\x1e\xc9_\x5c\
 "
 
 def qInitResources():
