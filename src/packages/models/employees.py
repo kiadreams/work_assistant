@@ -6,7 +6,6 @@ from sqlalchemy.orm import MappedAsDataclass, Mapped, mapped_column, relationshi
 from . import works
 from ..databases.database import Base
 
-
 class Service(MappedAsDataclass, Base):
     __tablename__ = 'services'
 
@@ -26,7 +25,7 @@ class Department(MappedAsDataclass, Base):
     name: Mapped[str] = mapped_column(String(50), nullable=False)
     service_id: Mapped[int] = mapped_column(ForeignKey('services.id'))
 
-    service: Mapped[Service] = relationship(back_populates='departments')
+    service: Mapped['Service'] = relationship(back_populates='departments')
     employee_positions: Mapped[list['EmployeePosition']] = relationship(back_populates='department')
 
     abbreviation: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

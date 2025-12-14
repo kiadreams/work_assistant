@@ -1,51 +1,51 @@
-import os
 import sys
+import tomllib
+
+from pathlib import Path
 
 from PySide6 import QtWidgets
 
-from src.packages.forms.main_window import Ui_MainWindow
-from src.packages.worksheets.worksheets import WorkSheets
-from src.packages.models.employees import EmployeePosition, Employee, Department, Service
-from src.packages.models.devices import DeviceLocation, Device
-from src.packages.models.works import Work, WorkOrder, WorkEvent, TypeOfMaintenance
-from src.packages.models.association_tables import devices_in_works
-from src.packages.databases.database import create_db_tables
+import src.packages.qtviews.main_window as mw
 
 
-class MyApplication(QtWidgets.QMainWindow):
-    def __init__(self):
-        super().__init__()
+# from src.packages.qtviews.main_window import Ui_MainWindow
+# from src.packages.worksheets.worksheets import WorkSheets
+# from src.packages.models.employees import EmployeePosition, Employee, Department, Service
+# from src.packages.models.devices import DeviceLocation, Device
+# from src.packages.models.works import Work, WorkOrder, WorkEvent, TypeOfMaintenance
+# from src.packages.models.association_tables import devices_in_works
+# from src.packages.databases.database import create_db_tables
 
-        # Создаем экземпляр сгенерированного интерфейса
-        self.ui = Ui_MainWindow()
+def get_version_from_file() -> str:
+    """
+    Читает версию напрямую из файла pyproject.toml.
+    """
+    # Находим корень проекта относительно текущего скрипта
+    project_root = Path(__file__).resolve().parent
+    toml_file = project_root / 'pyproject.toml'
 
-        # Инициализируем интерфейс, передавая ему текущее окно (self)
-        self.ui.setupUi(self)
+    if not toml_file.exists():
+        return 'N/A'
 
-        # !!! Здесь добавляем всю нашу логику и обработчики событий !!!
-        # Например, привязываем функцию к кнопке с objectName 'pushButton'
-        # self.ui.pushButton.clicked.connect(self.handle_button_click)
+    with open(toml_file, 'rb') as f:
+        data = tomllib.load(f)
 
-    # def handle_button_click(self):
-    #     """Метод, который вызывается при нажатии кнопки."""
-    #     print("Кнопка была нажата!")
-    #     # Меняем текст у виджета 'label' (если он есть в вашем UI файле)
-    #     # self.ui.label.setText("Привет, мир!")
-
+    # Извлекаем версию по ключам [project] и version
+    version = data.get('project', {}).get('version', 'N/A')
+    return version
 
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
+    import qt_assets.compile_resources
 
-    # Создаем экземпляр нашего приложения
-    window = MyApplication()
+    app = QtWidgets.QApplication(sys.argv)
+    work_assistent = mw.MainWindow(get_version_from_file())
 
     # Показываем главное окно
-    window.show()
+    work_assistent.show()
 
     # Запускаем основной цикл обработки событий
     sys.exit(app.exec())
-
 
     # create_db_tables()
     # b_title = 'Ведомость_работ.xlsx'
