@@ -10,7 +10,7 @@ class QtResources(enum.StrEnum):
 
 
 class QtStyleResources(QtResources):
-    STANDARD_STYLE = ':/styles/style.qss'
+    STANDARD_STYLE = ':/styles/main_window_style.qss'
 
 
 class ResourceLoader:

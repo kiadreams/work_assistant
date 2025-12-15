@@ -2,6 +2,6 @@
 <RCC version="1.0">
     <qresource prefix='/styles'>
         <!-- Файл стилей окна -->
-        <file alias='style.qss'>qt_assets/styles/style.qss</file>
+        <file alias='main_window_style.qss'>qt_assets/styles/main_window_style.qss</file>
     </qresource>
 </RCC>
