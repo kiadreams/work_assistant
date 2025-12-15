@@ -9,7 +9,7 @@ def compile_qrc_to_py(qrc_file: Path, output_py_file: Path,  env_bin_path: Path,
     Запускает команду pyside6-rcc для компиляции QRC файла.
     """
     # Проверяем наличие входного файла
-    path_to_pyside6_rcc = 'pyside6-rcc'
+    path_to_pyside6_rcc = Path('pyside6-rcc')
     if platform.startswith('linux'):
         path_to_pyside6_rcc = env_bin_path / path_to_pyside6_rcc
     if not qrc_file.exists():
@@ -41,7 +41,7 @@ def compile_ui_to_py(ui_files: Path, ui_py_files: Path, env_bin_path: Path, plat
     """
     Запускает команду pyside6-uic для компиляции ui файла.
     """
-    path_to_pyside6_uic = 'pyside6-uic'
+    path_to_pyside6_uic = Path('pyside6-uic')
     if platform.startswith('linux'):
         path_to_pyside6_uic = env_bin_path / path_to_pyside6_uic
     for elem in ui_files.iterdir():
