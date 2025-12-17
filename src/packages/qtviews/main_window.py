@@ -12,11 +12,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setStyleSheet(ResourceLoader(QtStyleResources.STANDARD_STYLE).load_style())
         self.setFixedSize(800, 600)
-        self.__init_text_ui()
+        self.__init_content_app()
         self.__setup_connections()
 
-    def __init_text_ui(self):
+    def __init_content_app(self):
         self.lbl_app_version.setText(f'Версия приложения: {self.app_version}')
+        self.stcWdgt_windows.setCurrentIndex(0)
 
     def __setup_connections(self):
         self.psb_exit.clicked.connect(self.close)
@@ -25,6 +26,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def create_sheets(self):
         self.pte_logs.appendPlainText('нажали кнопку создания рабочих ведомостей'.upper())
+        self.stcWdgt_windows.setCurrentIndex(1)
 
     def create_protocols(self):
         self.pte_logs.appendPlainText('пока данный функционал в разработке'.upper())
