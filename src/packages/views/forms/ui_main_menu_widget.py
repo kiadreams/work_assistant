@@ -1,0 +1,128 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'ui_main_menu_widget.ui'
+##
+## Created by: Qt User Interface Compiler version 6.10.1
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
+    QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
+
+class Ui_MainMenuWidget(object):
+    def setupUi(self, MainMenuWidget):
+        if not MainMenuWidget.objectName():
+            MainMenuWidget.setObjectName(u"MainMenuWidget")
+        MainMenuWidget.resize(1206, 819)
+        self.gridLayout = QGridLayout(MainMenuWidget)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.verticalLayout_3 = QVBoxLayout()
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_3)
+
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.lbl_app_title = QLabel(MainMenuWidget)
+        self.lbl_app_title.setObjectName(u"lbl_app_title")
+
+        self.verticalLayout.addWidget(self.lbl_app_title)
+
+        self.lbl_app_version = QLabel(MainMenuWidget)
+        self.lbl_app_version.setObjectName(u"lbl_app_version")
+
+        self.verticalLayout.addWidget(self.lbl_app_version)
+
+
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
+
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_3.addItem(self.verticalSpacer)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer)
+
+        self.verticalLayout_2 = QVBoxLayout()
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.psb_create_sheets = QPushButton(MainMenuWidget)
+        self.psb_create_sheets.setObjectName(u"psb_create_sheets")
+
+        self.verticalLayout_2.addWidget(self.psb_create_sheets)
+
+        self.psb_create_protocols = QPushButton(MainMenuWidget)
+        self.psb_create_protocols.setObjectName(u"psb_create_protocols")
+
+        self.verticalLayout_2.addWidget(self.psb_create_protocols)
+
+        self.psb_exit = QPushButton(MainMenuWidget)
+        self.psb_exit.setObjectName(u"psb_exit")
+
+        self.verticalLayout_2.addWidget(self.psb_exit)
+
+
+        self.horizontalLayout.addLayout(self.verticalLayout_2)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer_2)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_3.addItem(self.verticalSpacer_2)
+
+        self.pte_logs = QPlainTextEdit(MainMenuWidget)
+        self.pte_logs.setObjectName(u"pte_logs")
+        self.pte_logs.setMinimumSize(QSize(0, 20))
+        self.pte_logs.setUndoRedoEnabled(False)
+        self.pte_logs.setReadOnly(True)
+
+        self.verticalLayout_3.addWidget(self.pte_logs)
+
+        self.verticalLayout_3.setStretch(1, 5)
+        self.verticalLayout_3.setStretch(3, 5)
+        self.verticalLayout_3.setStretch(4, 2)
+
+        self.gridLayout.addLayout(self.verticalLayout_3, 0, 0, 1, 1)
+
+
+        self.retranslateUi(MainMenuWidget)
+
+        QMetaObject.connectSlotsByName(MainMenuWidget)
+    # setupUi
+
+    def retranslateUi(self, MainMenuWidget):
+        MainMenuWidget.setWindowTitle(QCoreApplication.translate("MainMenuWidget", u"Form", None))
+        self.lbl_app_title.setText(QCoreApplication.translate("MainMenuWidget", u"\u0440\u0430\u0431\u043e\u0447\u0438\u0439 \u0430\u0441\u0441\u0438\u0441\u0442\u0435\u043d\u0442", None))
+        self.lbl_app_version.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u0435\u0440\u0441\u0438\u044f \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f: 1.1.1", None))
+        self.psb_create_sheets.setText(QCoreApplication.translate("MainMenuWidget", u"\u0441\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0432\u0435\u0434\u043e\u043c\u043e\u0441\u0442\u0435\u0439 \u0440\u0430\u0431\u043e\u0442", None))
+        self.psb_create_protocols.setText(QCoreApplication.translate("MainMenuWidget", u"\u0441\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u043e\u0432", None))
+        self.psb_exit.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u044b\u0439\u0442\u0438 \u0438\u0437 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f", None))
+    # retranslateUi
+

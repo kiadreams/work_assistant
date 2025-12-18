@@ -3,11 +3,44 @@ import sys
 
 from pathlib import Path
 
+from PySide6.QtCore import QFile, QIODevice, QTextStream, QStringConverter
 
-def compile_qrc_to_py(qrc_file: Path, output_py_file: Path,  env_bin_path: Path, platform: str) -> None:
+from .views_structure import QtResources, QtStyleResources
+
+
+class ResourceLoader:
+    def __init__(self, resource: QtResources) -> None:
+        self.resource = resource
+        self.__qfile = QFile(self.resource)
+
+    def load_style(self) -> str | None:
+        if not isinstance(self.resource, QtStyleResources):
+            raise TypeError(f"Неверный тип ресурса, ожидался тип QtStyleResources, а передали {type(self.resource)}")
+        if self.__check_qfile():
+            stream = QTextStream(self.__qfile)
+            stream.setEncoding(QStringConverter.Encoding.Utf8)
+            stylesheet = stream.readAll()
+            self.__qfile.close()
+            return stylesheet
+        else:
+            return None
+
+    def __check_qfile(self) -> bool:
+        if not self.__qfile.open(QIODevice.OpenModeFlag.ReadOnly):
+            print(f'Ошибка: Не удалось открыть QSS файл из ресурса по адресу {self.resource}')
+            return False
+        return True
+
+
+def compile_qrc_to_py() -> None:
     """
     Запускает команду pyside6-rcc для компиляции QRC файла.
     """
+    platform = sys.platform
+    env_bin_path = Path(sys.executable).parent
+    qrc_file = Path('resources.qrc')
+    output_py_file = Path('src/packages/views/resources_rc.py')
+
     # Проверяем наличие входного файла
     path_to_pyside6_rcc = Path('pyside6-rcc')
     if platform.startswith('linux'):
@@ -37,10 +70,15 @@ def compile_qrc_to_py(qrc_file: Path, output_py_file: Path,  env_bin_path: Path,
         sys.exit(1)
 
 
-def compile_ui_to_py(ui_files: Path, ui_py_files: Path, env_bin_path: Path, platform: str) -> None:
+def compile_ui_to_py() -> None:
     """
     Запускает команду pyside6-uic для компиляции ui файла.
     """
+    platform = sys.platform
+    env_bin_path = Path(sys.executable).parent
+    ui_files = Path('qt_assets/qt_forms')
+    ui_py_files = Path('src/packages/views/forms')
+
     path_to_pyside6_uic = Path('pyside6-uic')
     if platform.startswith('linux'):
         path_to_pyside6_uic = env_bin_path / path_to_pyside6_uic
@@ -71,12 +109,12 @@ def compile_ui_to_py(ui_files: Path, ui_py_files: Path, env_bin_path: Path, plat
             sys.exit(1)
 
 
-if '__main__' != __name__:
-    path_bin_env= Path(sys.executable).parent
-    ui_file_dir = Path('qt_assets/forms')
-    ui_py_file_dir = Path('src/packages/qtviews/qtforms')
-    compile_ui_to_py(ui_file_dir, ui_py_file_dir, path_bin_env, sys.platform)
+# if '__main__' != __name__:
+    # path_bin_env= Path(sys.executable).parent
+    # ui_file_dir = Path('qt_assets/qt_forms')
+    # ui_py_file_dir = Path('src/packages/views/forms')
+    # compile_ui_to_py(ui_file_dir, ui_py_file_dir, path_bin_env, sys.platform)
 
-    qrc_file_path = Path('resources.qrc')
-    output_py_file_path = Path('src/packages/qtviews/resources_rc.py')
-    compile_qrc_to_py(qrc_file_path, output_py_file_path, path_bin_env, sys.platform)
+    # qrc_file_path = Path('resources.qrc')
+    # output_py_file_path = Path('src/packages/views/resources_rc.py')
+    # compile_qrc_to_py(qrc_file_path, output_py_file_path, path_bin_env, sys.platform)

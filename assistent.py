@@ -5,16 +5,16 @@ from pathlib import Path
 
 from PySide6 import QtWidgets
 
-import src.packages.qtviews.main_window as mw
+from src.packages.views.resource_loader import compile_ui_to_py, compile_qrc_to_py
 
-
-# from src.packages.qtviews.main_window import Ui_MainWindow
+# from src.packages.views.main_window import Ui_MainWindow
 # from src.packages.worksheets.worksheets import WorkSheets
 # from src.packages.models.employees import EmployeePosition, Employee, Department, Service
 # from src.packages.models.devices import DeviceLocation, Device
 # from src.packages.models.works import Work, WorkOrder, WorkEvent, TypeOfMaintenance
 # from src.packages.models.association_tables import devices_in_works
 # from src.packages.databases.database import create_db_tables
+
 
 def get_version_from_file() -> str:
     """
@@ -36,7 +36,10 @@ def get_version_from_file() -> str:
 
 
 if __name__ == '__main__':
-    import qt_assets.compile_resources
+    compile_ui_to_py()
+    compile_qrc_to_py()
+
+    from src.packages.views.managers import main_window as mw
 
     app = QtWidgets.QApplication(sys.argv)
     work_assistent = mw.MainWindow(get_version_from_file())
