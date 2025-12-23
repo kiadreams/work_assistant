@@ -1,3 +1,4 @@
+from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 
 from . import base_widgets #import QtWidgets, BaseAppWidgetMixin, BaseButtonGroupMixin,
@@ -7,12 +8,13 @@ from .staff_reports import StaffReport
 from .work_event_reports import WorkEventReport
 from .work_reports import WorkReport
 from .work_type_reports import WorkTypeReport
-from scripts.resource_loader import QtStyleResources
+from ..constants import QtStyleResources
 from ..constants import MainWindowPages, ReportGenerationPages
 from ..windows.ui_report_generation_widget import Ui_ReportGenerationWidget
+from src.view_models.view_service_models import ViewServiceModel
 
 
-class ReportGenerator(base_widgets.QtWidgets.QWidget,
+class ReportGenerator(QtWidgets.QWidget,
                       Ui_ReportGenerationWidget,
                       base_widgets.BaseAppWidgetMixin,
                       base_widgets.BaseButtonGroupMixin):
@@ -21,7 +23,7 @@ class ReportGenerator(base_widgets.QtWidgets.QWidget,
 
     def __init__(self) -> None:
         super().__init__()
-        self.services = ServiceReport(base_widgets.ViewServiceModel('Кубансое ПМЭС'))
+        self.services = ServiceReport(ViewServiceModel('Кубансое ПМЭС'))
         self.staff = StaffReport()
         self.work_types = WorkTypeReport()
         self.works = WorkReport()
@@ -51,7 +53,7 @@ class ReportGenerator(base_widgets.QtWidgets.QWidget,
         self.stackedWidget_types_of_reports.setCurrentIndex(ReportGenerationPages.SERVICES_AND_GROUPS)
         self.pushButton_services.setChecked(True)
 
-    def __setup_connections(self):
+    def __setup_connections(self) -> None:
         self.pushButton_go_to_main_menu.clicked.connect(self.go_to_main_menu)
         self.reports_button_group.idClicked.connect(self.change_report_page)
 

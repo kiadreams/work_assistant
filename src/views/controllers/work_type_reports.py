@@ -1,7 +1,7 @@
 from PySide6 import QtWidgets
 
 from .base_widgets import BaseAppWidgetMixin
-from scripts.resource_loader import QtStyleResources
+from ..constants import QtStyleResources
 from ..windows.ui_work_types_report_widget import Ui_WorkTypeReportsWidget
 
 

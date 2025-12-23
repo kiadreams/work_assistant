@@ -2,9 +2,11 @@ import os
 from openpyxl import load_workbook, Workbook
 from openpyxl.utils.exceptions import InvalidFileException
 from openpyxl.drawing.image import Image
+from openpyxl.styles import Font, Alignment
 
-from .worksheet_content import WorkSheetContent, Font, Alignment
+from .worksheet_content import WorkSheetContent
 from .worksheet_styles import WorkSheetStyles
+
 
 
 class WorkSheets:
@@ -49,7 +51,7 @@ class WorkSheets:
             self.wb.active = self.wb.create_sheet()
         self.set_content_of_active_ws()
 
-    def change_active_sheet(self, ws_title) -> None:
+    def change_active_sheet(self, ws_title: str) -> None:
         if ws_title in self.wb.sheetnames:
             self.wb.active = self.wb[ws_title]
 
@@ -71,7 +73,7 @@ class WorkSheets:
         for cells in range_cells:
             self.wb.active.merge_cells(cells)
 
-    def __frame_for_cells(self, ws_style) -> None:
+    def __frame_for_cells(self, ws_style: WorkSheetStyles) -> None:
         for border, cells_range in ws_style.border_cells.items():
             for row_range in cells_range:
                 for row in self.wb.active[row_range]:

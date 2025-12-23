@@ -2,8 +2,7 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 
 from .base_widgets import BaseAppWidgetMixin
-from scripts.resource_loader import QtStyleResources
-from ..constants import MainWindowPages
+from ..constants import MainWindowPages, QtStyleResources
 from ..windows.ui_main_menu_widget import Ui_MainMenuWidget
 
 

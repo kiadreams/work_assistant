@@ -1,15 +1,26 @@
 # src/entities/__init__.py
 
-from .deprtment_entity import Department
-from .device_entity import Device
-from .device_location_entity import DeviceLocation
-from .employee_entity import Employee
-from .employee_position_entity import EmployeePosition
-from .service_entity import Service
-from .type_work_entity import WorkType
-from .work_entity import Work
-from .work_event_entity import WorkEvent
-from .work_order_entity import WorkOrder
+from .department import Department
+from .device import Device
+from .device_location import DeviceLocation
+from .employee import Employee
+from .employee_position import EmployeePosition
+from .service import Service
+from .work_type import WorkType
+from .work import Work
+from .work_event import WorkEvent
+from .work_order import WorkOrder
+
+# from . import department_entity
+# from . import device_entity
+# from . import device_location_entity
+# from . import employee_entity
+# from . import employee_position_entity
+# from . import service_entity
+# from . import work_entity
+# from . import work_event_entity
+# from . import work_order_entity
+# from . import work_type_entity
 
 
 # Опционально: Импортировать базовый класс, если он лежит здесь

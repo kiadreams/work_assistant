@@ -1,10 +1,20 @@
-from sqlalchemy import String
-from sqlalchemy.orm import MappedAsDataclass, Mapped, mapped_column, relationship
+from __future__ import annotations
 
-from . import employee_db_tables
-from . import device_db_tables
-from src.databases import Base
-from . import association_db_tables
+from typing import TYPE_CHECKING
+
+from sqlalchemy import String
+from sqlalchemy.orm import (
+    MappedAsDataclass,
+    Mapped,
+    mapped_column,
+    relationship,
+)
+
+from ..databases.database import Base
+
+
+if TYPE_CHECKING:
+    from .work import Work
 
 
 class WorkType(MappedAsDataclass, Base):
@@ -13,6 +23,6 @@ class WorkType(MappedAsDataclass, Base):
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(30), nullable=False)
 
-    works: Mapped[list['Work']] = relationship(back_populates='type_of_maintenance')
+    works: Mapped[list[Work]] = relationship(back_populates='work_type')
 
     abbreviation: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

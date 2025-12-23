@@ -13,9 +13,9 @@ class DialogEditData(QtWidgets.QDialog, Ui_DialogEditData):
         self.__setup_connections()
 
     def __init_content_widget(self) -> None:
-        self.setupUi(self)
-        # self._init_widget_style(QtStyleResources.REPORT_WIDGET_STYLE)
         pass
+        # self.setupUi(self)
+        # self._init_widget_style(QtStyleResources.REPORT_WIDGET_STYLE)
 
     def __setup_connections(self) -> None:
         pass

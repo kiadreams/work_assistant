@@ -2,10 +2,12 @@ from typing import Callable
 
 from PySide6 import QtWidgets
 
-from .base_widgets import BaseAppWidgetMixin, ViewServiceModel
+from .base_widgets import BaseAppWidgetMixin
 from .dialog_edit_data import DialogEditData
-from scripts.resource_loader import QtStyleResources
+from ..constants import QtStyleResources
 from ..windows.ui_services_report_widget import Ui_ServiceReportsWidget
+from src.view_models.view_service_models import ViewServiceModel
+
 
 
 class ServiceReport(QtWidgets.QWidget, Ui_ServiceReportsWidget, BaseAppWidgetMixin):
@@ -33,7 +35,7 @@ class ServiceReport(QtWidgets.QWidget, Ui_ServiceReportsWidget, BaseAppWidgetMix
         self.model.change_current_service(service_name)
         self.refresh_service_report()
 
-    def refresh_service_report(self):
+    def refresh_service_report(self) -> None:
         self.refresh_combobox_service_list()
         self.check_enabled_service_deleted_button()
 
