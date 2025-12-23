@@ -7,8 +7,8 @@ from src.databases import Base
 from . import association_db_tables
 
 
-class TypeWork(MappedAsDataclass, Base):
-    __tablename__ = 'types_of_maintenance'
+class WorkType(MappedAsDataclass, Base):
+    __tablename__ = 'work_types'
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(30), nullable=False)

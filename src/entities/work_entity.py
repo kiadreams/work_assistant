@@ -8,7 +8,7 @@ from . import association_db_tables
 
 
 class Work(MappedAsDataclass, Base):
-    __tablename__ = 'list_of_works'
+    __tablename__ = 'works'
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
@@ -23,8 +23,6 @@ class Work(MappedAsDataclass, Base):
                                       nullable=False,
                                       server_default=extract('year', func.now()))
     month: Mapped[int | None] = mapped_column(SmallInteger, nullable=True, default=None)
-    type_of_maintenance_id: Mapped[int | None] = mapped_column(ForeignKey('types_of_maintenance.id'),
-                                                               nullable=True,
-                                                               default=None)
+    work_type_id: Mapped[int | None] = mapped_column(ForeignKey('work_types.id'), nullable=True, default=None)
     work_order_id: Mapped[int | None] = mapped_column(ForeignKey('work_orders.id'), nullable=True, default=None)
     device_id: Mapped[int | None] = mapped_column(ForeignKey('devices.id'), nullable=True, default=None)
