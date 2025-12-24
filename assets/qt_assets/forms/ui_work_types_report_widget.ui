@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WorkTypeReportsWidget</class>
- <widget class="QWidget" name="WorkTypeReportsWidget">
+ <class>WorkTypeReportWidget</class>
+ <widget class="QWidget" name="WorkTypeReportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -42,26 +42,26 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_service_list_2"/>
+        <widget class="QComboBox" name="comboBox_work_type_list"/>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_edit_work_type">
            <property name="text">
             <string>Редактировать</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pushButton_add_work_type">
            <property name="text">
             <string>Добавить</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="pushButton_delete_work_type">
            <property name="text">
             <string>УДАЛИТЬ</string>
            </property>
@@ -70,7 +70,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="pushButton_show_all_work_types">
          <property name="text">
           <string>Показать все типы работ</string>
          </property>
@@ -94,7 +94,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QTableWidget" name="tableWidget_service_data_table"/>
+    <widget class="QTableWidget" name="tableWidget_work_type_data_table"/>
    </item>
   </layout>
  </widget>

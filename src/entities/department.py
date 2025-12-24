@@ -17,7 +17,7 @@ from ..databases.database import Base
 
 
 if TYPE_CHECKING:
-    from .service import Service
+    from .division import Division
     from .employee_position import EmployeePosition
 
 
@@ -26,9 +26,9 @@ class Department(MappedAsDataclass, Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
-    service_id: Mapped[int] = mapped_column(ForeignKey("services.id"))
+    division_id: Mapped[int] = mapped_column(ForeignKey("divisions.id"))
 
-    service: Mapped[Service] = relationship(back_populates="departments")
+    division: Mapped[Division] = relationship(back_populates="departments")
     employee_positions: Mapped[list[EmployeePosition]] = relationship(
         back_populates="department", default_factory=list
     )

@@ -1,11 +1,9 @@
 from PySide6 import QtWidgets
 
-# from .base_widgets import BaseAppWidgetMixin
-# from ..resource_loader import QtStyleResources
-from ..windows.ui_edit_data_dialog import Ui_DialogEditData
+from .generated.ui.ui_edit_data_dialog import Ui_DialogEditData
 
 
-class DialogEditData(QtWidgets.QDialog, Ui_DialogEditData):
+class DialogEditView(QtWidgets.QDialog, Ui_DialogEditData):
 
     def __init__(self, parent: QtWidgets.QWidget) -> None:
         super().__init__(parent)

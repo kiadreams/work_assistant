@@ -1,12 +1,12 @@
 from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 
-from .base_widgets import BaseAppWidgetMixin
+from ..utils.qt_recource_loader import ResourceLoader
 from ..constants import MainWindowPages, QtStyleResources
-from ..windows.ui_main_menu_widget import Ui_MainMenuWidget
+from .generated.ui.ui_main_menu_widget import Ui_MainMenuWidget
 
 
-class MainMenu(QtWidgets.QWidget, Ui_MainMenuWidget, BaseAppWidgetMixin):
+class MainMenuView(QtWidgets.QWidget, Ui_MainMenuWidget):
 
     change_page_signal = Signal(int)
     close_app_signal = Signal()
@@ -17,8 +17,8 @@ class MainMenu(QtWidgets.QWidget, Ui_MainMenuWidget, BaseAppWidgetMixin):
         self.__setup_connections()
 
     def __init_content_widget(self) -> None:
-        self._init_widget_style(QtStyleResources.MAIN_MENU_STYLE)
-        self.label_app_version.setText(f"Версия приложения: {self.app_version}")
+        self.setupUi(self)  # type: ignore[no-untyped-call]
+        self.setStyleSheet(ResourceLoader(QtStyleResources.MAIN_MENU_STYLE).load_style())
 
     def __setup_connections(self) -> None:
         self.pushButton_exit.clicked.connect(self.close_app_signal.emit)

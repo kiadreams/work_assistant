@@ -50,7 +50,7 @@ def compile_ui() -> None:
     platform = sys.platform
     env_bin_path = Path(sys.executable).parent
     ui_files = Path("assets/qt_assets/forms")
-    ui_py_files = Path("src/views/windows")
+    ui_py_files = Path("src/views/generated/ui")
 
     path_to_pyside6_uic = Path("pyside6-uic")
     if platform.startswith("linux"):

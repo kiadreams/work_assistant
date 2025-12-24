@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>StaffReportsWidget</class>
- <widget class="QWidget" name="StaffReportsWidget">
+ <class>StaffReportWidget</class>
+ <widget class="QWidget" name="StaffReportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -34,24 +34,24 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLabel" name="label_sirvice_list_title">
+          <widget class="QLabel" name="label_division_list_title">
            <property name="text">
             <string> Служба</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_service_list"/>
+          <widget class="QComboBox" name="comboBox_division_list_2"/>
          </item>
          <item>
-          <widget class="QLabel" name="label_group_list_title">
+          <widget class="QLabel" name="label_department_list_title">
            <property name="text">
             <string>Группа / участок</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_group_list"/>
+          <widget class="QComboBox" name="comboBox_department_list"/>
          </item>
         </layout>
        </item>
@@ -63,26 +63,26 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_service_list_2"/>
+        <widget class="QComboBox" name="comboBox_division_list"/>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_edit_staff">
            <property name="text">
             <string>Редактировать</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pushButton_add_staff">
            <property name="text">
             <string>Добавить</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="pushButton_delete_staff">
            <property name="text">
             <string>УДАЛИТЬ</string>
            </property>
@@ -91,7 +91,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="pushButton_show_all_staff">
          <property name="text">
           <string>Показать весь персонал</string>
          </property>
@@ -115,7 +115,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QTableWidget" name="tableWidget_service_data_table"/>
+    <widget class="QTableWidget" name="tableWidget_staff_data_table"/>
    </item>
   </layout>
  </widget>

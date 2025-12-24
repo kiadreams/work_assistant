@@ -1,0 +1,20 @@
+from PySide6 import QtWidgets
+
+from ..utils.qt_recource_loader import ResourceLoader
+from ..constants import QtStyleResources
+from .generated.ui.ui_orders_report_widget import Ui_OrderReportWidget
+
+
+class OrderReportView(QtWidgets.QWidget, Ui_OrderReportWidget):
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.__init_content_widget()
+        self.__setup_connections()
+
+    def __init_content_widget(self) -> None:
+        self.setupUi(self)  # type: ignore[no-untyped-call]
+        self.setStyleSheet(ResourceLoader(QtStyleResources.REPORT_WIDGET_STYLE).load_style())
+
+    def __setup_connections(self) -> None:
+        pass

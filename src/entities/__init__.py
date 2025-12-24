@@ -5,7 +5,7 @@ from .device import Device
 from .device_location import DeviceLocation
 from .employee import Employee
 from .employee_position import EmployeePosition
-from .service import Service
+from .division import Division
 from .work_type import WorkType
 from .work import Work
 from .work_event import WorkEvent

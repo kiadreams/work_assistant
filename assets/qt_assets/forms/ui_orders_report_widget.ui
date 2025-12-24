@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OrderReportsWidget</class>
- <widget class="QWidget" name="OrderReportsWidget">
+ <class>OrderReportWidget</class>
+ <widget class="QWidget" name="OrderReportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -34,7 +34,7 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="label_company_name_2">
+          <widget class="QLabel" name="label_company_name">
            <property name="text">
             <string>Перечень заказов за период:</string>
            </property>
@@ -138,21 +138,21 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pushButton_edit_order">
              <property name="text">
               <string>Редактировать</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="pushButton_add_order">
              <property name="text">
               <string>Добавить</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="pushButton_delete_order">
              <property name="text">
               <string>УДАЛИТЬ</string>
              </property>
@@ -161,7 +161,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="pushButton_show_all_orders">
            <property name="text">
             <string>Показать все заказы за выбранный период</string>
            </property>
@@ -185,7 +185,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget_service_data_table"/>
+      <widget class="QTableWidget" name="tableWidget_order_data_table"/>
      </item>
     </layout>
    </item>

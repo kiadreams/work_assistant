@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WorkEventReportsWidget</class>
- <widget class="QWidget" name="WorkEventReportsWidget">
+ <class>WorkEventReportWidget</class>
+ <widget class="QWidget" name="WorkEventReportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -89,7 +89,7 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
-                <widget class="QLabel" name="label_service_name">
+                <widget class="QLabel" name="label_division_name">
                  <property name="text">
                   <string>Служба:</string>
                  </property>
@@ -99,10 +99,10 @@
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_service_list"/>
+                <widget class="QComboBox" name="comboBox_division_list"/>
                </item>
                <item>
-                <widget class="QLabel" name="label_group_name">
+                <widget class="QLabel" name="label_department_name">
                  <property name="text">
                   <string>Группа:</string>
                  </property>
@@ -112,7 +112,7 @@
                 </widget>
                </item>
                <item>
-                <widget class="QComboBox" name="comboBox_group_list"/>
+                <widget class="QComboBox" name="comboBox_department_list"/>
                </item>
               </layout>
              </item>

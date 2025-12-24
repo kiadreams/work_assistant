@@ -18,17 +18,17 @@ if TYPE_CHECKING:
     from .employee_position import EmployeePosition
 
 
-class Service(MappedAsDataclass, Base):
-    __tablename__ = "services"
+class Division(MappedAsDataclass, Base):
+    __tablename__ = "divisions"
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
 
     departments: Mapped[list[Department]] = relationship(
-        back_populates="service", default_factory=list
+        back_populates="division", default_factory=list
     )
     employee_positions: Mapped[list[EmployeePosition]] = relationship(
-        back_populates="service", default_factory=list
+        back_populates="division", default_factory=list
     )
 
     full_name: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

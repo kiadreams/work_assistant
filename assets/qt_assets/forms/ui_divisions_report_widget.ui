@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ServiceReportsWidget</class>
- <widget class="QWidget" name="ServiceReportsWidget">
+ <class>DivisionReportWidget</class>
+ <widget class="QWidget" name="DivisionReportWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -34,33 +34,33 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="label_sirvice_list_title">
+          <widget class="QLabel" name="label_division_list_title">
            <property name="text">
             <string>Наименование службы</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_service_list"/>
+          <widget class="QComboBox" name="comboBox_division_list"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QPushButton" name="pushButton_edit_service">
+            <widget class="QPushButton" name="pushButton_edit_division">
              <property name="text">
               <string> Редактировать службу</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_add_service">
+            <widget class="QPushButton" name="pushButton_add_division">
              <property name="text">
               <string>Добавить службу</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_remove_service">
+            <widget class="QPushButton" name="pushButton_remove_division">
              <property name="text">
               <string>Удалить службу</string>
              </property>
@@ -69,7 +69,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_show_all_services">
+          <widget class="QPushButton" name="pushButton_show_all_divisions">
            <property name="text">
             <string>Показать данные всех служб</string>
            </property>
@@ -80,33 +80,33 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLabel" name="label_group_list_title">
+          <widget class="QLabel" name="label_department_list_title">
            <property name="text">
             <string>Наименование группы</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_group_list"/>
+          <widget class="QComboBox" name="comboBox_department_list"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton_edit_group">
+            <widget class="QPushButton" name="pushButton_edit_department">
              <property name="text">
               <string> Редактировать группу</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_add_group">
+            <widget class="QPushButton" name="pushButton_add_department">
              <property name="text">
               <string>Добавить группу</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_remove_group">
+            <widget class="QPushButton" name="pushButton_remove_department">
              <property name="text">
               <string>Удалить группу</string>
              </property>
@@ -115,7 +115,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_show_all_groups">
+          <widget class="QPushButton" name="pushButton_show_all_department">
            <property name="text">
             <string>Показать группы выбранной службы</string>
            </property>
@@ -139,7 +139,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QTableWidget" name="tableWidget_service_data_table"/>
+      <widget class="QTableWidget" name="tableWidget_division_data_table"/>
      </item>
     </layout>
    </item>
