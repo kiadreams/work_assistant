@@ -17,4 +17,3 @@ class WorkTypeReport(QtWidgets.QWidget, Ui_WorkTypeReportsWidget, BaseAppWidgetM
 
     def __setup_connections(self) -> None:
         pass
-

@@ -1,5 +1,3 @@
-
-
 # from src.packages.views.main_window import Ui_MainWindow
 # from src.packages.worksheets.worksheets import WorkSheets
 
@@ -28,7 +26,7 @@ from PySide6 import QtWidgets
 #     return version
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     create_db_tables()
     # b_title = 'Ведомость_работ.xlsx'
     # # ws_first_title = 'Страница_1 V05110______'
@@ -42,7 +40,6 @@ if __name__ == '__main__':
     # work_sheet.create_new_sheet(ws_second_title)
     # work_sheet.create_new_sheet(ws_third_title)
     # work_sheet.save_work_sheet()
-
 
     # from src.packages.models.view_service_models import ViewServiceModel
     # model = ViewServiceModel('КПМЭС')

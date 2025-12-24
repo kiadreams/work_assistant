@@ -9,7 +9,6 @@ from ..windows.ui_services_report_widget import Ui_ServiceReportsWidget
 from src.view_models.view_service_models import ViewServiceModel
 
 
-
 class ServiceReport(QtWidgets.QWidget, Ui_ServiceReportsWidget, BaseAppWidgetMixin):
 
     def __init__(self, view_model: ViewServiceModel) -> None:
@@ -49,9 +48,9 @@ class ServiceReport(QtWidgets.QWidget, Ui_ServiceReportsWidget, BaseAppWidgetMix
     def push_remove_service(self) -> None:
         if self.model.can_delete_current_service():
             self.ask_for_confirmation(
-                f'Вы уверены, что хотите безвозвратно удалить службу {self.model.current_service}? '
-                'Отменить это действие будет невозможно...',
-                self.delete_current_service
+                f"Вы уверены, что хотите безвозвратно удалить службу {self.model.current_service}? "
+                "Отменить это действие будет невозможно...",
+                self.delete_current_service,
             )
 
     def push_edit_service(self) -> None:
@@ -77,10 +76,11 @@ class ServiceReport(QtWidgets.QWidget, Ui_ServiceReportsWidget, BaseAppWidgetMix
     def ask_for_confirmation(self, message_text: str, action: Callable[[], None]) -> None:
         reply = QtWidgets.QMessageBox.question(
             self,  # Родительский виджет (наше главное окно)
-            'Подтверждение действия',  # Заголовок окна (Title bar)
+            "Подтверждение действия",  # Заголовок окна (Title bar)
             message_text,  # Текст сообщения
-            QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No,  # Комбинация стандартных кнопок
-            QtWidgets.QMessageBox.StandardButton.No  # Кнопка по умолчанию (выделенная)
+            QtWidgets.QMessageBox.StandardButton.Yes
+            | QtWidgets.QMessageBox.StandardButton.No,  # Комбинация стандартных кнопок
+            QtWidgets.QMessageBox.StandardButton.No,  # Кнопка по умолчанию (выделенная)
         )
         if reply == QtWidgets.QMessageBox.StandardButton.Yes:
             print("Пользователь подтвердил действие. Выполняем удаление...")

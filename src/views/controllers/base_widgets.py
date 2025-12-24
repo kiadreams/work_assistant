@@ -26,10 +26,12 @@ class BaseAppWidgetMixin:
 
 
 class BaseButtonGroupMixin:
-    def create_button_group(self,
-                            name_group: str,
-                            elements: list[tuple[QtWidgets.QPushButton, int]],
-                            exclusive: bool =True) -> QtWidgets.QButtonGroup:
+    def create_button_group(
+        self,
+        name_group: str,
+        elements: list[tuple[QtWidgets.QPushButton, int]],
+        exclusive: bool = True,
+    ) -> QtWidgets.QButtonGroup:
         button_group = QtWidgets.QButtonGroup()
         button_group.setExclusive(exclusive)
         for element in elements:

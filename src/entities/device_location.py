@@ -18,11 +18,11 @@ if TYPE_CHECKING:
 
 
 class DeviceLocation(MappedAsDataclass, Base):
-    __tablename__ = 'device_locations'
+    __tablename__ = "device_locations"
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(50))
 
-    devices: Mapped[list[Device]] = relationship(back_populates='location')
+    devices: Mapped[list[Device]] = relationship(back_populates="location")
 
     inventory_number: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

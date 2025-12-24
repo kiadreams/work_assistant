@@ -18,7 +18,7 @@ class MainMenu(QtWidgets.QWidget, Ui_MainMenuWidget, BaseAppWidgetMixin):
 
     def __init_content_widget(self) -> None:
         self._init_widget_style(QtStyleResources.MAIN_MENU_STYLE)
-        self.label_app_version.setText(f'Версия приложения: {self.app_version}')
+        self.label_app_version.setText(f"Версия приложения: {self.app_version}")
 
     def __setup_connections(self) -> None:
         self.pushButton_exit.clicked.connect(self.close_app_signal.emit)
@@ -26,8 +26,8 @@ class MainMenu(QtWidgets.QWidget, Ui_MainMenuWidget, BaseAppWidgetMixin):
         self.pushButton_create_protocols.clicked.connect(self.create_protocols)
 
     def create_sheets(self) -> None:
-        self.plainTextEdit_logs.appendPlainText('нажали кнопку создания рабочих ведомостей'.upper())
+        self.plainTextEdit_logs.appendPlainText("нажали кнопку создания рабочих ведомостей".upper())
         self.change_page_signal.emit(MainWindowPages.REPORT_CREATION)
 
     def create_protocols(self) -> None:
-        self.plainTextEdit_logs.appendPlainText('пока данный функционал в разработке'.upper())
+        self.plainTextEdit_logs.appendPlainText("пока данный функционал в разработке".upper())

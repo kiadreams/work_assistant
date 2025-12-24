@@ -10,10 +10,10 @@ class PageStructure(enum.IntEnum):
 
 
 class QtStyleResources(QtResources):
-    MAIN_WINDOW_STYLE = ':/styles/main_window_style.qss'
-    MAIN_MENU_STYLE = ':/styles/main_menu_style.qss'
-    REPORT_WIDGET_STYLE = ':/styles/report_widget_style.qss'
-    REPORT_GENERATION_WIDGET_STYLE = ':/styles/report_generation_widget_style.qss'
+    MAIN_WINDOW_STYLE = ":/styles/main_window_style.qss"
+    MAIN_MENU_STYLE = ":/styles/main_menu_style.qss"
+    REPORT_WIDGET_STYLE = ":/styles/report_widget_style.qss"
+    REPORT_GENERATION_WIDGET_STYLE = ":/styles/report_generation_widget_style.qss"
 
 
 class MainWindowPages(PageStructure):

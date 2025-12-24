@@ -18,10 +18,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow, BaseAppWidgetMixin):
 
     def __init_content_widget(self) -> None:
         self._init_widget_style(QtStyleResources.MAIN_WINDOW_STYLE)
-        self.stackedWidget_windows.insertWidget(MainWindowPages.MAIN_MENU,
-                                                self.get_widget_to_insert(self.main_menu))
-        self.stackedWidget_windows.insertWidget(MainWindowPages.REPORT_CREATION,
-                                                self.get_widget_to_insert(self.report_generator))
+        self.stackedWidget_windows.insertWidget(
+            MainWindowPages.MAIN_MENU, self.get_widget_to_insert(self.main_menu)
+        )
+        self.stackedWidget_windows.insertWidget(
+            MainWindowPages.REPORT_CREATION, self.get_widget_to_insert(self.report_generator)
+        )
         self.stackedWidget_windows.setCurrentIndex(MainWindowPages.MAIN_MENU)
         self.resize(1280, 800)
 

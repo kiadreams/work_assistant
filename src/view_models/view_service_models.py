@@ -21,7 +21,7 @@ class ViewServiceModel(BaseViewModel):
         if self.__current_service is not None:
             return str(self.__current_service.name)
         else:
-            return ''
+            return ""
 
     @property
     def services(self) -> list[str]:
@@ -52,8 +52,7 @@ class ViewServiceModel(BaseViewModel):
     def change_current_service(self, service_name: str) -> None:
         if service_name in self.services:
             self.__current_service = [
-                service for service in self.__services
-                if service.name == service_name
+                service for service in self.__services if service.name == service_name
             ][0]
 
     def delete_current_service(self) -> None:
@@ -61,5 +60,3 @@ class ViewServiceModel(BaseViewModel):
         self.session.commit()
         self.__services.remove(self.__current_service)
         self.set_first_service()
-
-

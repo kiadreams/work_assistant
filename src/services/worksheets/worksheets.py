@@ -8,7 +8,6 @@ from .worksheet_content import WorkSheetContent
 from .worksheet_styles import WorkSheetStyles
 
 
-
 class WorkSheets:
 
     def __init__(self, path_to_worksheets: str | None = None, title: str | None = None) -> None:
@@ -29,16 +28,22 @@ class WorkSheets:
 
     def change_active_ws_title(self, new_ws_title: str) -> None:
         if new_ws_title in self.wb.sheetnames:
-            print('Переименовать не получилось, так как такое название листа уже существует в книге!')
+            print(
+                "Переименовать не получилось, так как такое название листа уже существует в книге!"
+            )
         else:
             self.wb.active.title = new_ws_title
 
     def insert_data_to_sheet(self, data: list[str]) -> None:
         pass
 
-    def _insert_data_in_cell(self, data: str, cell: str, font: Font | None, alignment: Alignment | None) -> None:
+    def _insert_data_in_cell(
+        self, data: str, cell: str, font: Font | None, alignment: Alignment | None
+    ) -> None:
         self.wb.active[cell].font = self.ws_content.base_font if font is None else font
-        self.wb.active[cell].alignment = self.ws_content.base_alignment if alignment is None else alignment
+        self.wb.active[cell].alignment = (
+            self.ws_content.base_alignment if alignment is None else alignment
+        )
         self.wb.active[cell] = data
 
     def save_work_sheet(self) -> None:
@@ -91,14 +96,14 @@ class WorkSheets:
         for template, data in content.text_cascade_of_cells.items():
             cells, steps, count, font, alignment = data
             for i in range(count):
-                cell = cells['r'] if 'r' in cells else cells['c']
+                cell = cells["r"] if "r" in cells else cells["c"]
                 self.wb.active[cell].font = font
                 self.wb.active[cell].alignment = alignment
                 self.wb.active[cell] = content.get_text_from_template(template, cells)
                 cells = content.change_cells(cells, steps)
 
     def __open_workbook(self, path: str | None) -> Workbook:
-        if path is not None and path.endswith('.xlsx') and os.path.exists(path):
+        if path is not None and path.endswith(".xlsx") and os.path.exists(path):
             try:
                 wb = load_workbook(path)
             except FileNotFoundError:
@@ -114,8 +119,8 @@ class WorkSheets:
 
     def __create_new_workbook(self) -> Workbook:
         if self.title is not None:
-            self.title += '' if self.title.endswith('.xlsx') else '.xlsx'
+            self.title += "" if self.title.endswith(".xlsx") else ".xlsx"
         else:
-            self.title = 'temp.xlsx'
+            self.title = "temp.xlsx"
         self.path_to_workbook = self.title
         return Workbook()

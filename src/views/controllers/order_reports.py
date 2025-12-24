@@ -17,4 +17,3 @@ class OrderReport(QtWidgets.QWidget, Ui_OrderReportsWidget, BaseAppWidgetMixin):
 
     def __setup_connections(self) -> None:
         pass
-

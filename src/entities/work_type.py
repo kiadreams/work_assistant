@@ -18,11 +18,11 @@ if TYPE_CHECKING:
 
 
 class WorkType(MappedAsDataclass, Base):
-    __tablename__ = 'work_types'
+    __tablename__ = "work_types"
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(30), nullable=False)
 
-    works: Mapped[list[Work]] = relationship(back_populates='work_type')
+    works: Mapped[list[Work]] = relationship(back_populates="work_type")
 
     abbreviation: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

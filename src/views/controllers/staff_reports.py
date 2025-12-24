@@ -17,4 +17,3 @@ class StaffReport(QtWidgets.QWidget, Ui_StaffReportsWidget, BaseAppWidgetMixin):
 
     def __setup_connections(self) -> None:
         pass
-

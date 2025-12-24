@@ -11,12 +11,12 @@ def compile_qrc() -> None:
     platform = sys.platform
     env_bin_path = Path(sys.executable).parent
     print(env_bin_path)
-    qrc_file = Path('resources.qrc')
-    output_py_file = Path('src/views/generated/resources_rc.py')
+    qrc_file = Path("resources.qrc")
+    output_py_file = Path("src/views/generated/resources_rc.py")
 
     # Проверяем наличие входного файла
-    path_to_pyside6_rcc = Path('pyside6-rcc')
-    if platform.startswith('linux'):
+    path_to_pyside6_rcc = Path("pyside6-rcc")
+    if platform.startswith("linux"):
         path_to_pyside6_rcc = env_bin_path / path_to_pyside6_rcc
     if not qrc_file.exists():
         print(f"Ошибка: Исходный файл ресурсов не найден: {qrc_file}")
@@ -49,22 +49,22 @@ def compile_ui() -> None:
     """
     platform = sys.platform
     env_bin_path = Path(sys.executable).parent
-    ui_files = Path('assets/qt_assets/forms')
-    ui_py_files = Path('src/views/windows')
+    ui_files = Path("assets/qt_assets/forms")
+    ui_py_files = Path("src/views/windows")
 
-    path_to_pyside6_uic = Path('pyside6-uic')
-    if platform.startswith('linux'):
+    path_to_pyside6_uic = Path("pyside6-uic")
+    if platform.startswith("linux"):
         path_to_pyside6_uic = env_bin_path / path_to_pyside6_uic
     for elem in ui_files.iterdir():
-        if not (elem.is_file() or elem.suffix == '.ui'):
+        if not (elem.is_file() or elem.suffix == ".ui"):
             continue
         # Формируем команду для выполнения 'pyside6-uic' как имя исполняемого файла
-        py_file = elem.with_suffix('.py').name
-        output_py_path = ui_py_files / elem.with_suffix('.py').name
+        py_file = elem.with_suffix(".py").name
+        output_py_path = ui_py_files / elem.with_suffix(".py").name
         command = [
             path_to_pyside6_uic.as_posix(),
             elem.as_posix(),
-            '-o',
+            "-o",
             output_py_path.as_posix(),
         ]
         print(f"Запуск команды: {' '.join(command)}")

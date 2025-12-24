@@ -17,4 +17,3 @@ class WorkEventReport(QtWidgets.QWidget, Ui_WorkEventReportsWidget, BaseAppWidge
 
     def __setup_connections(self) -> None:
         pass
-
