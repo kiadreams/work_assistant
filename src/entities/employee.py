@@ -20,7 +20,7 @@ from ..databases.database import Base
 
 if TYPE_CHECKING:
     from .employee_position import EmployeePosition
-    from .work_event import WorkEvent
+    from .work_task import WorkTask
 
 
 class Employee(MappedAsDataclass, Base):
@@ -33,6 +33,6 @@ class Employee(MappedAsDataclass, Base):
     employee_position_id: Mapped[int] = mapped_column(ForeignKey("employee_positions.id"))
 
     employee_position: Mapped[EmployeePosition] = relationship(back_populates="employees")
-    work_events: Mapped[list[WorkEvent]] = relationship(back_populates="employee")
+    work_tasks: Mapped[list[WorkTask]] = relationship(back_populates="employee")
 
     date_of_birth: Mapped[datetime.date | None] = mapped_column(Date, nullable=True, default=None)

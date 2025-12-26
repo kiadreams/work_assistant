@@ -14,15 +14,15 @@ from ..databases.database import Base
 
 
 if TYPE_CHECKING:
-    from .device import Device
+    from .equipment import Equipment
 
 
-class DeviceLocation(MappedAsDataclass, Base):
-    __tablename__ = "device_locations"
+class EquipmentLocation(MappedAsDataclass, Base):
+    __tablename__ = "equipment_locations"
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(50))
 
-    devices: Mapped[list[Device]] = relationship(back_populates="location")
+    equipment: Mapped[list[Equipment]] = relationship(back_populates="location")
 
     inventory_number: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

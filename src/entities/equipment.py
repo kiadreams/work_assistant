@@ -14,22 +14,22 @@ from sqlalchemy.orm import (
 )
 
 from ..databases.database import Base
-from .associations.device_work import devices_works
+from .associations.equipment_work import equipment_works
 
 
 if TYPE_CHECKING:
-    from .device_location import DeviceLocation
+    from .equipment_location import EquipmentLocation
     from .work import Work
 
 
-class Device(MappedAsDataclass, Base):
-    __tablename__ = "devices"
+class Equipment(MappedAsDataclass, Base):
+    __tablename__ = "equipment"
 
     id: Mapped[int] = mapped_column(primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String(50))
-    device_location_id: Mapped[int] = mapped_column(ForeignKey("device_locations.id"))
+    equipment_location_id: Mapped[int] = mapped_column(ForeignKey("equipment_locations.id"))
 
-    location: Mapped[DeviceLocation] = relationship(back_populates="devices")
-    works: Mapped[list[Work]] = relationship(secondary=devices_works, back_populates="devices")
+    location: Mapped[EquipmentLocation] = relationship(back_populates="equipment")
+    works: Mapped[list[Work]] = relationship(secondary=equipment_works, back_populates="equipment")
 
     inventory_number: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

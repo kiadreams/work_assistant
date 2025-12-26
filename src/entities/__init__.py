@@ -1,15 +1,24 @@
-# src/entities/__init__.py
-
 from .department import Department
-from .device import Device
-from .device_location import DeviceLocation
+from .equipment import Equipment
+from .equipment_location import EquipmentLocation
 from .employee import Employee
 from .employee_position import EmployeePosition
 from .division import Division
 from .work_type import WorkType
 from .work import Work
-from .work_event import WorkEvent
+from .work_task import WorkTask
 from .work_order import WorkOrder
 
-# Опционально: Импортировать базовый класс, если он лежит здесь
-# from .base import Base
+
+__all__ = [
+    "Department",
+    "Equipment",
+    "Employee",
+    "EmployeePosition",
+    "Division",
+    "EquipmentLocation",
+    "Work",
+    "WorkTask",
+    "WorkOrder",
+    "WorkType",
+]

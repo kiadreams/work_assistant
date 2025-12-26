@@ -17,14 +17,14 @@ from sqlalchemy.orm import (
 )
 
 from ..databases.database import Base
-from .associations.device_work import devices_works
+from .associations.equipment_work import equipment_works
 
 
 if TYPE_CHECKING:
     from .work_type import WorkType
     from .work_order import WorkOrder
-    from .work_event import WorkEvent
-    from .device import Device
+    from .work_task import WorkTask
+    from .equipment import Equipment
 
 
 class Work(MappedAsDataclass, Base):
@@ -35,8 +35,10 @@ class Work(MappedAsDataclass, Base):
 
     work_type: Mapped[WorkType] = relationship(back_populates="works")
     work_order: Mapped[WorkOrder] = relationship(back_populates="works")
-    events: Mapped[WorkEvent] = relationship(back_populates="work")
-    devices: Mapped[list[Device]] = relationship(secondary=devices_works, back_populates="works")
+    work_tasks: Mapped[list[WorkTask]] = relationship(back_populates="work")
+    equipment: Mapped[list[Equipment]] = relationship(
+        secondary=equipment_works, back_populates="works"
+    )
 
     year: Mapped[int] = mapped_column(
         SmallInteger, nullable=False, server_default=extract("year", func.now())
@@ -48,6 +50,6 @@ class Work(MappedAsDataclass, Base):
     work_order_id: Mapped[int | None] = mapped_column(
         ForeignKey("work_orders.id"), nullable=True, default=None
     )
-    device_id: Mapped[int | None] = mapped_column(
-        ForeignKey("devices.id"), nullable=True, default=None
+    equipment_id: Mapped[int | None] = mapped_column(
+        ForeignKey("equipment.id"), nullable=True, default=None
     )
