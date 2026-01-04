@@ -5,7 +5,7 @@ from src.di.providers import (
     ServiceProvider,
     UIWindowsProvider,
     ViewmodelProvider,
-    CoordinatorsProvider, InvokersProvider,
+    CoordinatorsProvider, FactoriesProvider,
 )
 
 
@@ -16,5 +16,5 @@ def get_container() -> Container:
         ViewmodelProvider(),
         UIWindowsProvider(),
         CoordinatorsProvider(),
-        InvokersProvider(),
+        FactoriesProvider(),
     )

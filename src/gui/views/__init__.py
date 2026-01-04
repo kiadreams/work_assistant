@@ -1,6 +1,6 @@
 from .main_window_view import MainWindowView
 from .main_menu_view import MainMenuView
-from .report_generator_view import ReportGeneratorView
+from .reports_window_view import ReportsWindowView
 from .division_report_view import DivisionReportView
 from .staff_report_view import StaffReportView
 from .work_event_report_view import WorkEventReportView
@@ -13,7 +13,7 @@ from .order_report_view import OrderReportView
 __all__ = [
     "MainWindowView",
     "MainMenuView",
-    "ReportGeneratorView",
+    "ReportsWindowView",
     "DivisionReportView",
     "StaffReportView",
     "WorkEventReportView",

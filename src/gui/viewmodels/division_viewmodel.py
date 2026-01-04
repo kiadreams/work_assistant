@@ -1,4 +1,4 @@
-from dishka import Container, Scope
+from dishka import Container
 
 from ...core.interfaces.invokers import OperationInvokerProtocol
 from ...core.interfaces.services import EmployeeServiceProtocol
@@ -28,18 +28,16 @@ class DivisionViewModel:
         return [service.name for service in self.__divisions]
 
     def show_all_divisions(self) -> None:
-        with self._di_container(scope=Scope.REQUEST) as service_container:
-            print('создаем экземпляр сервиса')
-            employee_service = service_container.get(EmployeeServiceProtocol)
-            print(employee_service)
+        with self._operation_invoker.request_container() as container:
+            employee_service = container.get(EmployeeServiceProtocol)
             self.__divisions = employee_service.load_all_divisions()
 
     def add_new_division(self, service_data: tuple[str, str]) -> None:
         name, full_name = service_data
         division = DivisionDomain(name=name, full_name=full_name)
         self.__divisions.append(division)
-        with self._di_container(scope=Scope.REQUEST) as service_container:
-            employee_service = service_container.get(EmployeeServiceProtocol)
+        with self._operation_invoker.request_container() as container:
+            employee_service = container.get(EmployeeServiceProtocol)
             employee_service.save_division(division)
 
     @property
@@ -52,11 +50,11 @@ class DivisionViewModel:
     def is_current_division_deleted(self) -> bool:
         if self.__current_division is None:
             return False
-        with self._di_container(scope=Scope.REQUEST) as service_container:
-            employee_service = service_container.get(EmployeeServiceProtocol)
+        with self._operation_invoker.request_container() as container:
+            employee_service = container.get(EmployeeServiceProtocol)
             return employee_service.is_division_deleted(self.__current_division)  # type: ignore[no-any-return]
 
-    def change_current_division(self, division_name: str) -> None:
+    def choose_current_division(self, division_name: str) -> None:
         division_names = [division.name for division in self.__divisions]
         if division_name in division_names:
             self.__current_division = [
@@ -66,6 +64,6 @@ class DivisionViewModel:
     def delete_current_division(self) -> None:
         if self.__current_division is not None and self.is_current_division_deleted:
             self.__divisions.remove(self.__current_division)
-            with self._di_container(scope=Scope.REQUEST) as service_container:
-                employee_service = service_container.get(EmployeeServiceProtocol)
+            with self._operation_invoker.request_container() as container:
+                employee_service = container.get(EmployeeServiceProtocol)
                 employee_service.delete_division(self.__current_division)

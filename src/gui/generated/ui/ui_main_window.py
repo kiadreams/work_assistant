@@ -37,12 +37,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.stackedWidget_windows = QStackedWidget(self.centralwidget)
         self.stackedWidget_windows.setObjectName(u"stackedWidget_windows")
-        self.page_0_main_menu = QWidget()
-        self.page_0_main_menu.setObjectName(u"page_0_main_menu")
-        self.stackedWidget_windows.addWidget(self.page_0_main_menu)
-        self.page_0_report_creation = QWidget()
-        self.page_0_report_creation.setObjectName(u"page_0_report_creation")
-        self.stackedWidget_windows.addWidget(self.page_0_report_creation)
 
         self.verticalLayout_3.addWidget(self.stackedWidget_windows)
 
@@ -50,7 +44,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget_windows.setCurrentIndex(1)
+        self.stackedWidget_windows.setCurrentIndex(-1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

@@ -1,9 +1,5 @@
-from typing import Protocol, Any, Callable
-from dishka import Container  # Приходится импортировать Container сюда
-
-# Определяем тип функции, которую может принять Invoker:
-# Функция принимает контейнер и возвращает что угодно (Any)
-OperationFunc = Callable[[Container], Any]
+from typing import Protocol, ContextManager
+from dishka import Container
 
 
 class OperationInvokerProtocol(Protocol):
@@ -13,4 +9,4 @@ class OperationInvokerProtocol(Protocol):
 
     _root_container: Container
 
-    def execute_request(self, func_to_run: OperationFunc) -> Any: ...
+    def request_container(self) -> ContextManager[Container]: ...

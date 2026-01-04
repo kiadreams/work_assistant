@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ReportGenerationWidget</class>
- <widget class="QWidget" name="ReportGenerationWidget">
+ <class>ReportsWindowWidget</class>
+ <widget class="QWidget" name="ReportsWindowWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -156,14 +156,8 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget_report_types">
          <property name="currentIndex">
-          <number>2</number>
+          <number>-1</number>
          </property>
-         <widget class="QWidget" name="page_0_divisions"/>
-         <widget class="QWidget" name="page_1_staff"/>
-         <widget class="QWidget" name="page_2_work_types"/>
-         <widget class="QWidget" name="page_3_works"/>
-         <widget class="QWidget" name="page_4_orders"/>
-         <widget class="QWidget" name="page_5_work_events"/>
         </widget>
        </item>
       </layout>

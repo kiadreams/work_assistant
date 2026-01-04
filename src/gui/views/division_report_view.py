@@ -29,10 +29,10 @@ class DivisionReportView(QtWidgets.QWidget, Ui_DivisionReportWidget):
         self.pushButton_add_department.clicked.connect(self.push_add_department)
         self.pushButton_remove_department.clicked.connect(self.push_remove_department)
         self.pushButton_edit_department.clicked.connect(self.push_edit_department)
-        self.comboBox_division_list.currentTextChanged.connect(self.change_current_division)
+        self.comboBox_division_list.currentTextChanged.connect(self.choose_current_division)
 
-    def change_current_division(self, service_name: str) -> None:
-        self.model.change_current_division(service_name)
+    def choose_current_division(self, service_name: str) -> None:
+        self.model.choose_current_division(service_name)
         self.refresh_division_report()
 
     def refresh_division_report(self) -> None:

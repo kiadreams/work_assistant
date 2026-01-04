@@ -39,10 +39,8 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget_windows">
       <property name="currentIndex">
-       <number>1</number>
+       <number>-1</number>
       </property>
-      <widget class="QWidget" name="page_0_main_menu"/>
-      <widget class="QWidget" name="page_0_report_creation"/>
      </widget>
     </item>
    </layout>
