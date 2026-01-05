@@ -1,12 +1,12 @@
 from contextlib import contextmanager
-from typing import Generator, cast
+from typing import Generator
 
 from dishka import Container, Scope
 
 from src.core.interfaces.coordinators import ReportsCoordinatorProtocol
 from src.core.interfaces.ui import (
-    MainWindowViewProtocol,
     MainMenuViewProtocol,
+    MainWindowViewProtocol,
     ReportsWindowViewProtocol,
 )
 

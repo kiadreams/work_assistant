@@ -1,10 +1,11 @@
 from src.core.interfaces.factories import AppFactoryProtocol
-from ..constants import MainWindowPages
+
 from ...core.interfaces.ui import (
-    MainWindowViewProtocol,
     MainMenuViewProtocol,
+    MainWindowViewProtocol,
     ReportsWindowViewProtocol,
 )
+from ..constants import MainWindowPages
 
 
 class AppCoordinator:

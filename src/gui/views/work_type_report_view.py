@@ -1,12 +1,11 @@
 from PySide6 import QtWidgets
 
-from src.utils.qt_recource_loader import ResourceLoader
 from src.gui.constants import QtStyleResources
 from src.gui.generated import Ui_WorkTypeReportWidget
+from src.utils.qt_recource_loader import ResourceLoader
 
 
 class WorkTypeReportView(QtWidgets.QWidget, Ui_WorkTypeReportWidget):
-
     def __init__(self) -> None:
         super().__init__()
         self.__init_content_widget()

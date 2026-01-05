@@ -1,15 +1,15 @@
 import os
-from openpyxl import load_workbook, Workbook
-from openpyxl.utils.exceptions import InvalidFileException
+
+from openpyxl import Workbook, load_workbook
 from openpyxl.drawing.image import Image
-from openpyxl.styles import Font, Alignment
+from openpyxl.styles import Alignment, Font
+from openpyxl.utils.exceptions import InvalidFileException
 
 from .worksheet_content import WorkSheetContent
 from .worksheet_styles import WorkSheetStyles
 
 
 class WorkSheets:
-
     def __init__(self, path_to_worksheets: str | None = None, title: str | None = None) -> None:
         self.title = title
         self.path_to_workbook = path_to_worksheets
@@ -109,7 +109,7 @@ class WorkSheets:
             except FileNotFoundError:
                 print(f"ОШИБКА: Файл не найден по пути: {os.path.abspath(path)}")
             except InvalidFileException:
-                print(f"ОШИБКА: Неверный формат файла. Убедитесь, что это файл .xlsx, а не .xls")
+                print("ОШИБКА: Неверный формат файла. Убедитесь, что это файл .xlsx, а не .xls")
             except Exception as e:
                 print(f"Произошла непредвиденная ошибка при открытии файла: {e}")
             else:

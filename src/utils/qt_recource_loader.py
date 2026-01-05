@@ -1,4 +1,4 @@
-from PySide6.QtCore import QFile, QIODevice, QTextStream, QStringConverter
+from PySide6.QtCore import QFile, QIODevice, QStringConverter, QTextStream
 
 from src.gui.constants import QtResources, QtStyleResources
 

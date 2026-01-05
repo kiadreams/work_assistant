@@ -3,28 +3,28 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from sqlalchemy import (
-    String,
     ForeignKey,
     SmallInteger,
+    String,
     extract,
     func,
 )
 from sqlalchemy.orm import (
-    MappedAsDataclass,
     Mapped,
+    MappedAsDataclass,
     mapped_column,
     relationship,
 )
 
 from src.database.db_manager import Base
+
 from .associations.equipment_work import equipment_works
 
-
 if TYPE_CHECKING:
-    from .work_type import WorkType
+    from .equipment import Equipment
     from .work_order import WorkOrder
     from .work_task import WorkTask
-    from .equipment import Equipment
+    from .work_type import WorkType
 
 
 class Work(MappedAsDataclass, Base):

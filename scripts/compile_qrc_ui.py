@@ -1,10 +1,9 @@
 import subprocess
 import sys
-
 from pathlib import Path
 
 
-def get_scripts_and_root_dir():
+def get_scripts_and_root_dir() -> tuple[Path, Path]:
     env_bin_path = Path(sys.executable).parent
     root_dir = env_bin_path.parent.parent
     return root_dir, env_bin_path
@@ -36,8 +35,8 @@ def compile_qrc() -> None:
         print(f"Успешно скомпилировано в файл: {output_py_file}")
         print()
     except FileNotFoundError:
-        print(f"Ошибка: Утилита 'pyside6-rcc' не найдена.")
-        print(f"Убедитесь, что PySide6 установлен и находится в переменной PATH.")
+        print("Ошибка: Утилита 'pyside6-rcc' не найдена.")
+        print("Убедитесь, что PySide6 установлен и находится в переменной PATH.")
         sys.exit(1)
     except subprocess.CalledProcessError as e:
         print(f"Произошла ошибка при выполнении команды компиляции: {e}")
@@ -71,8 +70,8 @@ def compile_ui() -> None:
             print(f"Успешно скомпилировано в файл: {py_file}")
             print()
         except FileNotFoundError:
-            print(f"Ошибка: Утилита 'pyside6-uic' не найдена.")
-            print(f"Убедитесь, что PySide6 установлен и находится в переменной PATH.")
+            print("Ошибка: Утилита 'pyside6-uic' не найдена.")
+            print("Убедитесь, что PySide6 установлен и находится в переменной PATH.")
             sys.exit(1)
         except subprocess.CalledProcessError as e:
             print(f"Произошла ошибка при выполнении команды компиляции: {e}")

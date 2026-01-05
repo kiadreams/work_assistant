@@ -1,12 +1,11 @@
 from PySide6 import QtWidgets
 
-from src.utils.qt_recource_loader import ResourceLoader
 from src.gui.constants import QtStyleResources
 from src.gui.generated import Ui_OrderReportWidget
+from src.utils.qt_recource_loader import ResourceLoader
 
 
 class OrderReportView(QtWidgets.QWidget, Ui_OrderReportWidget):
-
     def __init__(self) -> None:
         super().__init__()
         self.__init_content_widget()

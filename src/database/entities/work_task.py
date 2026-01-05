@@ -1,28 +1,26 @@
 from __future__ import annotations
 
+import datetime
 from typing import TYPE_CHECKING
 
-import datetime
-
 from sqlalchemy import (
-    ForeignKey,
     Date,
+    ForeignKey,
     Time,
     func,
 )
 from sqlalchemy.orm import (
-    MappedAsDataclass,
     Mapped,
+    MappedAsDataclass,
     mapped_column,
     relationship,
 )
 
 from src.database.db_manager import Base
 
-
 if TYPE_CHECKING:
-    from .work import Work
     from .employee import Employee
+    from .work import Work
 
 
 class WorkTask(MappedAsDataclass, Base):

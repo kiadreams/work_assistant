@@ -1,18 +1,19 @@
 from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 
-from src.utils.qt_recource_loader import ResourceLoader
-from src.gui.constants import ReportsWindowPages, QtStyleResources
+from src.gui.constants import QtStyleResources, ReportsWindowPages
 from src.gui.generated import Ui_ReportsWindowWidget
+from src.utils.qt_recource_loader import ResourceLoader
+
 from ...core.constants import PageStructure
 
 
 class ReportsWindowView(QtWidgets.QWidget, Ui_ReportsWindowWidget):
-
     back_main_menu_signal = Signal()
 
     def __init__(self) -> None:
         super().__init__()
+        self.company = "Кубанское ПМЭС"
         self.init_content_view()
         self.reports_button_group = self.create_button_group(
             "reports_button_group", self._get_report_buttons_group()
@@ -25,6 +26,7 @@ class ReportsWindowView(QtWidgets.QWidget, Ui_ReportsWindowWidget):
             ResourceLoader(QtStyleResources.REPORT_GENERATION_WIDGET_STYLE).load_style()
         )
         self.pushButton_divisions.setChecked(True)
+        self.comboBox_company.insertItem(0, self.company)
 
     def insert_into_stacked_windows(self, index: PageStructure, widget: QtWidgets.QWidget) -> None:
         layout_widget = self.get_widget_to_insert(widget)

@@ -1,4 +1,5 @@
-from typing import Protocol, ContextManager
+from typing import ContextManager, Protocol
+
 from dishka import Container
 
 

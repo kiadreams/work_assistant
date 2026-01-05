@@ -2,7 +2,6 @@ from openpyxl.styles import Border, Side
 
 
 class WorkSheetStyles:
-
     def __init__(self) -> None:
         self.width_of_columns = {17: ("B", "C"), 5: ("A",)}
         self.height_of_rows = {70: (4, 7), 35: (5, 14), 25: (*range(16, 24), *range(28, 36), 26)}

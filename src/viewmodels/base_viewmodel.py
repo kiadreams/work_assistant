@@ -1,8 +1,6 @@
-from typing import Type
-from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from ..database.database import Base, SessionLocal
+from ..database.database import SessionLocal
 
 
 class BaseViewModel:

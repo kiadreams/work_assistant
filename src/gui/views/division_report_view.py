@@ -2,18 +2,20 @@ from typing import Callable
 
 from PySide6 import QtWidgets
 
-from src.utils.qt_recource_loader import ResourceLoader
-from .dialog_edit_view import DialogEditView
 from src.gui.constants import QtStyleResources
 from src.gui.generated import Ui_DivisionReportWidget
-from ...core.interfaces.viewmodels import DivisionViewModelProtocol
+from src.utils.qt_recource_loader import ResourceLoader
+
+from ...viewmodels.qt_interfaces import QtDivisionVMProtocol
+from ..models.division_table_model import DivisionTableModel
+from .dialog_edit_view import DialogEditView
 
 
 class DivisionReportView(QtWidgets.QWidget, Ui_DivisionReportWidget):
-
-    def __init__(self, viewmodel: DivisionViewModelProtocol) -> None:
+    def __init__(self, viewmodel: QtDivisionVMProtocol) -> None:
         super().__init__()
         self.model = viewmodel
+        self.table_model = DivisionTableModel(self.model)
         self.__init_content_widget()
         self.__setup_connections()
 
@@ -49,7 +51,7 @@ class DivisionReportView(QtWidgets.QWidget, Ui_DivisionReportWidget):
     def push_remove_division(self) -> None:
         if self.model.is_current_division_deleted:
             self.ask_for_confirmation(
-                f"Вы уверены, что хотите безвозвратно удалить службу {self.model.current_service}? "
+                f"Вы уверены, что хотите безвозвратно удалить службу {self.model.current_division}? "
                 "Отменить это действие будет невозможно...",
                 self.delete_current_division,
             )
@@ -94,8 +96,10 @@ class DivisionReportView(QtWidgets.QWidget, Ui_DivisionReportWidget):
     def refresh_combobox_division_list(self) -> None:
         self.comboBox_division_list.blockSignals(True)
         self.comboBox_division_list.clear()
-        self.comboBox_division_list.addItems(self.model.divisions)
-        self.comboBox_division_list.setCurrentText(self.model.current_service)
+        self.comboBox_division_list.addItems([d.name for d in self.model.divisions])
+        self.comboBox_division_list.setCurrentText(
+            self.model.current_division.name if self.model.current_division else ""
+        )
         self.comboBox_division_list.blockSignals(False)
 
     def refresh_combobox_department_list(self) -> None:

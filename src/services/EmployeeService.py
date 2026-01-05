@@ -10,9 +10,14 @@ class EmployeeService:
         return False
 
     def load_all_divisions(self) -> list[DivisionDomain]:
-        return [DivisionDomain(name='s', full_name='f'),]
+        return [
+            DivisionDomain(name="s", full_name="f"),
+        ]
 
-    def save_division(self, division: DivisionDomain) -> None:
+    def add_new_division(self, division: DivisionDomain) -> None:
+        pass
+
+    def edit_division_data(self, value: str) -> None:
         pass
 
     def delete_division(self, division: DivisionDomain) -> None:

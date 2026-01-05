@@ -1,7 +1,7 @@
 from typing import Protocol
 
-from .invokers import OperationInvokerProtocol
 from ...core.models.division_domain import DivisionDomain
+from .invokers import OperationInvokerProtocol
 
 
 class BaseViewModelProtocol(Protocol):
@@ -12,12 +12,12 @@ class DivisionViewModelProtocol(BaseViewModelProtocol, Protocol):
     _operation_invoker: OperationInvokerProtocol
 
     @property
-    def current_service(self) -> str: ...
+    def current_division(self) -> DivisionDomain | None: ...
 
     @property
-    def divisions(self) -> list[str]: ...
+    def divisions(self) -> list[DivisionDomain]: ...
 
-    def show_all_divisions(self) -> None: ...
+    def load_all_divisions(self) -> None: ...
 
     def add_new_division(self, service_data: tuple[str, str]) -> None: ...
 

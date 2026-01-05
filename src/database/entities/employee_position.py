@@ -3,23 +3,22 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from sqlalchemy import (
-    String,
-    ForeignKey,
     CheckConstraint,
+    ForeignKey,
+    String,
 )
 from sqlalchemy.orm import (
-    MappedAsDataclass,
     Mapped,
+    MappedAsDataclass,
     mapped_column,
     relationship,
 )
 
 from src.database.db_manager import Base
 
-
 if TYPE_CHECKING:
-    from .division import Division
     from .department import Department
+    from .division import Division
     from .employee import Employee
 
 

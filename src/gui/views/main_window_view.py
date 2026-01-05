@@ -1,8 +1,9 @@
 from PySide6 import QtWidgets
 
-from src.utils.qt_recource_loader import ResourceLoader
 from src.gui.constants import QtStyleResources
 from src.gui.generated import Ui_MainWindow
+from src.utils.qt_recource_loader import ResourceLoader
+
 from ...core.constants import PageStructure
 
 

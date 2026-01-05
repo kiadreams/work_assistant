@@ -2,8 +2,8 @@ from sqlalchemy import select
 from sqlalchemy.exc import MultipleResultsFound
 from sqlalchemy.orm import Session
 
-from ..entities import Division
 from ...core.models.division_domain import DivisionDomain
+from ..entities import Division
 
 
 class DivisionRepository:
@@ -16,7 +16,7 @@ class DivisionRepository:
             division = self.session.scalar(stmt)
             return DivisionDomain.model_validate(division)
         except MultipleResultsFound:
-            print(f"Найдено более одного значения division")
+            print("Найдено более одного значения division")
         return None
 
     @property

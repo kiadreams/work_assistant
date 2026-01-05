@@ -4,11 +4,11 @@ from src.core.interfaces.ui import ReportsWindowViewProtocol
 from src.gui.constants import ReportsWindowPages
 from src.gui.views import (
     DivisionReportView,
-    StaffReportView,
-    WorkTypeReportView,
-    WorkReportView,
-    WorkEventReportView,
     OrderReportView,
+    StaffReportView,
+    WorkEventReportView,
+    WorkReportView,
+    WorkTypeReportView,
 )
 
 

@@ -1,14 +1,13 @@
 from .department import Department
-from .equipment import Equipment
-from .equipment_location import EquipmentLocation
+from .division import Division
 from .employee import Employee
 from .employee_position import EmployeePosition
-from .division import Division
-from .work_type import WorkType
+from .equipment import Equipment
+from .equipment_location import EquipmentLocation
 from .work import Work
-from .work_task import WorkTask
 from .work_order import WorkOrder
-
+from .work_task import WorkTask
+from .work_type import WorkType
 
 __all__ = [
     "Department",

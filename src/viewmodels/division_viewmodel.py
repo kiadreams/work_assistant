@@ -1,44 +1,54 @@
-from dishka import Container
+from PySide6.QtCore import QObject, Signal
 
-from ...core.interfaces.invokers import OperationInvokerProtocol
-from ...core.interfaces.services import EmployeeServiceProtocol
-from ...core.models.division_domain import DivisionDomain
+from src.core.interfaces.invokers import OperationInvokerProtocol
+from src.core.interfaces.services import EmployeeServiceProtocol
+from src.core.models.division_domain import DivisionDomain
 
 
-class DivisionViewModel:
+class DivisionViewModel(QObject):
+    data_changed_signal = Signal()
+
     def __init__(self, operation_invoker: OperationInvokerProtocol) -> None:
+        super().__init__()
         self._operation_invoker = operation_invoker
-        self.company = "Кубанское ПМЭС"
         self.__divisions: list[DivisionDomain] = []
         self.__current_division: DivisionDomain | None = None
 
     def init_model_data(self) -> None:
-        self.show_all_divisions()
+        self.load_all_divisions()
         self.__current_division = self.first_division
 
     @property
-    def current_service(self) -> str:
-        if self.__current_division is not None:
-            return str(self.__current_division.name)
-        else:
-            return ""
+    def divisions(self) -> list[DivisionDomain]:
+        return self.__divisions
+
+    @divisions.setter
+    def divisions(self, value: list[DivisionDomain]) -> None:
+        self.__divisions = value
+        self.data_changed_signal.emit()
 
     @property
-    def divisions(self) -> list[str]:
-        return [service.name for service in self.__divisions]
+    def current_division(self) -> DivisionDomain | None:
+        if self.__current_division:
+            return self.__current_division
+        return None
 
-    def show_all_divisions(self) -> None:
+    @current_division.setter
+    def current_division(self, value: DivisionDomain) -> None:
+        self.__current_division = value
+
+    def load_all_divisions(self) -> None:
         with self._operation_invoker.request_container() as container:
             employee_service = container.get(EmployeeServiceProtocol)
-            self.__divisions = employee_service.load_all_divisions()
+            self.divisions = employee_service.load_all_divisions()
 
-    def add_new_division(self, service_data: tuple[str, str]) -> None:
-        name, full_name = service_data
+    def add_new_division(self, division_data: tuple[str, str]) -> None:
+        name, full_name = division_data
         division = DivisionDomain(name=name, full_name=full_name)
-        self.__divisions.append(division)
+        self.divisions.append(division)
         with self._operation_invoker.request_container() as container:
             employee_service = container.get(EmployeeServiceProtocol)
-            employee_service.save_division(division)
+            employee_service.add_new_division(division)
 
     @property
     def first_division(self) -> DivisionDomain | None:

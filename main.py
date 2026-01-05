@@ -14,8 +14,8 @@ def close_app() -> None:
 
 if __name__ == "__main__":
     container = get_container()
-    # db_manager = container.get(DatabaseManagerProtocol)
-    # db_manager.create_db_tables()
+    db_manager = container.get(DatabaseManagerProtocol)
+    db_manager.create_db_tables()
 
     app = QApplication(sys.argv)
     app.aboutToQuit.connect(close_app)

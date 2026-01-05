@@ -4,7 +4,6 @@ from src.gui.generated import Ui_DialogEditData
 
 
 class DialogEditView(QtWidgets.QDialog, Ui_DialogEditData):
-
     def __init__(self, parent: QtWidgets.QWidget) -> None:
         super().__init__(parent)
         self.__init_content_widget()

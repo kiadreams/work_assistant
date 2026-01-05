@@ -1,11 +1,12 @@
-from dishka import make_container, Container
+from dishka import Container, make_container
 
 from src.di.providers import (
+    CoordinatorsProvider,
     DatabaseProvider,
+    FactoriesProvider,
     ServiceProvider,
     UIWindowsProvider,
     ViewmodelProvider,
-    CoordinatorsProvider, FactoriesProvider,
 )
 
 

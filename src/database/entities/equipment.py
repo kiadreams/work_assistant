@@ -3,19 +3,19 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from sqlalchemy import (
-    String,
     ForeignKey,
+    String,
 )
 from sqlalchemy.orm import (
-    MappedAsDataclass,
     Mapped,
+    MappedAsDataclass,
     mapped_column,
     relationship,
 )
 
 from src.database.db_manager import Base
-from .associations.equipment_work import equipment_works
 
+from .associations.equipment_work import equipment_works
 
 if TYPE_CHECKING:
     from .equipment_location import EquipmentLocation

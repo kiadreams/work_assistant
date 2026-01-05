@@ -1,40 +1,44 @@
-from dishka import Provider, Scope, provide, Container
+from dishka import Container, Provider, Scope, provide
 from sqlalchemy.orm import Session
 
-from src.core.interfaces.factories import AppFactoryProtocol
-from src.core.interfaces.ui import MainWindowViewProtocol, MainMenuViewProtocol, \
-    ReportsWindowViewProtocol
-from src.di.factories import AppFactory
-from src.gui.coordinators import (
-    AppCoordinator,
-    ReportsCoordinator,
-    ProtocolsCoordinator,
-)
 from src.core.interfaces.coordinators import (
     AppCoordinatorProtocol,
-    ReportsCoordinatorProtocol,
     ProtocolsCoordinatorProtocol,
+    ReportsCoordinatorProtocol,
 )
+from src.core.interfaces.factories import AppFactoryProtocol
 from src.core.interfaces.invokers import OperationInvokerProtocol
-from src.core.interfaces.repositories import DivisionRepositoryProtocol, DatabaseManagerProtocol
+from src.core.interfaces.repositories import DatabaseManagerProtocol, DivisionRepositoryProtocol
 from src.core.interfaces.services import EmployeeServiceProtocol
+from src.core.interfaces.ui import (
+    MainMenuViewProtocol,
+    MainWindowViewProtocol,
+    ReportsWindowViewProtocol,
+)
 from src.core.interfaces.viewmodels import DivisionViewModelProtocol
 from src.database.db_manager import DatabaseManager
 from src.database.repositories.division_repository import DivisionRepository
+from src.di.factories import AppFactory
 from src.di.invokers import OperationInvoker
-from src.gui.viewmodels import DivisionViewModel
+from src.gui.coordinators import (
+    AppCoordinator,
+    ProtocolsCoordinator,
+    ReportsCoordinator,
+)
 from src.gui.views import (
+    DivisionReportView,
     MainMenuView,
     MainWindowView,
-    DivisionReportView,
+    OrderReportView,
+    ReportsWindowView,
+    StaffReportView,
     WorkEventReportView,
     WorkReportView,
     WorkTypeReportView,
-    OrderReportView,
-    StaffReportView,
-    ReportsWindowView,
 )
 from src.services.EmployeeService import EmployeeService
+from src.viewmodels import DivisionViewModel
+from src.viewmodels.qt_interfaces import QtDivisionVMProtocol
 
 
 class DatabaseProvider(Provider):
@@ -74,7 +78,7 @@ class ViewmodelProvider(Provider):
     def division_viewmodel(
         self,
         operation_invokers: OperationInvokerProtocol,
-    ) -> DivisionViewModelProtocol:
+    ) -> QtDivisionVMProtocol:
         return DivisionViewModel(operation_invoker=operation_invokers)
 
 
@@ -92,7 +96,7 @@ class UIWindowsProvider(Provider):
         return ReportsWindowView()
 
     @provide(scope=Scope.SESSION)
-    def division_report_ui(self, viewmodel: DivisionViewModelProtocol) -> DivisionReportView:
+    def division_report_ui(self, viewmodel: QtDivisionVMProtocol) -> DivisionReportView:
         return DivisionReportView(viewmodel=viewmodel)
 
     @provide(scope=Scope.SESSION)

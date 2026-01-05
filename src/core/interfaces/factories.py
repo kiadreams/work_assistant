@@ -1,11 +1,11 @@
-from typing import Protocol, ContextManager
+from typing import ContextManager, Protocol
 
 from dishka import Container
 
 from src.core.interfaces.coordinators import ReportsCoordinatorProtocol
 from src.core.interfaces.ui import (
-    MainWindowViewProtocol,
     MainMenuViewProtocol,
+    MainWindowViewProtocol,
     ReportsWindowViewProtocol,
 )
 
