@@ -3,7 +3,6 @@ from typing import Protocol
 from PySide6.QtCore import SignalInstance
 
 from src.core.models.division_domain import DivisionDomain
-from src.di.interfaces import OperationInvokerProtocol
 
 
 class BaseViewModelProtocol(Protocol):
@@ -13,8 +12,6 @@ class BaseViewModelProtocol(Protocol):
 
 
 class DivisionViewModelProtocol(BaseViewModelProtocol, Protocol):
-    _operation_invoker: OperationInvokerProtocol
-
     @property
     def current_division(self) -> DivisionDomain | None: ...
 

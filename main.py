@@ -2,23 +2,24 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
-from src.database.interfaces import DatabaseManagerProtocol
-from src.di.container import get_container
-from src.gui.interfaces.coordinators import AppCoordinatorProtocol
+from src.database.db_manager import DatabaseManager
+from src.database.repositories import DivisionRepository
+from src.gui.coordinators.app_coordinator import AppCoordinator
+from src.services.EmployeeService import EmployeeService
 
 
 def close_app() -> None:
-    print("Закрытие контейнера при выходе из приложения.")
-    container.close()
+    print("Closing app...")
 
 
 if __name__ == "__main__":
-    container = get_container()
-    db_manager = container.get(DatabaseManagerProtocol)
-    db_manager.create_db_tables()
+    db_manager = DatabaseManager()
+    employee_service = EmployeeService(DivisionRepository(db_manager))
+
+    # db_manager.create_db_tables()
 
     app = QApplication(sys.argv)
-    app.aboutToQuit.connect(close_app)
-    coordinator = container.get(AppCoordinatorProtocol)
+    coordinator = AppCoordinator(employee_service)
     coordinator.start_app()
+    app.aboutToQuit.connect(close_app)
     sys.exit(app.exec())

@@ -1,15 +1,14 @@
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, QObject, QPersistentModelIndex, Qt
 
-from src.viewmodels.interfaces import DivisionViewModelProtocol
+from src.viewmodels.interfaces.view_models import DivisionViewModelProtocol
 
 
 class DivisionTableModel(QAbstractTableModel):
     def __init__(self, viewmodel: DivisionViewModelProtocol, parent: QObject | None = None):
         super().__init__(parent)
         self.vm = viewmodel
-        self.headers = ["Служба", "Полное наименование"]
-        self.attributes = ["name", "full_name"]
-
+        self.headers = ["№ п/п", "Служба", "Полное наименование"]
+        self.attributes = ["", "name", "full_name"]
         self.vm.data_changed_signal.connect(self.layoutChanged.emit)
 
     def rowCount(self, parent: QModelIndex | QPersistentModelIndex = QModelIndex()) -> int:
@@ -27,6 +26,8 @@ class DivisionTableModel(QAbstractTableModel):
         if role == Qt.ItemDataRole.DisplayRole:
             row = index.row()
             col = index.column()
+            if col == 0:
+                return str(row + 1)
             # Безопасный доступ к данным из списка объектов Division
             if row < len(self.vm.divisions):
                 division = self.vm.divisions[row]

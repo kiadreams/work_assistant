@@ -34,10 +34,6 @@ class ReportsWindow(QtWidgets.QWidget, Ui_ReportsWindowWidget):
         self.pushButton_divisions.setChecked(True)
         self.comboBox_company.insertItem(0, self.company)
 
-    def add_view(self, index: PageStructure, widget: QtWidgets.QWidget) -> None:
-        layout_widget = self.get_widget_to_insert(widget)
-        self.stackedWidget_report_types.insertWidget(index, layout_widget)
-
     def __setup_connections(self) -> None:
         self.pushButton_go_to_main_menu.clicked.connect(self.back_main_menu_signal.emit)
         self.pushButton_divisions.clicked.connect(self.open_divisions_view_signal.emit)
@@ -46,7 +42,10 @@ class ReportsWindow(QtWidgets.QWidget, Ui_ReportsWindowWidget):
         self.pushButton_works.clicked.connect(self.open_works_view_signal.emit)
         self.pushButton_orders.clicked.connect(self.open_orders_view_signal.emit)
         self.pushButton_work_events.clicked.connect(self.open_work_events_view_signal.emit)
-        # self.reports_button_group.idClicked.connect(self.change_view)
+
+    def add_view(self, index: PageStructure, widget: QtWidgets.QWidget) -> None:
+        layout_widget = self.get_widget_to_insert(widget)
+        self.stackedWidget_report_types.insertWidget(index, layout_widget)
 
     def change_view(self, index: int) -> None:
         self.stackedWidget_report_types.setCurrentIndex(index)

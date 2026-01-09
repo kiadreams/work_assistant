@@ -1,68 +1,46 @@
-import sys
-
-from dishka.container import Container, ContextWrapper
-
-from src.di.interfaces import AppFactoryProtocol
-from src.gui.interfaces.views import (
-    MainMenuWindowProtocol,
-    MainWindowProtocol,
-)
-
-from ..constants import MainWindows
-from ..interfaces.coordinators import AppCoordinatorProtocol, ReportsCoordinatorProtocol
+from src.gui.constants import MainWindows as Windows
+from src.gui.coordinators.reports_coordinator import ReportsCoordinator
+from src.gui.interfaces.coordinators import SessionCoordinatorProtocol
+from src.gui.views import MainMenuWindow, MainWindow
+from src.services.interfaces.services import EmployeeServiceProtocol
 
 
-class AppCoordinator(AppCoordinatorProtocol):
-    def __init__(self, window_factory: AppFactoryProtocol) -> None:
-        super().__init__()
-        self.factory = window_factory
-        self.main_window: MainWindowProtocol | None = None
-        self.main_menu: MainMenuWindowProtocol | None = None
-        self._active_session_scope: ContextWrapper | None = None
-        # self._active_session_coordinator: ReportsCoordinatorProtocol | None = None
+class AppCoordinator:
+    def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
+        self.employee_service = employee_service
+        self.main_window = MainWindow()
+        self.main_menu_window = MainMenuWindow()
+        self.session_coordinator: SessionCoordinatorProtocol | None = None
 
     def start_app(self) -> None:
-        self.main_window = self.factory.main_window
-        self.main_menu = self.factory.main_menu
-        self.main_window.add_window(
-            MainWindows.MAIN_MENU,
-            self.main_menu,
-        )
+        self.main_window.add_window(Windows.MAIN_MENU, self.main_menu_window)
         self.main_window.show()
         self._connect_signals()
 
     def _connect_signals(self) -> None:
-        if self.main_menu and self.main_window:
-            self.main_menu.open_reports_window_signal.connect(self.open_reports_window)
-            self.main_menu.open_protocols_window_signal.connect(self.open_protocols_window)
-            self.main_menu.close_app_signal.connect(self.main_window.close)
+        self.main_menu_window.open_reports_window_signal.connect(self.open_reports_window)
+        self.main_menu_window.open_protocols_window_signal.connect(self.open_protocols_window)
+        self.main_menu_window.close_app_signal.connect(self.main_window.close)
 
     def open_main_menu_window(self) -> None:
-        if self.main_window:
-            self.main_window.change_window(MainWindows.MAIN_MENU)
-        if self._active_session_scope:
-            self._active_session_scope.__exit__(None, None, None)
-            self._active_session_scope = None
-            print("удаляем ссылку на сессионный координатор")
+        self.main_window.change_window(Windows.MAIN_MENU)
+        if self.session_coordinator:
+            self.session_coordinator = None
 
     def open_reports_window(self) -> None:
-        reports_container: Container | None = None
-        self._active_session_scope = self.factory.reports_session
-        try:
-            reports_container = self._active_session_scope.__enter__()
-            reports_coordinator = reports_container.get(ReportsCoordinatorProtocol)
-            reports_coordinator.start_session()
-            reports_window = reports_coordinator.reports_window
-            reports_window.back_main_menu_signal.connect(self.open_main_menu_window)
-            if self.main_window:
-                self.main_window.add_window(MainWindows.REPORTS_WINDOW, reports_window)
-                self.main_window.change_window(MainWindows.REPORTS_WINDOW)
-        except Exception:
-            if reports_container:
-                self._active_session_scope.__exit__(*sys.exc_info())
-            raise
+        self.main_menu_window.plainTextEdit_logs.appendPlainText(
+            "Нажали кнопку открытия окна создания отчётов"
+        )
+        self.session_coordinator = ReportsCoordinator(self.employee_service)
+        self.session_coordinator.session_window.back_main_menu_signal.connect(
+            self.open_main_menu_window
+        )
+        self.session_coordinator.start_session()
+        self.main_window.add_window(Windows.REPORTS_WINDOW, self.session_coordinator.session_window)
+        self.main_window.change_window(Windows.REPORTS_WINDOW)
 
     def open_protocols_window(self) -> None:
-        if self.main_window:
-            self.main_window.change_window(MainWindows.PROTOCOLS_WINDOW)
-            print("Нажали кнопку создания протоколов!!!")
+        self.main_menu_window.plainTextEdit_logs.appendPlainText(
+            "Нажали кнопку открытия окна создания протоколов"
+        )
+        self.main_window.change_window(Windows.PROTOCOLS_WINDOW)

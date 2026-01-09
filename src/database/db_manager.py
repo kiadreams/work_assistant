@@ -1,3 +1,6 @@
+from contextlib import contextmanager
+from typing import Generator
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
@@ -21,6 +24,18 @@ class DatabaseManager:
         Base.metadata.create_all(self.engine)
         print("Таблицы успешно созданы.")
 
-    def create_session(self) -> Session:
-        """Предоставляет сессию и гарантирует ее закрытие."""
-        return self.SessionLocal()
+    @contextmanager
+    def session_scope(self) -> Generator[Session, None, None]:
+        """
+        Предоставляет транзакционную сессию в качестве контекстного менеджера.
+        Автоматически коммитит при успехе и откатывает при ошибке.
+        """
+        session = self.SessionLocal()
+        try:
+            yield session  # Предоставляет сессию для использования в блоке 'with'
+            session.commit()  # Коммит транзакции при успешном выходе из блока 'with'
+        except:
+            session.rollback()  # Откат транзакции в случае исключения
+            raise  # Повторное возбуждение исключения
+        finally:
+            session.close()  # Гарантированное закрытие сессии (возвращение в пул)

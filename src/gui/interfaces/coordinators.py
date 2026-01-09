@@ -1,6 +1,8 @@
 from typing import Protocol
 
-from src.gui.interfaces.views import ReportsWindowProtocol
+from PySide6.QtWidgets import QWidget
+
+from src.gui.interfaces.views import SessionWindowProtocol
 
 
 class AppCoordinatorProtocol(Protocol):
@@ -13,14 +15,14 @@ class AppCoordinatorProtocol(Protocol):
     def open_protocols_window(self) -> None: ...
 
 
-class ReportsCoordinatorProtocol(Protocol):
+class SessionCoordinatorProtocol(Protocol):
     def start_session(self) -> None: ...
 
     @property
-    def reports_window(self) -> ReportsWindowProtocol: ...
+    def session_window(self) -> SessionWindowProtocol | QWidget: ...
 
-    def open_main_menu_window(self) -> None: ...
 
+class ReportsCoordinatorProtocol(SessionCoordinatorProtocol, Protocol):
     def open_divisions_view(self) -> None: ...
 
     def open_staff_view(self) -> None: ...
@@ -34,7 +36,5 @@ class ReportsCoordinatorProtocol(Protocol):
     def open_work_events_view(self) -> None: ...
 
 
-class ProtocolsCoordinatorProtocol(Protocol):
-    def start_protocol_session(self) -> None: ...
-
-    def open_main_menu_window(self) -> None: ...
+class ProtocolsCoordinatorProtocol(SessionCoordinatorProtocol, Protocol):
+    def choose_protocol_temple(self) -> None: ...

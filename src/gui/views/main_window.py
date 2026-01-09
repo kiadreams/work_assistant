@@ -8,7 +8,7 @@ from ...core.constants import PageStructure
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
-    def __init__(self) -> None:
+    def __init__(self, /) -> None:
         super().__init__()
         self.init_content_view()
 

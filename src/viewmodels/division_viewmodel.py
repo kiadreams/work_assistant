@@ -1,18 +1,18 @@
 from PySide6.QtCore import QObject, Signal
 
 from src.core.models.division_domain import DivisionDomain
-from src.di.interfaces import OperationInvokerProtocol
 from src.services.interfaces.services import EmployeeServiceProtocol
 
 
 class DivisionViewModel(QObject):
     data_changed_signal = Signal()
 
-    def __init__(self, operation_invoker: OperationInvokerProtocol) -> None:
+    def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
         super().__init__()
-        self._operation_invoker = operation_invoker
+        self._employee_service = employee_service
         self.__divisions: list[DivisionDomain] = []
         self.__current_division: DivisionDomain | None = None
+        self.init_model_data()
 
     def init_model_data(self) -> None:
         self.load_all_divisions()
@@ -38,17 +38,15 @@ class DivisionViewModel(QObject):
         self.__current_division = value
 
     def load_all_divisions(self) -> None:
-        with self._operation_invoker.request_container() as container:
-            employee_service = container.get(EmployeeServiceProtocol)
-            self.divisions = employee_service.load_all_divisions()
+        divisions = self._employee_service.load_all_divisions()
+        print(divisions)
+        self.divisions = divisions
 
     def add_new_division(self, division_data: tuple[str, str]) -> None:
         name, full_name = division_data
         division = DivisionDomain(name=name, full_name=full_name)
         self.divisions.append(division)
-        with self._operation_invoker.request_container() as container:
-            employee_service = container.get(EmployeeServiceProtocol)
-            employee_service.add_new_division(division)
+        self._employee_service.add_new_division(division)
 
     @property
     def first_division(self) -> DivisionDomain | None:
@@ -60,9 +58,7 @@ class DivisionViewModel(QObject):
     def is_current_division_deleted(self) -> bool:
         if self.__current_division is None:
             return False
-        with self._operation_invoker.request_container() as container:
-            employee_service = container.get(EmployeeServiceProtocol)
-            return employee_service.is_division_deleted(self.__current_division)  # type: ignore[no-any-return]
+        return self._employee_service.is_division_deleted(self.__current_division)
 
     def choose_current_division(self, division_name: str) -> None:
         division_names = [division.name for division in self.__divisions]
@@ -74,6 +70,4 @@ class DivisionViewModel(QObject):
     def delete_current_division(self) -> None:
         if self.__current_division is not None and self.is_current_division_deleted:
             self.__divisions.remove(self.__current_division)
-            with self._operation_invoker.request_container() as container:
-                employee_service = container.get(EmployeeServiceProtocol)
-                employee_service.delete_division(self.__current_division)
+            self._employee_service.delete_division(self.__current_division)
