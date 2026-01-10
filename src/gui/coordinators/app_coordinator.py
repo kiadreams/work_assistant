@@ -1,5 +1,5 @@
+from gui.coordinators.reports_coordinator import ReportsCoordinator
 from src.gui.constants import MainWindows as Windows
-from src.gui.coordinators.reports_coordinator import ReportsCoordinator
 from src.gui.interfaces.coordinators import SessionCoordinatorProtocol
 from src.gui.views import MainMenuWindow, MainWindow
 from src.services.interfaces.services import EmployeeServiceProtocol
@@ -32,10 +32,10 @@ class AppCoordinator:
             "Нажали кнопку открытия окна создания отчётов"
         )
         self.session_coordinator = ReportsCoordinator(self.employee_service)
+        self.session_coordinator.start_session()
         self.session_coordinator.session_window.back_main_menu_signal.connect(
             self.open_main_menu_window
         )
-        self.session_coordinator.start_session()
         self.main_window.add_window(Windows.REPORTS_WINDOW, self.session_coordinator.session_window)
         self.main_window.change_window(Windows.REPORTS_WINDOW)
 

@@ -2,6 +2,7 @@ from typing import Protocol
 
 from PySide6.QtWidgets import QWidget
 
+from gui.interfaces.views import BaseViewProtocol
 from src.gui.interfaces.views import SessionWindowProtocol
 
 
@@ -16,7 +17,7 @@ class AppCoordinatorProtocol(Protocol):
 
 
 class SessionCoordinatorProtocol(Protocol):
-    def start_session(self) -> None: ...
+    def __start_session(self) -> None: ...
 
     @property
     def session_window(self) -> SessionWindowProtocol | QWidget: ...
@@ -38,3 +39,13 @@ class ReportsCoordinatorProtocol(SessionCoordinatorProtocol, Protocol):
 
 class ProtocolsCoordinatorProtocol(SessionCoordinatorProtocol, Protocol):
     def choose_protocol_temple(self) -> None: ...
+
+
+class ViewCoordinatorProtocol(Protocol):
+    def start_view(self) -> None: ...
+
+    @property
+    def view(self) -> BaseViewProtocol | QWidget: ...
+
+class DivisionViewCoordinatorProtocol(ViewCoordinatorProtocol, Protocol):
+    pass

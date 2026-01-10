@@ -16,7 +16,7 @@ if __name__ == "__main__":
     db_manager = DatabaseManager()
     employee_service = EmployeeService(DivisionRepository(db_manager))
 
-    # db_manager.create_db_tables()
+    db_manager.create_db_tables()
 
     app = QApplication(sys.argv)
     coordinator = AppCoordinator(employee_service)

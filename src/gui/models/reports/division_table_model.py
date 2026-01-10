@@ -7,7 +7,7 @@ class DivisionTableModel(QAbstractTableModel):
     def __init__(self, viewmodel: DivisionViewModelProtocol, parent: QObject | None = None):
         super().__init__(parent)
         self.vm = viewmodel
-        self.headers = ["№ п/п", "Служба", "Полное наименование"]
+        self.headers = ["№\nп/п", "Служба", "Полное наименование"]
         self.attributes = ["", "name", "full_name"]
         self.vm.data_changed_signal.connect(self.layoutChanged.emit)
 

@@ -6,90 +6,85 @@
 from PySide6 import QtCore
 
 qt_resource_data = b"\
-\x00\x00\x00\x84\
+\x00\x00\x00{\
 /\
-*\x0d\x0a * report_wid\
-get_style - Qt S\
-tyle Sheet\x0d\x0a * C\
-reated: 21.12.20\
-25\x0d\x0a */\x0d\x0a\x0d\x0a/* Ba\
-se styling */\x0d\x0a\x0d\
-\x0a\x0d\x0a/* Add your Q\
-SS styles here *\
-/\x0d\x0a\
+*\x0a * report_widg\
+et_style - Qt St\
+yle Sheet\x0a * Cre\
+ated: 21.12.2025\
+\x0a */\x0a\x0a/* Base st\
+yling */\x0a\x0a\x0a/* Ad\
+d your QSS style\
+s here */\x0a\
 \x00\x00\x00\x00\
 \
-\x00\x00\x03G\
+\x00\x00\x03\x1f\
 Q\
-MainWindow {\x0d\x0a  \
-  background-col\
-or: qlineargradi\
-ent(spread:pad, \
-x1:0, y1:0, x2:1\
-, y2:1, stop:0 r\
-gba(188, 81, 255\
-, 247), stop:0.9\
-59596 rgba(140, \
-255, 255, 255));\
-\x0d\x0a}\x0d\x0a\x0d\x0aQPushButt\
-on {\x0d\x0a    font-s\
-ize: 14px;\x0d\x0a    \
-padding: 10px;\x0d\x0a\
-    text-transfo\
-rm: uppercase;\x0d\x0a\
-    border-radiu\
-s: 10px;\x0d\x0a    ba\
-ckground-color: \
-#f0f0f0;\x0d\x0a}\x0d\x0a\x0d\x0aQ\
-PushButton:hover\
- {\x0d\x0a    backgrou\
-nd-color: steelb\
-lue;\x0d\x0a    border\
--color: darkblue\
-;\x0d\x0a    color: wh\
-ite;\x0d\x0a}\x0d\x0a\x0d\x0aQPush\
-Button:checked {\
-\x0d\x0a    background\
--color: steelblu\
-e;\x0d\x0a    border-c\
-olor: darkblue;\x0d\
-\x0a    color: whit\
-e;\x0d\x0a}\x0d\x0a\x0d\x0aQPushBu\
-tton:pressed {\x0d\x0a\
-    background-c\
-olor: #3366FF;\x0d\x0a\
+MainWindow {\x0a   \
+ background-colo\
+r: qlineargradie\
+nt(spread:pad, x\
+1:0, y1:0, x2:1,\
+ y2:1, stop:0 rg\
+ba(188, 81, 255,\
+ 247), stop:0.95\
+9596 rgba(140, 2\
+55, 255, 255));\x0a\
+}\x0a\x0aQPushButton {\
+\x0a    font-size: \
+14px;\x0a    paddin\
+g: 10px;\x0a    tex\
+t-transform: upp\
+ercase;\x0a    bord\
+er-radius: 10px;\
+\x0a    background-\
+color: #f0f0f0;\x0a\
+}\x0a\x0aQPushButton:h\
+over {\x0a    backg\
+round-color: ste\
+elblue;\x0a    bord\
+er-color: darkbl\
+ue;\x0a    color: w\
+hite;\x0a}\x0a\x0aQPushBu\
+tton:checked {\x0a \
+   background-co\
+lor: steelblue;\x0a\
     border-color\
-: #3366FF;\x0d\x0a    \
-color: white;\x0d\x0a}\
-\x0d\x0a\x0d\x0aQPushButton#\
-psb_exit {\x0d\x0a    \
-padding: 5px;\x0d\x0a}\
-\x0d\x0a\x0d\x0aQLabel#lbl_a\
-pp_title {\x0d\x0a    \
-font-size: 22px;\
-\x0d\x0a    font-weigh\
-t: bold;\x0d\x0a    co\
-lor: blue;\x0d\x0a    \
-text-transform: \
-uppercase;\x0d\x0a    \
-text-align: cent\
-er;\x0d\x0a}\
-\x00\x00\x00\xd9\
+: darkblue;\x0a    \
+color: white;\x0a}\x0a\
+\x0aQPushButton:pre\
+ssed {\x0a    backg\
+round-color: #33\
+66FF;\x0a    border\
+-color: #3366FF;\
+\x0a    color: whit\
+e;\x0a}\x0a\x0aQPushButto\
+n#psb_exit {\x0a   \
+ padding: 5px;\x0a}\
+\x0a\x0aQLabel#lbl_app\
+_title {\x0a    fon\
+t-size: 22px;\x0a  \
+  font-weight: b\
+old;\x0a    color: \
+blue;\x0a    text-t\
+ransform: upperc\
+ase;\x0a    text-al\
+ign: center;\x0a}\
+\x00\x00\x00\xce\
 /\
-*\x0d\x0a * report_wid\
-get_style - Qt S\
-tyle Sheet\x0d\x0a * C\
-reated: 21.12.20\
-25\x0d\x0a */\x0d\x0a\x0d\x0a/* Ba\
-se styling */\x0d\x0a#\
-stackedWidget_ty\
-pes_of_reports {\
-\x0d\x0a    background\
--color: rgba(200\
-, 200, 200, 125)\
-;\x0d\x0a}\x0d\x0a\x0d\x0a/* Add y\
-our QSS styles h\
-ere */\x0d\x0a\
+*\x0a * report_widg\
+et_style - Qt St\
+yle Sheet\x0a * Cre\
+ated: 21.12.2025\
+\x0a */\x0a\x0a/* Base st\
+yling */\x0a#stacke\
+dWidget_types_of\
+_reports {\x0a    b\
+ackground-color:\
+ rgba(200, 200, \
+200, 125);\x0a}\x0a\x0a/*\
+ Add your QSS st\
+yles here */\x0a\
 "
 
 qt_resource_name = b"\
@@ -125,14 +120,14 @@ qt_resource_struct = b"\
 \x00\x00\x00\x00\x00\x00\x00\x00\
 \x00\x00\x00\x00\x00\x02\x00\x00\x00\x04\x00\x00\x00\x02\
 \x00\x00\x00\x00\x00\x00\x00\x00\
-\x00\x00\x00F\x00\x00\x00\x00\x00\x01\x00\x00\x00\x88\
-\x00\x00\x01\x9bK#\x8e\xe4\
-\x00\x00\x00\xa2\x00\x00\x00\x00\x00\x01\x00\x00\x03\xd7\
-\x00\x00\x01\x9bK#\x8e\xe4\
+\x00\x00\x00F\x00\x00\x00\x00\x00\x01\x00\x00\x00\x7f\
+\x00\x00\x01\x9b\xa7\xef\xdd\x0b\
+\x00\x00\x00\xa2\x00\x00\x00\x00\x00\x01\x00\x00\x03\xa6\
+\x00\x00\x01\x9b\xa7\xef\xdd\x0c\
 \x00\x00\x00\x12\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\
-\x00\x00\x01\x9bK#\x8e\xe4\
-\x00\x00\x00r\x00\x00\x00\x00\x00\x01\x00\x00\x00\x8c\
-\x00\x00\x01\x9bK#\x8e\xe4\
+\x00\x00\x01\x9b\xa7\xef\xdd\x0c\
+\x00\x00\x00r\x00\x00\x00\x00\x00\x01\x00\x00\x00\x83\
+\x00\x00\x01\x9b\xa7\xef\xdd\x0c\
 "
 
 def qInitResources():

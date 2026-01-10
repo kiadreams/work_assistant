@@ -11,7 +11,6 @@ class EmployeeService:
 
     def load_all_divisions(self) -> list[DivisionDomain]:
         divisions = self.division_repository.all_divisions
-        print(divisions)
         return divisions
 
     def add_new_division(self, division: DivisionDomain) -> None:

@@ -8,17 +8,21 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QDateEdit, QDateTimeEdit,
-    QFrame, QHBoxLayout, QHeaderView, QLabel,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtCore import QCoreApplication, QDate, QMetaObject, Qt
+from PySide6.QtWidgets import (
+    QComboBox,
+    QDateEdit,
+    QDateTimeEdit,
+    QFrame,
+    QHBoxLayout,
+    QLabel,
+    QPushButton,
+    QSizePolicy,
+    QSpacerItem,
+    QTableWidget,
+    QVBoxLayout,
+)
+
 
 class Ui_OrderReportWidget(object):
     def setupUi(self, OrderReportWidget):

@@ -1,11 +1,10 @@
 from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 
+from src.core.constants import PageStructure
 from src.gui.constants import QtStyleResources, ReportsViews
 from src.gui.generated import Ui_ReportsWindowWidget
 from src.utils.qt_recource_loader import ResourceLoader
-
-from ...core.constants import PageStructure
 
 
 class ReportsWindow(QtWidgets.QWidget, Ui_ReportsWindowWidget):
