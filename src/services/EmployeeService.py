@@ -1,4 +1,4 @@
-from src.core.models.division_domain import DivisionDomain
+from src.core.models.domain_models import DivisionDomain
 from src.database.interfaces.repositories import DivisionRepositoryProtocol
 
 

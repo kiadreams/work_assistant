@@ -1,24 +1,11 @@
-from gui.views.reports.division_report_view import DivisionReportView
-from gui.views.reports.order_report_view import OrderReportView
-from gui.views.reports.staff_report_view import StaffReportView
-from gui.views.reports.work_event_report_view import WorkEventReportView
-from gui.views.reports.work_report_view import WorkReportView
-from gui.views.reports.work_type_report_view import WorkTypeReportView
-
-from .dialog_edit_view import DialogEditView
-from .main_menu_window import MainMenuWindow
-from .main_window import MainWindow
-from .reports_window import ReportsWindow
+from src.gui.views.dialog_edit_view import DialogEditView
+from src.gui.views.main_menu_window import MainMenuWindow
+from src.gui.views.main_window import MainWindow
+from src.gui.views.reports_window import ReportsWindow
 
 __all__ = [
     "MainWindow",
     "MainMenuWindow",
     "ReportsWindow",
-    "DivisionReportView",
-    "StaffReportView",
-    "WorkEventReportView",
-    "WorkReportView",
-    "WorkTypeReportView",
     "DialogEditView",
-    "OrderReportView",
 ]

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from src.core.models.division_domain import DivisionDomain
+from src.core.models.domain_models import DivisionDomain
 
 
 class EmployeeServiceProtocol(Protocol):

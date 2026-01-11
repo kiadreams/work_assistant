@@ -1,14 +1,14 @@
-from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
+from PySide6.QtWidgets import QButtonGroup, QPushButton, QVBoxLayout, QWidget
 
 from src.core.constants import PageStructure
 from src.gui.constants import QtStyleResources, ReportsViews
 from src.gui.generated import Ui_ReportsWindowWidget
+from src.gui.views.base_views import SessionWindow
 from src.utils.qt_recource_loader import ResourceLoader
 
 
-class ReportsWindow(QtWidgets.QWidget, Ui_ReportsWindowWidget):
-    back_main_menu_signal = Signal()
+class ReportsWindow(SessionWindow, Ui_ReportsWindowWidget):
     open_divisions_view_signal = Signal()
     open_staff_view_signal = Signal()
     open_work_types_view_signal = Signal()
@@ -42,14 +42,14 @@ class ReportsWindow(QtWidgets.QWidget, Ui_ReportsWindowWidget):
         self.pushButton_orders.clicked.connect(self.open_orders_view_signal.emit)
         self.pushButton_work_events.clicked.connect(self.open_work_events_view_signal.emit)
 
-    def add_view(self, index: PageStructure, widget: QtWidgets.QWidget) -> None:
+    def add_view(self, index: PageStructure, widget: QWidget) -> None:
         layout_widget = self.get_widget_to_insert(widget)
         self.stackedWidget_report_types.insertWidget(index, layout_widget)
 
     def change_view(self, index: int) -> None:
         self.stackedWidget_report_types.setCurrentIndex(index)
 
-    def _get_report_buttons_group(self) -> list[tuple[QtWidgets.QPushButton, int]]:
+    def _get_report_buttons_group(self) -> list[tuple[QPushButton, int]]:
         return [
             (self.pushButton_divisions, ReportsViews.DIVISIONS),
             (self.pushButton_staff, ReportsViews.STAFF),
@@ -60,8 +60,8 @@ class ReportsWindow(QtWidgets.QWidget, Ui_ReportsWindowWidget):
         ]
 
     @staticmethod
-    def get_widget_to_insert(widget: QtWidgets.QWidget) -> QtWidgets.QWidget:
-        layout = QtWidgets.QVBoxLayout()
+    def get_widget_to_insert(widget: QWidget) -> QWidget:
+        layout = QVBoxLayout()
         layout.addWidget(widget)
         widget.setLayout(layout)
         return widget
@@ -69,10 +69,10 @@ class ReportsWindow(QtWidgets.QWidget, Ui_ReportsWindowWidget):
     @staticmethod
     def create_button_group(
         name_group: str,
-        elements: list[tuple[QtWidgets.QPushButton, int]],
+        elements: list[tuple[QPushButton, int]],
         exclusive: bool = True,
-    ) -> QtWidgets.QButtonGroup:
-        button_group = QtWidgets.QButtonGroup()
+    ) -> QButtonGroup:
+        button_group = QButtonGroup()
         button_group.setExclusive(exclusive)
         for element in elements:
             button, index = element

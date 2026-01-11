@@ -1,12 +1,12 @@
-from PySide6 import QtWidgets
 from PySide6.QtCore import Signal
 
 from src.gui.constants import QtStyleResources
 from src.gui.generated import Ui_MainMenuWidget
+from src.gui.views.base_views import BaseView
 from src.utils.qt_recource_loader import ResourceLoader
 
 
-class MainMenuWindow(QtWidgets.QWidget, Ui_MainMenuWidget):
+class MainMenuWindow(BaseView, Ui_MainMenuWidget):
     open_reports_window_signal = Signal()
     open_protocols_window_signal = Signal()
     close_app_signal = Signal()

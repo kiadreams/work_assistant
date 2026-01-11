@@ -10,7 +10,7 @@ class DialogEditView(QtWidgets.QDialog, Ui_DialogEditData):
         self.__setup_connections()
 
     def init_content_widget(self) -> None:
-        self.setupUi(self)
+        self.setupUi(self)  # type: ignore[no-untyped-call]
         # self._init_widget_style(QtStyleResources.REPORT_WIDGET_STYLE)
 
     def __setup_connections(self) -> None:

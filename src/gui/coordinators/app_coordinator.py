@@ -1,5 +1,5 @@
-from gui.coordinators.reports_coordinator import ReportsCoordinator
 from src.gui.constants import MainWindows as Windows
+from src.gui.coordinators.reports_coordinator import ReportsCoordinator
 from src.gui.interfaces.coordinators import SessionCoordinatorProtocol
 from src.gui.views import MainMenuWindow, MainWindow
 from src.services.interfaces.services import EmployeeServiceProtocol

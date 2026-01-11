@@ -1,22 +1,19 @@
-from PySide6.QtWidgets import QWidget
-
-from gui.interfaces.views import BaseViewProtocol
-from gui.views import WorkReportView
-from services.interfaces.services import EmployeeServiceProtocol
+from src.gui.views.reports import WorkReportView
+from src.services.interfaces.services import EmployeeServiceProtocol
 
 
 class WorksCoordinator:
     def __init__(self, employee_service: EmployeeServiceProtocol):
         self.employee_service = employee_service
-        self._view = WorkReportView
+        self._view = WorkReportView()
 
     def start_view(self) -> None:
-        # self._view = DivisionReportView(self.table_model)
+        self._view.init_content_view()
         self._connect_signals()
 
     @property
-    def view(self) -> BaseViewProtocol | QWidget:
+    def view(self) -> WorkReportView:
         return self._view
 
-    def _connect_signals(self):
+    def _connect_signals(self) -> None:
         pass

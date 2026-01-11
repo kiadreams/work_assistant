@@ -1,9 +1,9 @@
-from typing import Protocol
+from __future__ import annotations
 
-from PySide6.QtWidgets import QWidget
+from typing import TYPE_CHECKING, Protocol
 
-from gui.interfaces.views import BaseViewProtocol
-from src.gui.interfaces.views import SessionWindowProtocol
+if TYPE_CHECKING:
+    from src.gui.views.base_views import BaseView, SessionWindow
 
 
 class AppCoordinatorProtocol(Protocol):
@@ -17,10 +17,10 @@ class AppCoordinatorProtocol(Protocol):
 
 
 class SessionCoordinatorProtocol(Protocol):
-    def __start_session(self) -> None: ...
+    def start_session(self) -> None: ...
 
     @property
-    def session_window(self) -> SessionWindowProtocol | QWidget: ...
+    def session_window(self) -> SessionWindow: ...
 
 
 class ReportsCoordinatorProtocol(SessionCoordinatorProtocol, Protocol):
@@ -45,7 +45,8 @@ class ViewCoordinatorProtocol(Protocol):
     def start_view(self) -> None: ...
 
     @property
-    def view(self) -> BaseViewProtocol | QWidget: ...
+    def view(self) -> BaseView: ...
+
 
 class DivisionViewCoordinatorProtocol(ViewCoordinatorProtocol, Protocol):
     pass

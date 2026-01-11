@@ -1,10 +1,7 @@
-from PySide6.QtWidgets import QWidget
-
-from gui.interfaces.views import BaseViewProtocol
-from gui.models.reports.division_table_model import DivisionTableModel
-from gui.views import DivisionReportView
-from services.interfaces.services import EmployeeServiceProtocol
-from viewmodels import DivisionViewModel
+from src.gui.models.reports.division_table_model import DivisionTableModel
+from src.gui.views.reports import DivisionReportView
+from src.services.interfaces.services import EmployeeServiceProtocol
+from src.viewmodels import DivisionViewModel
 
 
 class DivisionsCoordinator:
@@ -15,14 +12,15 @@ class DivisionsCoordinator:
         self._view = DivisionReportView(self.table_model)
 
     def start_view(self) -> None:
-        # self._view = DivisionReportView(self.table_model)
         self._connect_signals()
+        self._view.init_content_view()
+        self.vm.init_model_data()
 
     @property
-    def view(self) -> BaseViewProtocol | QWidget:
+    def view(self) -> DivisionReportView:
         return self._view
 
-    def _connect_signals(self):
+    def _connect_signals(self) -> None:
         self._view.show_all_divisions_signal.connect(self.handle_show_divisions)
         self._view.show_all_departments_signal.connect(self.handle_show_departments)
 
@@ -30,5 +28,4 @@ class DivisionsCoordinator:
         self._view.show_all_divisions()
 
     def handle_show_departments(self) -> None:
-        print("Отображаем таблицу отделов")
         self._view.show_all_departments()
