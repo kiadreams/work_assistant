@@ -115,7 +115,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_show_all_department">
+          <widget class="QPushButton" name="pushButton_show_departments_of_division">
            <property name="text">
             <string>Показать группы выбранной службы</string>
            </property>

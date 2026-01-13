@@ -9,12 +9,12 @@ class DivisionRepository:
     def __init__(self, db_manager: DatabaseManagerProtocol) -> None:
         self.db_manager = db_manager
 
-    def get_division_by_id(self, id: int) -> DivisionDomain | None:
-        stmt = select(Division).where(Division.id == id)
+    def get_division_by_id(self, division_id: int) -> DivisionDomain | None:
+        stmt = select(Division).where(Division.id == division_id)
         with self.db_manager.session_scope() as session:
             division = session.execute(stmt).scalar()
             print(division)
-        return DivisionDomain(id=1000, name=name, full_name=None)
+        return DivisionDomain(id=1000, name="name", full_name=None)
 
     @property
     def all_divisions(self) -> list[DivisionDomain]:
@@ -24,5 +24,5 @@ class DivisionRepository:
             divisions = [DivisionDomain.model_validate(d) for d in result]
         return divisions
 
-    def add_new_division(self, division_domain: DivisionDomain) -> None:
+    def add_new_division(self, division: DivisionDomain) -> None:
         pass

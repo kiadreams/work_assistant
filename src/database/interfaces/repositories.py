@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, ContextManager, Protocol
+from typing import TYPE_CHECKING, ContextManager, Protocol, Generator
 
 from sqlalchemy.orm import Session
 
 if TYPE_CHECKING:
-    from src.core.models.division_domain import DivisionDomain
+    from src.core.models.domain_models import DivisionDomain
 
 
 class DatabaseManagerProtocol(Protocol):
@@ -15,7 +15,7 @@ class DatabaseManagerProtocol(Protocol):
 
 
 class DivisionRepositoryProtocol(Protocol):
-    def get_division_by_name(self, name: str) -> DivisionDomain | None: ...
+    def get_division_by_id(self, division_id: int) -> DivisionDomain | None: ...
 
     @property
     def all_divisions(self) -> list[DivisionDomain]: ...
