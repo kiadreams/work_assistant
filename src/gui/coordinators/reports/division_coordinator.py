@@ -1,7 +1,9 @@
 from src.gui.models.reports.division_report_table_models import (
-    DivisionReportDivisionTableModel,
     DivisionReportDepartmentTableModel,
+    DivisionReportDivisionTableModel,
 )
+from src.gui.views import DialogEditView
+from src.gui.views.dialogs.base_dialog_view import BaseDialogView
 from src.gui.views.reports import DivisionReportView
 from src.services.interfaces.services import EmployeeServiceProtocol
 from src.viewmodels import DivisionViewModel
@@ -14,6 +16,7 @@ class DivisionsCoordinator:
         self.division_table_model = DivisionReportDivisionTableModel(self.vm)
         self.department_table_model = DivisionReportDepartmentTableModel(self.vm)
         self._view = DivisionReportView(self.division_table_model, self.department_table_model)
+        self.dialog_view: BaseDialogView | None = None
 
     def start_view(self) -> None:
         self._connect_signals()
@@ -25,4 +28,8 @@ class DivisionsCoordinator:
         return self._view
 
     def _connect_signals(self) -> None:
-        pass
+        self.view.add_new_division_signal.connect(self.handle_add_new_division_button)
+
+    def handle_add_new_division_button(self) -> None:
+        self.dialog_view = DialogEditView()
+        self.dialog_view.exec()

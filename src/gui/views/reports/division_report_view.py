@@ -4,8 +4,8 @@ from PySide6.QtWidgets import QHeaderView
 from src.gui.constants import QtStyleResources
 from src.gui.generated import Ui_DivisionReportWidget
 from src.gui.models.reports.division_report_table_models import (
-    DivisionReportDivisionTableModel,
     DivisionReportDepartmentTableModel,
+    DivisionReportDivisionTableModel,
 )
 from src.gui.views.base_views import BaseView
 from src.utils.qt_recource_loader import ResourceLoader
@@ -122,7 +122,6 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
         department_names, current_department_name = self.vm.department_name_data
         self.comboBox_department_list.clear()
         self.comboBox_department_list.addItems(department_names)
-        print(current_department_name)
         self.comboBox_department_list.setCurrentText(current_department_name)
         self.comboBox_department_list.blockSignals(False)
         self.update_department_button_states()

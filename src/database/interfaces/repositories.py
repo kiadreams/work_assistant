@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, ContextManager, Protocol, Generator
+from typing import TYPE_CHECKING, ContextManager, Protocol
 
 from sqlalchemy.orm import Session
 

@@ -1,7 +1,6 @@
 from PySide6.QtCore import QObject, Signal
 
-from core.models.domain_models import DepartmentDomain
-from src.core.models.domain_models import DivisionDomain
+from src.core.models.domain_models import DepartmentDomain, DivisionDomain
 from src.services.interfaces.services import EmployeeServiceProtocol
 
 
@@ -108,11 +107,11 @@ class DivisionViewModel(QObject):
     @property
     def division_name_data(self) -> tuple[list[str], str]:
         division_names = [d.name for d in self.divisions] if self.divisions else []
-        current_division_name = self.current_division.name if self.current_division else ''
+        current_division_name = self.current_division.name if self.current_division else ""
         return division_names, current_division_name
 
     @property
     def department_name_data(self) -> tuple[list[str], str]:
         department_names = [d.name for d in self.departments] if self.departments else []
-        current_department_name = self.current_department.name if self.current_department else ''
+        current_department_name = self.current_department.name if self.current_department else ""
         return department_names, current_department_name

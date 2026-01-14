@@ -2,7 +2,7 @@ from typing import Protocol
 
 from PySide6.QtCore import SignalInstance
 
-from src.core.models.domain_models import DivisionDomain, DepartmentDomain
+from src.core.models.domain_models import DepartmentDomain, DivisionDomain
 
 
 class BaseViewModelProtocol(Protocol):

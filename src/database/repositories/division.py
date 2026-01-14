@@ -12,8 +12,9 @@ class DivisionRepository:
     def get_division_by_id(self, division_id: int) -> DivisionDomain | None:
         stmt = select(Division).where(Division.id == division_id)
         with self.db_manager.session_scope() as session:
-            division = session.execute(stmt).scalar()
-        return DivisionDomain(id=1000, name="name", full_name=None)
+            result = session.execute(stmt).scalar()
+            division = DivisionDomain.model_validate(result)
+        return division
 
     @property
     def all_divisions(self) -> list[DivisionDomain]:
