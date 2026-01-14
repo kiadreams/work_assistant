@@ -13,7 +13,6 @@ class DivisionRepository:
         stmt = select(Division).where(Division.id == division_id)
         with self.db_manager.session_scope() as session:
             division = session.execute(stmt).scalar()
-            print(division)
         return DivisionDomain(id=1000, name="name", full_name=None)
 
     @property

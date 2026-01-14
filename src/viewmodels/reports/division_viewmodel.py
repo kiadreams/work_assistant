@@ -36,8 +36,8 @@ class DivisionViewModel(QObject):
     @current_division.setter
     def current_division(self, division: DivisionDomain | None) -> None:
         self.__current_division = division
-        self.division_data_changed_signal.emit()
         self.departments = division.departments if division else []
+        self.division_data_changed_signal.emit()
 
     @property
     def departments(self) -> list[DepartmentDomain]:
@@ -104,3 +104,15 @@ class DivisionViewModel(QObject):
     def change_current_department(self, department_name: str) -> None:
         department = next((d for d in self.departments if d.name == department_name), None)
         self.current_department = department
+
+    @property
+    def division_name_data(self) -> tuple[list[str], str]:
+        division_names = [d.name for d in self.divisions] if self.divisions else []
+        current_division_name = self.current_division.name if self.current_division else ''
+        return division_names, current_division_name
+
+    @property
+    def department_name_data(self) -> tuple[list[str], str]:
+        department_names = [d.name for d in self.departments] if self.departments else []
+        current_department_name = self.current_department.name if self.current_department else ''
+        return department_names, current_department_name

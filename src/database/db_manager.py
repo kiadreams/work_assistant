@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 from typing import Generator
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, insert
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 from .config import DATABASE_URL
@@ -39,3 +39,34 @@ class DatabaseManager:
             raise  # Повторное возбуждение исключения
         finally:
             session.close()  # Гарантированное закрытие сессии (возвращение в пул)
+
+    def get_all_data_from_db(self) -> dict[str, str]:
+        """Извлекает данные из всех таблиц, определенных в Base."""
+        all_data = {}
+        with self.session_scope() as session:
+            for mapper in Base.registry.mappers:
+                model_class = mapper.class_
+                table_name = model_class.__tablename__
+                print(f"Извлечение данных из таблицы: {table_name}")
+                query_result = session.query(model_class).all()
+                data_as_dicts = []
+                for row in query_result:
+                    clean_record = {column.name: getattr(row, column.name) for column in
+                                    mapper.columns}
+                    data_as_dicts.append(clean_record)
+                all_data[table_name] = data_as_dicts
+        return all_data
+
+    def insert_data_to_table_db(self, table_name: str, data_to_insert: dict[str, str]) -> None:
+        with self.engine.connect() as connection:
+            target_table = None
+            for mapper in Base.registry.mappers:
+                if mapper.tables[0].name == table_name:
+                    target_table = mapper.tables[0]
+                    break
+            if target_table is not None and data_to_insert:
+                print(f"Импорт {len(data_to_insert)} записей в таблицу {table_name}...")
+                # Используем bulk_insert_mappings для быстрой вставки
+                connection.execute(insert(target_table), data_to_insert)
+            connection.commit()
+

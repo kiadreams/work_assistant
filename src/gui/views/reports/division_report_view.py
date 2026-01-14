@@ -32,12 +32,8 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
     def init_content_view(self) -> None:
         self.setupUi(self)  # type: ignore[no-untyped-call]
         self.setStyleSheet(ResourceLoader(QtStyleResources.REPORT_WIDGET_STYLE).load_style())
-        self.comboBox_division_list.setModel(self.division_model)
-        self.comboBox_division_list.setModelColumn(1)
-        self.comboBox_department_list.setModel(self.department_model)
-        self.comboBox_department_list.setModelColumn(1)
-        self.set_current_division()
-        self.set_current_department()
+        self.reload_division_combobox_items()
+        self.reload_department_combobox_items()
         self.__setup_connections()
 
     def __setup_connections(self) -> None:
@@ -57,8 +53,8 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
             self.handle_combobox_department_change
         )
 
-        self.vm.division_data_changed_signal.connect(self.set_current_division)
-        self.vm.department_data_changed_signal.connect(self.set_current_department)
+        self.vm.division_data_changed_signal.connect(self.reload_division_combobox_items)
+        self.vm.department_data_changed_signal.connect(self.reload_department_combobox_items)
 
     def show_all_divisions(self) -> None:
         self.tableView_division_data_table.setModel(self.division_model)
@@ -77,24 +73,6 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
 
     def handle_combobox_department_change(self, department_name: str) -> None:
         self.vm.change_current_department(department_name)
-
-    def set_current_division(self) -> None:
-        current_division = self.vm.current_division
-        print("устанавливаем текущий division", current_division)
-        if current_division:
-            self.comboBox_division_list.blockSignals(True)
-            self.comboBox_division_list.setCurrentText(current_division.name)
-            self.comboBox_division_list.blockSignals(False)
-        self.update_division_button_states()
-
-    def set_current_department(self) -> None:
-        current_department = self.vm.current_department
-        print("устанавливаем текущий department", current_department)
-        if current_department:
-            self.comboBox_department_list.blockSignals(True)
-            self.comboBox_department_list.setCurrentText(current_department.name)
-            self.comboBox_department_list.blockSignals(False)
-        self.update_department_button_states()
 
     def update_button_delete_division_states(self) -> None:
         enabled = self.vm.can_delete_current_division
@@ -129,3 +107,22 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
         self.update_button_show_departments_of_division_states()
         self.update_button_delete_department_states()
         self.update_button_edit_department_states()
+
+    def reload_division_combobox_items(self) -> None:
+        self.comboBox_division_list.blockSignals(True)
+        division_names, current_division_name = self.vm.division_name_data
+        self.comboBox_division_list.clear()
+        self.comboBox_division_list.addItems(division_names)
+        self.comboBox_division_list.setCurrentText(current_division_name)
+        self.comboBox_division_list.blockSignals(False)
+        self.update_division_button_states()
+
+    def reload_department_combobox_items(self) -> None:
+        self.comboBox_department_list.blockSignals(True)
+        department_names, current_department_name = self.vm.department_name_data
+        self.comboBox_department_list.clear()
+        self.comboBox_department_list.addItems(department_names)
+        print(current_department_name)
+        self.comboBox_department_list.setCurrentText(current_department_name)
+        self.comboBox_department_list.blockSignals(False)
+        self.update_department_button_states()
