@@ -1,0 +1,16 @@
+from PySide6.QtWidgets import QWidget, QLineEdit, QFormLayout
+
+
+class DivisionFormWidget(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.division_name = QLineEdit()
+        self.division_full_name = QLineEdit()
+
+        layout = QFormLayout()
+        layout.addRow("Название службы:", self.division_name)
+        layout.addRow("Полное наименование службы:", self.division_full_name)
+        self.setLayout(layout)
+
+    def get_data(self):
+        return {"name": self.division_name.text(), "full_name": self.division_full_name.text()}

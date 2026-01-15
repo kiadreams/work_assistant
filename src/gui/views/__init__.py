@@ -1,4 +1,4 @@
-from src.gui.views.dialogs.dialog_edit_view import DialogEditView
+from src.gui.views.dialogs.dialog_add_division import DialogEditView
 from src.gui.views.main_menu_window import MainMenuWindow
 from src.gui.views.main_window import MainWindow
 from src.gui.views.reports_window import ReportsWindow

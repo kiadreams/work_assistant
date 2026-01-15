@@ -31,5 +31,6 @@ class DivisionsCoordinator:
         self.view.add_new_division_signal.connect(self.handle_add_new_division_button)
 
     def handle_add_new_division_button(self) -> None:
-        self.dialog_view = DialogEditView()
+        self.dialog_view = DialogEditView(self._view)
+        self.dialog_view.initContentWidget()
         self.dialog_view.exec()
