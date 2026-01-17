@@ -23,12 +23,14 @@ if TYPE_CHECKING:
 class Department(MappedAsDataclass, Base):
     __tablename__ = "departments"
 
-    id: Mapped[int] = mapped_column(primary_key=True, init=False)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
-    division_id: Mapped[int] = mapped_column(ForeignKey("divisions.id"))
 
     division: Mapped[Division] = relationship(back_populates="departments")
     employee_positions: Mapped[list[EmployeePosition]] = relationship(
         back_populates="department", default_factory=list
     )
     full_name: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)
+    division_id: Mapped[int] = mapped_column(
+        ForeignKey("divisions.id"), nullable=True, default=None
+    )

@@ -34,14 +34,19 @@ class EmployeePosition(MappedAsDataclass, Base):
         ),
     )
 
-    id: Mapped[int] = mapped_column(primary_key=True, init=False)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
-    division_id: Mapped[int] = mapped_column(ForeignKey("divisions.id"))
-    department_id: Mapped[int] = mapped_column(ForeignKey("departments.id"))
 
-    division: Mapped[Division] = relationship(back_populates="employee_positions", default=None)
-    department: Mapped[Department] = relationship(back_populates="employee_positions", default=None)
-    employee: Mapped[Employee] = relationship(back_populates="employee_position", default=None)
+    division: Mapped[Division] = relationship(back_populates="employee_positions")
+    department: Mapped[Department] = relationship(back_populates="employee_positions")
+    employee: Mapped[Employee] = relationship(back_populates="employee_position")
 
+    division_id: Mapped[int | None] = mapped_column(
+        ForeignKey("divisions.id"), nullable=True, default=None
+    )
+
+    department_id: Mapped[int | None] = mapped_column(
+        ForeignKey("departments.id"), nullable=True, default=None
+    )
     number_of_position: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     abbreviation: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

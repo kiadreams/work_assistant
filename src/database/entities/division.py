@@ -20,7 +20,7 @@ if TYPE_CHECKING:
 class Division(MappedAsDataclass, Base):
     __tablename__ = "divisions"
 
-    id: Mapped[int] = mapped_column(primary_key=True, init=False)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
 
     departments: Mapped[list[Department]] = relationship(

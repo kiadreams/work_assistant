@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 class Work(MappedAsDataclass, Base):
     __tablename__ = "works"
 
-    id: Mapped[int] = mapped_column(primary_key=True, init=False)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
 
     work_type: Mapped[WorkType] = relationship(back_populates="works")

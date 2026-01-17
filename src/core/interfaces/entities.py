@@ -8,22 +8,16 @@ class DivisionProtocol(Protocol):
     name: str
     full_name: str | None
     employee_positions: list[EmployeePositionProtocol]
-
-    # employee_positions: list[EmployeePosition]
-    # name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
-    #
-    # departments: Mapped[list[Department]] = relationship(
-    #     back_populates="division", default_factory=list
-    # )
-    # employee_positions: Mapped[list[EmployeePosition]] = relationship(
-    #     back_populates="division", default_factory=list
-    # )
-    #
-    # full_name: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)
+    departments: list[DepartmentProtocol]
 
 
 class DepartmentProtocol(Protocol):
     id: int
+    name: str
+    division_id: int | None
+    full_name: str | None
+    employee_positions: list[EmployeePositionProtocol]
+    division: DivisionProtocol | None
 
 
 class EmployeePositionProtocol(Protocol):

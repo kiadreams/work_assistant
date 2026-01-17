@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 class WorkTask(MappedAsDataclass, Base):
     __tablename__ = "work_tasks"
 
-    id: Mapped[int] = mapped_column(primary_key=True, init=False)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     employee_id: Mapped[int] = mapped_column(ForeignKey("employees.id"), nullable=False)
     work_id: Mapped[int] = mapped_column(ForeignKey("works.id"), nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False, server_default=func.now())

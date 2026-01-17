@@ -19,8 +19,8 @@ if TYPE_CHECKING:
 class EquipmentLocation(MappedAsDataclass, Base):
     __tablename__ = "equipment_locations"
 
-    id: Mapped[int] = mapped_column(primary_key=True, init=False)
-    name: Mapped[str] = mapped_column(String(50))
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
+    name: Mapped[str] = mapped_column(String(50), nullable=False)
 
     equipment: Mapped[list[Equipment]] = relationship(back_populates="location")
 

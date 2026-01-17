@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class WorkOrder(MappedAsDataclass, Base):
     __tablename__ = "work_orders"
 
-    id: Mapped[int] = mapped_column(primary_key=True, init=False)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
 
     works: Mapped[list[Work]] = relationship(back_populates="work_order")
 
