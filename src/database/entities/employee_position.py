@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from sqlalchemy import (
     CheckConstraint,
     ForeignKey,
+    Integer,
     String,
 )
 from sqlalchemy.orm import (
@@ -40,8 +41,7 @@ class EmployeePosition(MappedAsDataclass, Base):
 
     division: Mapped[Division] = relationship(back_populates="employee_positions", default=None)
     department: Mapped[Department] = relationship(back_populates="employee_positions", default=None)
-    employees: Mapped[list[Employee]] = relationship(
-        back_populates="employee_position", default_factory=list
-    )
+    employee: Mapped[Employee] = relationship(back_populates="employee_position", default=None)
 
+    number_of_position: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
     abbreviation: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

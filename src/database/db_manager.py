@@ -119,7 +119,13 @@ class DatabaseManager:
                 data_to_insert = json.load(f)
 
             # Вставляем полученные данные в указанную таблицу...
-            self.insert_to_table_db_from_json(table_name, data_to_insert)
+            try:
+                self.insert_to_table_db_from_json(table_name, data_to_insert)
+            except SQLAlchemyError as e:
+                print(
+                    f"Ошибка несоответствия структуры таблиц"
+                    f" или дублирования данных {table_name}: {e}"
+                )
         print("Импорт завершен из JSON файлов завершен.")
 
     def import_from_csv_files(self) -> None:
@@ -133,7 +139,7 @@ class DatabaseManager:
 
             try:
                 df = pd.read_csv(file_path, encoding="utf-8")
-                df.to_sql(table_name, con=self.engine, if_exists="replace", index=False)
+                df.to_sql(table_name, con=self.engine, if_exists="append", index=False)
             except SQLAlchemyError as e:
                 print(f"Ошибка базы данных при экспорте таблицы {table_name}: {e}")
         print("Импорт завершен из CSV файлов завершен.")

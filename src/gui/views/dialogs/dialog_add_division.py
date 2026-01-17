@@ -1,11 +1,11 @@
-from PySide6.QtWidgets import QDialogButtonBox
+from PySide6.QtWidgets import QDialogButtonBox, QWidget
 
-from src.gui.views.dialogs.forms.division_form_widget import DivisionFormWidget
 from src.gui.views.dialogs.base_dialog_view import BaseDialogView
+from src.gui.views.dialogs.forms.division_form_widget import DivisionFormWidget
 
 
 class DialogEditView(BaseDialogView):
-    def __init__(self, parent=None) -> None:
+    def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent=parent)
         self.division_form = DivisionFormWidget(parent=self)
 

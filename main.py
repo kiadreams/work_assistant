@@ -2,10 +2,10 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
+from gui.coordinators.app_coordinator import AppCoordinator
 from src.database.db_manager import DatabaseManager
 from src.database.repositories import DivisionRepository
-from src.gui.coordinators.app_coordinator import AppCoordinator
-from src.services.EmployeeService import EmployeeService
+from src.services.employee_service import EmployeeService
 
 
 def close_app() -> None:

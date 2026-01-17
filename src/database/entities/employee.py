@@ -25,13 +25,16 @@ if TYPE_CHECKING:
 class Employee(MappedAsDataclass, Base):
     __tablename__ = "employees"
 
-    service_number: Mapped[int] = mapped_column(primary_key=True, autoincrement=False)
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(30), nullable=False)
     last_name: Mapped[str] = mapped_column(String(30), nullable=False)
     middle_name: Mapped[str] = mapped_column(String(30), nullable=False)
-    employee_position_id: Mapped[int] = mapped_column(ForeignKey("employee_positions.id"))
+    employee_position_id: Mapped[int] = mapped_column(
+        ForeignKey("employee_positions.id"), nullable=False
+    )
 
-    employee_position: Mapped[EmployeePosition] = relationship(back_populates="employees")
+    employee_position: Mapped[EmployeePosition] = relationship(back_populates="employee")
     work_tasks: Mapped[list[WorkTask]] = relationship(back_populates="employee")
 
+    service_number: Mapped[str | None] = mapped_column(unique=True, nullable=True, default=None)
     date_of_birth: Mapped[datetime.date | None] = mapped_column(Date, nullable=True, default=None)

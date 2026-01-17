@@ -10,11 +10,13 @@ dependencies = [
     "pillow>=12.0.0",
     "pydantic[email]>=2.12.5",
     "pyside6>=6.10.1",
+    "ruff>=0.14.11",
     "sqlalchemy>=2.0.44",
 ]
 
 [dependency-groups]
 dev = [
+    "alembic>=1.18.1",
     "black>=25.12.0",
     "mypy>=1.19.1",
     "ruff>=0.14.10",
@@ -113,3 +115,5 @@ line-length = 100
 [tool.ruff.lint.per-file-ignores]
 # Игнорировать ошибки именования (N8xx) в файлах GUI
 "src/gui/**/*.py" = ["N802", "N803", "N806", "N815"]
+"src/gui/generated/ui/*.py" = ["N801"]
+"alembic/*.py" = ["E402"]
