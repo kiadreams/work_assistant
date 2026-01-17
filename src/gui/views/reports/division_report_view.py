@@ -1,7 +1,7 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QHeaderView
 
-from src.gui.constants import QtStyleResources
+from core.constants import QtStyleResources
 from src.gui.generated import Ui_DivisionReportWidget
 from src.gui.models.reports.division_report_table_models import (
     DivisionReportDepartmentTableModel,

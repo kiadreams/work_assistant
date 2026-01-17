@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QWidget
 
-from src.core.constants import PageStructure
-from src.gui.constants import QtStyleResources
+from core.constants import QtStyleResources
+from src.core.constants_2 import PageStructure
 from src.gui.generated import Ui_MainWindow
 from src.utils.qt_recource_loader import ResourceLoader
 

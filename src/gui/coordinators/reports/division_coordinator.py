@@ -5,7 +5,7 @@ from src.gui.models.reports.division_report_table_models import (
 from src.gui.views import DialogEditView
 from src.gui.views.dialogs.base_dialog_view import BaseDialogView
 from src.gui.views.reports import DivisionReportView
-from src.services.interfaces.services import EmployeeServiceProtocol
+from core.interfaces.services import EmployeeServiceProtocol
 from src.viewmodels import DivisionViewModel
 
 

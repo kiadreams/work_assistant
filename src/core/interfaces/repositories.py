@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, ContextManager, Protocol
-
-from sqlalchemy.orm import Session
+from typing import TYPE_CHECKING, Any, ContextManager, Protocol
 
 if TYPE_CHECKING:
     from src.core.models.domain_models import DivisionDomain
@@ -11,7 +9,7 @@ if TYPE_CHECKING:
 class DatabaseManagerProtocol(Protocol):
     def create_db_tables(self) -> None: ...
 
-    def session_scope(self) -> ContextManager[Session]: ...
+    def session_scope(self) -> ContextManager[Any]: ...
 
 
 class DivisionRepositoryProtocol(Protocol):

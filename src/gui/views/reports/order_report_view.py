@@ -1,4 +1,4 @@
-from src.gui.constants import QtStyleResources
+from core.constants import QtStyleResources
 from src.gui.generated import Ui_OrderReportWidget
 from src.gui.views.base_views import BaseView
 from src.utils.qt_recource_loader import ResourceLoader

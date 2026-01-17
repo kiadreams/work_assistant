@@ -1,9 +1,9 @@
 import src.gui.coordinators.reports as coordinators
-from src.core.constants import PageStructure
-from src.gui.constants import ReportsViews as ViewEnum
-from src.gui.interfaces.coordinators import ViewCoordinatorProtocol
+from core.constants import ReportsViews as ViewEnum
+from src.core.constants_2 import PageStructure
+from core.interfaces.coordinators import ViewCoordinatorProtocol
 from src.gui.views.reports_window import ReportsWindow
-from src.services.interfaces.services import EmployeeServiceProtocol
+from core.interfaces.services import EmployeeServiceProtocol
 
 
 class ReportsCoordinator:

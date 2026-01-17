@@ -1,6 +1,6 @@
 from PySide6.QtCore import QFile, QIODevice, QStringConverter, QTextStream
 
-from src.gui.constants import QtResources
+from core.constants import QtResources
 
 
 class ResourceLoader:

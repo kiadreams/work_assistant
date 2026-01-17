@@ -1,10 +1,10 @@
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, QObject, QPersistentModelIndex, Qt
 
-from src.viewmodels.interfaces.view_models import DivisionViewModelProtocol
+from src.viewmodels.interfaces.gui_view_models import GuiDivisionViewModelProtocol
 
 
 class DivisionReportDivisionTableModel(QAbstractTableModel):
-    def __init__(self, viewmodel: DivisionViewModelProtocol, parent: QObject | None = None):
+    def __init__(self, viewmodel: GuiDivisionViewModelProtocol, parent: QObject | None = None):
         super().__init__(parent)
         self.vm = viewmodel
         self.headers = ["№\nп/п", "Служба", "Полное наименование"]
@@ -46,7 +46,7 @@ class DivisionReportDivisionTableModel(QAbstractTableModel):
 
 
 class DivisionReportDepartmentTableModel(QAbstractTableModel):
-    def __init__(self, viewmodel: DivisionViewModelProtocol, parent: QObject | None = None):
+    def __init__(self, viewmodel: GuiDivisionViewModelProtocol, parent: QObject | None = None):
         super().__init__(parent)
         self.vm = viewmodel
         self.headers = ["№\nп/п", "Подразделение\n(отдел)", "Полное наименование подразделения"]

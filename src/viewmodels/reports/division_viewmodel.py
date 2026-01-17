@@ -1,7 +1,7 @@
 from PySide6.QtCore import QObject, Signal
 
 from src.core.models.domain_models import DepartmentDomain, DivisionDomain
-from src.services.interfaces.services import EmployeeServiceProtocol
+from core.interfaces.services import EmployeeServiceProtocol
 
 
 class DivisionViewModel(QObject):

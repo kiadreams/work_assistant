@@ -8,8 +8,8 @@ from sqlalchemy import create_engine, insert
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
+from src.core.constants import DbTables
 from src.database.config import CSV_TABLE_DATA_DIR, DATABASE_URL, JSON_TABLE_DATA_DIR
-from src.database.constants import DbTables
 from src.utils.file_utils import create_clean_dir
 
 

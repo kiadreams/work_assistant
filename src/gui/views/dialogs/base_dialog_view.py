@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QDialog, QWidget
 
-from src.gui.constants import QtStyleResources
+from core.constants import QtStyleResources
 from src.gui.generated.ui.ui_base_dialog_view import Ui_BaseDialogView
 from utils.qt_recource_loader import ResourceLoader
 

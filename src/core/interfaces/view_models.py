@@ -1,6 +1,4 @@
-from typing import Protocol
-
-from PySide6.QtCore import SignalInstance
+from typing import Any, Protocol
 
 from src.core.models.domain_models import DepartmentDomain, DivisionDomain
 
@@ -10,8 +8,8 @@ class BaseViewModelProtocol(Protocol):
 
 
 class DivisionViewModelProtocol(BaseViewModelProtocol, Protocol):
-    division_data_changed_signal: SignalInstance
-    department_data_changed_signal: SignalInstance
+    division_data_changed_signal: Any
+    department_data_changed_signal: Any
 
     @property
     def divisions(self) -> list[DivisionDomain]: ...
