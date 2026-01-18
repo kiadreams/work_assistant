@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, ContextManager, Protocol
 
 if TYPE_CHECKING:
-    from src.core.models.domain_models import DivisionDomain
+    from src.core.models.division_domain import DivisionDomain
 
 
 class DatabaseManagerProtocol(Protocol):

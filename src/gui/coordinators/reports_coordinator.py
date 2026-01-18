@@ -1,9 +1,15 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import src.gui.coordinators.reports as coordinators
-from core.constants import ReportsViews as ViewEnum
-from src.core.constants_2 import PageStructure
-from core.interfaces.coordinators import ViewCoordinatorProtocol
+from src.core.constants import PageStructure
+from src.core.constants import ReportsViews as ViewEnum
 from src.gui.views.reports_window import ReportsWindow
-from core.interfaces.services import EmployeeServiceProtocol
+
+if TYPE_CHECKING:
+    from core.interfaces.coordinators import ViewCoordinatorProtocol
+    from core.interfaces.services import EmployeeServiceProtocol
 
 
 class ReportsCoordinator:

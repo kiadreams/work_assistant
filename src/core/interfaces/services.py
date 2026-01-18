@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from typing import Protocol
+from typing import TYPE_CHECKING, Protocol
 
-from src.core.models.domain_models import DivisionDomain
+if TYPE_CHECKING:
+    from src.core.models.division_domain import DivisionDomain
 
 
 class EmployeeServiceProtocol(Protocol):

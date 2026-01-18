@@ -1,6 +1,10 @@
-from typing import Any, Protocol
+from __future__ import annotations
 
-from src.core.models.domain_models import DepartmentDomain, DivisionDomain
+from typing import TYPE_CHECKING, Protocol
+
+if TYPE_CHECKING:
+    from src.core.models.department_domain import DepartmentDomain
+    from src.core.models.division_domain import DivisionDomain
 
 
 class BaseViewModelProtocol(Protocol):
@@ -8,9 +12,6 @@ class BaseViewModelProtocol(Protocol):
 
 
 class DivisionViewModelProtocol(BaseViewModelProtocol, Protocol):
-    division_data_changed_signal: Any
-    department_data_changed_signal: Any
-
     @property
     def divisions(self) -> list[DivisionDomain]: ...
 
@@ -64,3 +65,5 @@ class DivisionViewModelProtocol(BaseViewModelProtocol, Protocol):
 
     @property
     def department_name_data(self) -> tuple[list[str], str]: ...
+
+    def add_new_division(self, division_data: dict[str, str]) -> None: ...

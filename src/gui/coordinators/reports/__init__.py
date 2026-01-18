@@ -1,9 +1,9 @@
-from .division_coordinator import DivisionsCoordinator
-from .orders_coordinator import OrdersCoordinator
-from .staff_coordinator import StaffCoordinator
-from .work_events_coordinator import WorkEventsCoordinator
-from .work_types_coordinator import WorkTypesCoordinator
-from .works_coordinator import WorksCoordinator
+from src.gui.coordinators.reports.division_coordinator import DivisionsCoordinator
+from src.gui.coordinators.reports.orders_coordinator import OrdersCoordinator
+from src.gui.coordinators.reports.staff_coordinator import StaffCoordinator
+from src.gui.coordinators.reports.work_events_coordinator import WorkEventsCoordinator
+from src.gui.coordinators.reports.work_types_coordinator import WorkTypesCoordinator
+from src.gui.coordinators.reports.works_coordinator import WorksCoordinator
 
 __all__ = [
     "DivisionsCoordinator",

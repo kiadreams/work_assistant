@@ -1,5 +1,11 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from src.gui.views.reports import OrderReportView
-from core.interfaces.services import EmployeeServiceProtocol
+
+if TYPE_CHECKING:
+    from src.core.interfaces.services import EmployeeServiceProtocol
 
 
 class OrdersCoordinator:

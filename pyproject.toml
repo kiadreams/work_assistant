@@ -7,19 +7,19 @@ dependencies = [
     "openpyxl>=3.1.5",
     "pandas>=2.3.3",
     "pandas-stubs~=2.3.3",
-    "pillow>=12.0.0",
+    "pillow>=12.1.0",
     "pydantic[email]>=2.12.5",
     "pyside6>=6.10.1",
     "ruff>=0.14.11",
-    "sqlalchemy>=2.0.44",
+    "sqlalchemy>=2.0.45",
 ]
 
 [dependency-groups]
 dev = [
     "alembic>=1.18.1",
-    "black>=25.12.0",
+    "black>=26.1.0",
     "mypy>=1.19.1",
-    "ruff>=0.14.10",
+    "ruff>=0.14.13",
 ]
 
 [tool.uv]
@@ -37,7 +37,7 @@ url = "https://pypi.org/simple"
 # === 1. Базовые настройки области видимости ===
 # Указываем Mypy, какие папки проверять.
 # Замените 'src' и 'tests' на имена ваших папок с кодом.
-files = ["src", "tests"]
+files = ["src", "tests", "scripts"]
 
 # === 2. Уровень строгости проверки (Рекомендуется для новых проектов) ===
 # Включение строгого режима активирует сразу множество проверок.
@@ -114,6 +114,6 @@ line-length = 100
 
 [tool.ruff.lint.per-file-ignores]
 # Игнорировать ошибки именования (N8xx) в файлах GUI
-"src/gui/**/*.py" = ["N802", "N803", "N806", "N815"]
-"src/gui/generated/ui/*.py" = ["N801"]
+"src/gui/generated/**/*.py" = ["N802", "N803", "N806", "N815", "N801"]
+"src/gui/models/**/*.py" = ["N802"]
 "alembic/*.py" = ["E402"]

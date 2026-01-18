@@ -1,8 +1,14 @@
-from core.constants import MainWindows as Windows
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from src.core.constants import MainWindows as Windows
 from src.gui.coordinators.reports_coordinator import ReportsCoordinator
-from core.interfaces.coordinators import SessionCoordinatorProtocol
 from src.gui.views import MainMenuWindow, MainWindow
-from core.interfaces.services import EmployeeServiceProtocol
+
+if TYPE_CHECKING:
+    from core.interfaces.coordinators import SessionCoordinatorProtocol
+    from core.interfaces.services import EmployeeServiceProtocol
 
 
 class AppCoordinator:

@@ -1,5 +1,5 @@
+from src.core.interfaces.services import EmployeeServiceProtocol
 from src.gui.views.reports import WorkEventReportView
-from core.interfaces.services import EmployeeServiceProtocol
 
 
 class WorkEventsCoordinator:

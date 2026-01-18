@@ -1,11 +1,10 @@
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QButtonGroup, QPushButton, QVBoxLayout, QWidget
 
-from core.constants import QtStyleResources, ReportsViews
-from src.core.constants_2 import PageStructure
+from src.core.constants import PageStructure, QtStyleResources, ReportsViews
 from src.gui.generated import Ui_ReportsWindowWidget
+from src.gui.utils import ResourceLoader
 from src.gui.views.base_views import SessionWindow
-from src.utils.qt_recource_loader import ResourceLoader
 
 
 class ReportsWindow(SessionWindow, Ui_ReportsWindowWidget):

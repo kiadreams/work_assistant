@@ -1,6 +1,6 @@
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, QObject, QPersistentModelIndex, Qt
 
-from src.viewmodels.interfaces.gui_view_models import GuiDivisionViewModelProtocol
+from gui.viewmodels.interfaces.gui_view_models import GuiDivisionViewModelProtocol
 
 
 class DivisionReportDivisionTableModel(QAbstractTableModel):

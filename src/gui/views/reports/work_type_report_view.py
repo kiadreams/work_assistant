@@ -1,7 +1,7 @@
-from core.constants import QtStyleResources
+from src.core.constants import QtStyleResources
 from src.gui.generated import Ui_WorkTypeReportWidget
+from src.gui.utils import ResourceLoader
 from src.gui.views.base_views import BaseView
-from src.utils.qt_recource_loader import ResourceLoader
 
 
 class WorkTypeReportView(BaseView, Ui_WorkTypeReportWidget):

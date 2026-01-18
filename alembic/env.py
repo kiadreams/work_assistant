@@ -15,13 +15,13 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from src.database.db_manager import Base
+from src.infrastucture.database.db_manager import Base
 
 target_metadata = Base.metadata
 # target_metadata = None
 
 # add all entities for registration in metadata
-from src.database import entities  # noqa: F401
+from src.infrastucture.database import entities  # noqa: F401
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
