@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
-from pydantic import ValidationError
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QDialog, QDialogButtonBox, QMessageBox, QWidget
+from PySide6.QtWidgets import QDialog, QDialogButtonBox, QWidget
 
 from src.core.constants import QtStyleResources
-from src.gui.dto.models import DivisionDto
 from src.gui.generated.ui.ui_base_dialog_view import Ui_BaseDialogView
 from src.gui.utils import ResourceLoader
 from src.gui.views.dialogs.dialog_forms import DivisionFormWidget
@@ -30,7 +28,7 @@ class BaseDialogView(QDialog, Ui_BaseDialogView):
         self.buttonBox_exit.rejected.connect(self.reject)
         self.buttonBox_exit.accepted.connect(self.data_accepted_signal.emit)
 
-    def get_data(self) -> dict | None:
+    def get_data(self) -> dict[str, str] | None:
         pass
 
 

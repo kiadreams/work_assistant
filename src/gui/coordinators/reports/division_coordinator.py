@@ -1,9 +1,9 @@
-from PySide6.QtWidgets import QMessageBox
 from pydantic import ValidationError
+from PySide6.QtWidgets import QMessageBox
 
-from gui.dto.models import DivisionDto
 from src.core.interfaces.services import EmployeeServiceProtocol
 from src.core.models.division_domain import DivisionDomain
+from src.gui.dto.models import DivisionDto
 from src.gui.models.reports.division_report_table_models import (
     DivisionReportDepartmentTableModel,
     DivisionReportDivisionTableModel,
@@ -70,6 +70,6 @@ class DivisionsCoordinator:
             QMessageBox.warning(
                 self.dialog_view,
                 "Ошибка данных",
-                f"Служба с таким наименованием уже существует...",
+                "Служба с таким наименованием уже существует...",
             )
         return None

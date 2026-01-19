@@ -102,7 +102,7 @@ class DivisionViewModel(QObject):
         return False
 
     @property
-    def division_name_data(self) -> tuple[list[str | None], str | None]:
+    def division_name_data(self) -> tuple[list[str], str]:
         division_names = [d.name for d in self.divisions] if self.divisions else []
         current_division_name = self.current_division.name if self.current_division else ""
         return division_names, current_division_name

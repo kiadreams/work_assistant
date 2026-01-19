@@ -27,7 +27,7 @@ class DivisionDomain:
         return self._id
 
     @property
-    def name(self) -> str | None:
+    def name(self) -> str:
         return self._name
 
     @property

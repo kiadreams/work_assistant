@@ -30,8 +30,7 @@ class AppCoordinator:
 
     def open_main_menu_window(self) -> None:
         self.main_window.change_window(Windows.MAIN_MENU)
-        if self.session_coordinator:
-            self.session_coordinator = None
+        self._close_current_session()
 
     def open_reports_window(self) -> None:
         self.main_menu_window.plainTextEdit_logs.appendPlainText(
@@ -50,3 +49,14 @@ class AppCoordinator:
             "Нажали кнопку открытия окна создания протоколов"
         )
         self.main_window.change_window(Windows.PROTOCOLS_WINDOW)
+
+    def _close_current_session(self) -> None:
+        if self.session_coordinator:
+            # 1. Сначала просим сам координатор сессии очистить его внутренние ресурсы
+            if hasattr(self.session_coordinator, "teardown"):
+                self.session_coordinator.teardown()
+            # 2. Просим Qt удалить объект виджета из памяти
+            if self.session_coordinator.session_window:
+                self.session_coordinator.session_window.deleteLater()
+            # 3. Обнуляем ссылку на координатор
+            self.session_coordinator = None
