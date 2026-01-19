@@ -30,7 +30,7 @@ class BaseDialogView(QDialog, Ui_BaseDialogView):
         self.buttonBox_exit.rejected.connect(self.reject)
         self.buttonBox_exit.accepted.connect(self.data_accepted_signal.emit)
 
-    def get_data(self) -> Any:
+    def get_data(self) -> dict | None:
         pass
 
 
@@ -55,18 +55,6 @@ class DialogAddDivision(BaseDialogView):
         if ok_button:
             ok_button.setText("Отмена")
 
-    def get_data(self) -> DivisionDto | None:
+    def get_data(self) -> dict[str, str] | None:
         division_data = self._division_form.get_data()
-        try:
-            division_dto = DivisionDto.model_validate(division_data)
-            return division_dto
-        except ValidationError as e:
-            text = ""
-            field = e.errors()[0]["loc"][0]
-            match field:
-                case "name":
-                    text = "Укажите правильно название службы"
-            QMessageBox.warning(
-                self, "Ошибка формата данных", f"Некорректные данные ввода:\n{text}"
-            )
-        return None
+        return division_data

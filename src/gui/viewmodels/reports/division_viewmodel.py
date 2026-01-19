@@ -18,49 +18,51 @@ class DivisionViewModel(QObject):
     def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
         super().__init__()
         self._employee_service = employee_service
-        self.__divisions: list[DivisionDomain] = []
-        self.__current_division: DivisionDomain | None = None
-        self.__departments: list[DepartmentDomain] = []
-        self.__current_department: DepartmentDomain | None = None
+        self._divisions: list[DivisionDomain] = []
+        self._current_division: DivisionDomain | None = None
+        self._departments: list[DepartmentDomain] = []
+        self._current_department: DepartmentDomain | None = None
+        self._new_division: DivisionDomain | None = None
+        self._new_department: DepartmentDomain | None = None
 
     def init_model_data(self) -> None:
         self.load_all_divisions()
 
     @property
     def divisions(self) -> list[DivisionDomain]:
-        return self.__divisions
+        return self._divisions
 
     @divisions.setter
     def divisions(self, value: list[DivisionDomain]) -> None:
-        self.__divisions = value
+        self._divisions = value
         self.current_division = value[0] if value else None
 
     @property
     def current_division(self) -> DivisionDomain | None:
-        return self.__current_division
+        return self._current_division
 
     @current_division.setter
     def current_division(self, division: DivisionDomain | None) -> None:
-        self.__current_division = division
+        self._current_division = division
         self.departments = division.departments if division else []
         self.division_data_changed_signal.emit()
 
     @property
     def departments(self) -> list[DepartmentDomain]:
-        return self.__departments
+        return self._departments
 
     @departments.setter
     def departments(self, value: list[DepartmentDomain]) -> None:
-        self.__departments = value
+        self._departments = value
         self.current_department = value[0] if value else None
 
     @property
     def current_department(self) -> DepartmentDomain | None:
-        return self.__current_department
+        return self._current_department
 
     @current_department.setter
     def current_department(self, department: DepartmentDomain | None) -> None:
-        self.__current_department = department
+        self._current_department = department
         self.department_data_changed_signal.emit()
 
     @property
@@ -122,3 +124,27 @@ class DivisionViewModel(QObject):
     def change_current_department(self, department_name: str) -> None:
         department = next((d for d in self.departments if d.name == department_name), None)
         self.current_department = department
+
+    def add_new_division(self) -> None:
+        print("Добавляем новую службу...")
+
+    def add_new_department(self) -> None:
+        print("Добавляем новый отдел...")
+
+    def check_division(self, division: DivisionDomain) -> bool:
+        is_unique = not any(division.name.lower() == d.name.lower() for d in self.divisions)
+        if is_unique:
+            self._new_division = division
+            return True
+        else:
+            self._new_division = None
+            return False
+
+    def check_department(self, department: DepartmentDomain) -> bool:
+        is_unique = not any(department.name.lower() == d.name.lower() for d in self.departments)
+        if is_unique:
+            self._new_department = department
+            return True
+        else:
+            self._new_department = None
+            return False
