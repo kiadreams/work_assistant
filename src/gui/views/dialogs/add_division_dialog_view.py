@@ -2,38 +2,17 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QDialog, QDialogButtonBox, QWidget
+from PySide6.QtWidgets import QDialogButtonBox, QWidget
 
-from src.core.constants import QtStyleResources
-from src.gui.generated.ui.ui_base_dialog_view import Ui_BaseDialogView
-from src.gui.utils import ResourceLoader
-from src.gui.views.dialogs.dialog_forms import DivisionFormWidget
+from src.gui.views.dialogs.base_dialog_view import BaseDialogView
+from src.gui.views.dialogs.forms.dialog_forms import DivisionFormWidget
 
 if TYPE_CHECKING:
     from src.core.interfaces.data_protocols import DivisionDataProtocol
 
 
-class BaseDialogView(QDialog, Ui_BaseDialogView):
-    data_accepted_signal = Signal()
-
-    def __init__(self, parent: QWidget | None = None) -> None:
-        super().__init__(parent)
-
-    def init_content_widget(self) -> None:
-        self.setupUi(self)  # type: ignore[no-untyped-call]
-        self.setStyleSheet(ResourceLoader(QtStyleResources.REPORT_WIDGET_STYLE).load_style())
-
-    def setup_connections(self) -> None:
-        self.buttonBox_exit.rejected.connect(self.reject)
-        self.buttonBox_exit.accepted.connect(self.data_accepted_signal.emit)
-
-    def get_data(self) -> dict[str, str] | None:
-        pass
-
-
-class DialogAddDivision(BaseDialogView):
-    def __init__(self, parent: QWidget | None = None) -> None:
+class AddDivisionDialogView(BaseDialogView):
+    def __init__(self, parent: QWidget) -> None:
         super().__init__(parent=parent)
         self.new_division_dto: DivisionDataProtocol | None = None
         self._division_form = DivisionFormWidget(parent=self)
