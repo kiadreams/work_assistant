@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from PySide6.QtCore import QObject, Signal
 
+from core.interfaces.validators import DivisionValidatorProtocol
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
@@ -15,9 +16,14 @@ class DivisionViewModel(QObject):
     division_data_changed_signal = Signal()
     department_data_changed_signal = Signal()
 
-    def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
+    def __init__(
+        self,
+        employee_service: EmployeeServiceProtocol,
+        division_validator: DivisionValidatorProtocol,
+    ) -> None:
         super().__init__()
         self._employee_service = employee_service
+        self._division_validator = division_validator
         self._divisions: list[DivisionDomain] = []
         self._current_division: DivisionDomain | None = None
         self._departments: list[DepartmentDomain] = []

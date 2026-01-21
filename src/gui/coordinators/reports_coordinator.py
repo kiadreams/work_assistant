@@ -2,7 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from dependency_injector.providers import Factory
+
 import src.gui.coordinators.reports as coordinators
+from di.sessions_container import ReportSessionContainer
 from src.core.constants import ReportsViews as ViewEnum
 from src.gui.views.reports_window import ReportsWindow
 
@@ -12,9 +15,14 @@ if TYPE_CHECKING:
 
 
 class ReportsCoordinator:
-    def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
+    def __init__(
+        self,
+        employee_service: EmployeeServiceProtocol,
+        report_window: ReportsWindow,
+        reports_session_factory: Factory[ReportSessionContainer],
+    ) -> None:
         self.employee_service = employee_service
-        self._reports_window = ReportsWindow()
+        self._reports_window = report_window
         self._view_coordinators: dict[ViewEnum, ViewCoordinatorProtocol] = {}
 
     @property

@@ -7,15 +7,23 @@ from src.gui.coordinators.reports_coordinator import ReportsCoordinator
 from src.gui.views import MainMenuWindow, MainWindow
 
 if TYPE_CHECKING:
+    from dependency_injector.providers import Factory
+
     from core.interfaces.coordinators import SessionCoordinatorProtocol
     from core.interfaces.services import EmployeeServiceProtocol
+    from di.sessions_container import SessionsContainer
 
 
 class AppCoordinator:
-    def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
-        self.employee_service = employee_service
-        self.main_window = MainWindow()
-        self.main_menu_window = MainMenuWindow()
+    def __init__(
+        self,
+        main_window: MainWindow,
+        main_menu_window: MainMenuWindow,
+        sessions_factory: Factory[SessionsContainer],
+    ) -> None:
+        self.main_window = main_window
+        self.main_menu_window = main_menu_window
+        self.sessions_factory = sessions_factory
         self.session_coordinator: SessionCoordinatorProtocol | None = None
 
     def start_app(self) -> None:
@@ -36,7 +44,7 @@ class AppCoordinator:
         self.main_menu_window.plainTextEdit_logs.appendPlainText(
             "Нажали кнопку открытия окна создания отчётов"
         )
-        self.session_coordinator = ReportsCoordinator(self.employee_service)
+        self.session_coordinator = self.sessions_factory().reports_coordinator()
         self.session_coordinator.start_session()
         self.session_coordinator.session_window.back_main_menu_signal.connect(
             self.open_main_menu_window

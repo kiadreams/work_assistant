@@ -17,8 +17,10 @@ from src.gui.views.reports import DivisionReportView
 
 
 class DivisionsCoordinator:
-    def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
-        self.employee_service = employee_service
+    def __init__(
+        self, division_viewmodel: DivisionViewModel, division_report_view: DivisionReportView
+    ) -> None:
+        # self.employee_service = employee_service
         self.vm = DivisionViewModel(self.employee_service)
         self.division_table_model = DivisionReportDivisionTableModel(self.vm)
         self.department_table_model = DivisionReportDepartmentTableModel(self.vm)
