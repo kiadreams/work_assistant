@@ -4,12 +4,12 @@ from typing import TYPE_CHECKING
 
 from PySide6.QtCore import QObject, Signal
 
-from core.interfaces.validators import DivisionValidatorProtocol
+from src.core.interfaces.validators import DivisionValidatorProtocol
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
 if TYPE_CHECKING:
-    from core.interfaces.services import EmployeeServiceProtocol
+    from src.core.interfaces.services import EmployeeServiceProtocol
 
 
 class DivisionViewModel(QObject):

@@ -3,13 +3,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from src.core.constants import MainWindows as Windows
+from src.di.report_container import ReportSessionContainer
 from src.gui.views import MainMenuWindow, MainWindow
 
 if TYPE_CHECKING:
     from dependency_injector.providers import Factory
 
-    from core.interfaces.coordinators import SessionCoordinatorProtocol
-    from gui.coordinators.reports_coordinator import ReportsCoordinator
+    from src.core.interfaces.coordinators import SessionCoordinatorProtocol
 
 
 class AppCoordinator:
@@ -17,7 +17,7 @@ class AppCoordinator:
         self,
         main_window: MainWindow,
         main_menu_window: MainMenuWindow,
-        session_reports_factory: Factory[ReportsCoordinator],
+        session_reports_factory: Factory[ReportSessionContainer],
     ) -> None:
         self.main_window = main_window
         self.main_menu_window = main_menu_window
@@ -47,7 +47,8 @@ class AppCoordinator:
         self.main_menu_window.plainTextEdit_logs.appendPlainText(
             "Нажали кнопку открытия окна создания отчётов"
         )
-        self.session_coordinator = self.session_reports_factory()
+        session = self.session_reports_factory()
+        self.session_coordinator = session.reports_coordinator()
         self.session_coordinator.session_window.back_main_menu_signal.connect(
             self.open_main_menu_window
         )

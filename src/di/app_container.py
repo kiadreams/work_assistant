@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from dependency_injector import containers, providers
 
-from core.validators.division_validator import DivisionValidator
-from di.report_container import ReportSessionContainer
-from gui.views import MainMenuWindow, MainWindow
-from infrastucture.database import DatabaseManager
-from infrastucture.database.repositories import DivisionRepository
 from src.core.services import EmployeeService
+from src.core.validators.division_validator import DivisionValidator
+from src.di.report_container import ReportSessionContainer
 from src.gui.coordinators.app_coordinator import AppCoordinator
+from src.gui.views import MainMenuWindow, MainWindow
+from src.infrastucture.database import DatabaseManager
+from src.infrastucture.database.repositories import DivisionRepository
 
 
 class AppContainer(containers.DeclarativeContainer):
@@ -25,7 +25,7 @@ class AppContainer(containers.DeclarativeContainer):
     main_window = providers.Singleton(MainWindow)
     main_menu_window = providers.Singleton(MainMenuWindow)
 
-    report_container = providers.Container(
+    report_container = providers.Factory(
         ReportSessionContainer,
         employee_service=employee_service,
         division_validator=division_validator,
@@ -35,5 +35,5 @@ class AppContainer(containers.DeclarativeContainer):
         AppCoordinator,
         main_window=main_window,
         main_menu_window=main_menu_window,
-        session_reports_factory=report_container.provided.reports_coordinator,
+        session_reports_factory=report_container.provider,
     )

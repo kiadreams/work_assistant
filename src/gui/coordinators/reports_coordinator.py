@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from core.interfaces.coordinators import ViewCoordinatorProtocol
 from src.core.constants import ReportsViews as ViewEnum
+from src.core.interfaces.coordinators import ViewCoordinatorProtocol
 from src.gui.views.reports_window import ReportsWindow
 
 if TYPE_CHECKING:
-    import gui.coordinators.reports as reports
-    from core.interfaces.services import EmployeeServiceProtocol
+    import src.gui.coordinators.reports as reports
+    from src.core.interfaces.services import EmployeeServiceProtocol
 
 
 class ReportsCoordinator:
@@ -45,7 +45,7 @@ class ReportsCoordinator:
 
     def _initialize_all_views(self) -> None:
         for view_enum, coordinator in self._view_coordinators.items():
-            coordinator.start_view()
+            coordinator.start()
             self.session_window.add_view(view_enum, coordinator.view)
 
     def _connect_signals(self) -> None:

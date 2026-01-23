@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from core.models.department_domain import DepartmentDomain
+from src.core.models.department_domain import DepartmentDomain
 
 if TYPE_CHECKING:
     from core.interfaces.data_protocols import DepartmentDataProtocol, DivisionDataProtocol

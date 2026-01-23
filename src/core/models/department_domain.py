@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from core.interfaces.data_protocols import DepartmentDataProtocol
+from src.core.interfaces.data_protocols import DepartmentDataProtocol
 
 
 class DepartmentDomain:

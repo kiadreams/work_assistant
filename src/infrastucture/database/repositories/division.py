@@ -1,9 +1,9 @@
 from sqlalchemy import select
 
-from infrastucture.database.entities import Division
 from src.core.interfaces.repositories import DatabaseManagerProtocol, DivisionRepositoryProtocol
 from src.core.models.division_domain import DivisionDomain
 from src.infrastucture.database.dto import DivisionDto
+from src.infrastucture.database.entities import Division
 
 
 class DivisionRepository(DivisionRepositoryProtocol):
