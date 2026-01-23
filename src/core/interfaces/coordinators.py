@@ -6,9 +6,13 @@ if TYPE_CHECKING:
     from src.gui.views.base_views import BaseView, SessionWindow
 
 
-class AppCoordinatorProtocol(Protocol):
-    def start_app(self) -> None: ...
+class BaseCoordinatorProtocol(Protocol):
+    def start(self) -> None: ...
 
+    def teardown(self) -> None: ...
+
+
+class AppCoordinatorProtocol(BaseCoordinatorProtocol, Protocol):
     def open_main_menu_window(self) -> None: ...
 
     def open_reports_window(self) -> None: ...
@@ -16,9 +20,7 @@ class AppCoordinatorProtocol(Protocol):
     def open_protocols_window(self) -> None: ...
 
 
-class SessionCoordinatorProtocol(Protocol):
-    def start_session(self) -> None: ...
-
+class SessionCoordinatorProtocol(BaseCoordinatorProtocol, Protocol):
     @property
     def session_window(self) -> SessionWindow: ...
 
@@ -41,9 +43,7 @@ class ProtocolsCoordinatorProtocol(SessionCoordinatorProtocol, Protocol):
     def choose_protocol_temple(self) -> None: ...
 
 
-class ViewCoordinatorProtocol(Protocol):
-    def start_view(self) -> None: ...
-
+class ViewCoordinatorProtocol(BaseCoordinatorProtocol, Protocol):
     @property
     def view(self) -> BaseView: ...
 

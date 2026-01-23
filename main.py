@@ -1,15 +1,12 @@
-import sys
+import sys  # noqa
 
 from PySide6.QtWidgets import QApplication
 
 from src.di.app_container import AppContainer
-from src.core.services import EmployeeService
-from src.gui.coordinators.app_coordinator import AppCoordinator
-from src.infrastucture.database import DatabaseManager
-from src.infrastucture.database.repositories import DivisionRepository
 
 
 def close_app() -> None:
+    coordinator.teardown()
     print("Closing app...")
 
 
@@ -31,17 +28,17 @@ if __name__ == "__main__":
     # Загрузка записей во все таблицы из JSON файлов
     # db_manager.import_from_json_files()
 
-    session_factory = app_container.sessions_factory
-    sessions_container = session_factory().reports_session()
-    d1 = sessions_container.division_viewmodel()
-    d2 = sessions_container.division_viewmodel()
-    sessions_container = session_factory().reports_session()
-    d3 = sessions_container.division_viewmodel()
-    d4 = sessions_container.division_viewmodel()
-    print(d1 is d2)
-    print(d3 is d4)
-    print(d1 is d4)
-    print()
+    # session_factory = app_container.sessions_factory
+    # sessions_container = session_factory().reports_session()
+    # d1 = sessions_container.division_viewmodel()
+    # d2 = sessions_container.division_viewmodel()
+    # sessions_container = session_factory().reports_session()
+    # d3 = sessions_container.division_viewmodel()
+    # d4 = sessions_container.division_viewmodel()
+    # print(d1 is d2)
+    # print(d3 is d4)
+    # print(d1 is d4)
+    # print()
 
     # protocol_session_1 = sessions.protocols_session()
     # p1 = protocol_session_1.division_viewmodel()
@@ -53,8 +50,8 @@ if __name__ == "__main__":
     # print(d3 is d4)
     # print(d1 is d4)
 
-    # app = QApplication(sys.argv)
-    # coordinator = app_container.app_coordinator()
-    # coordinator.start_app()
-    # app.aboutToQuit.connect(close_app)
-    # sys.exit(app.exec())
+    app = QApplication(sys.argv)
+    coordinator = app_container.app_coordinator()
+    coordinator.start()
+    app.aboutToQuit.connect(close_app)
+    sys.exit(app.exec())

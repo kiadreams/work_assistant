@@ -28,10 +28,9 @@ if TYPE_CHECKING:
 
 class ReportSessionContainer(containers.DeclarativeContainer):
     employee_service: providers.Dependency[EmployeeService] = providers.Dependency()
+    division_validator: providers.Dependency[DivisionValidator] = providers.Dependency()
 
-    division_validator = providers.Singleton(DivisionValidator, employee_service=employee_service)
-
-    division_viewmodel = providers.Singleton(
+    division_viewmodel = providers.Factory(
         DivisionViewModel,
         employee_service=employee_service,
         division_validator=division_validator,
@@ -73,31 +72,10 @@ class ReportSessionContainer(containers.DeclarativeContainer):
         WorksCoordinator,
     )
 
+    reports_window = providers.Factory(ReportsWindow)
 
-class ProtocolSessionContainer(containers.DeclarativeContainer):
-    employee_service: providers.Dependency[EmployeeService] = providers.Dependency()
-
-    division_viewmodel = providers.Singleton(DivisionViewModel, employee_service=employee_service)
-
-
-class SessionsContainer(containers.DeclarativeContainer):
-    employee_service: providers.Dependency[EmployeeService] = providers.Dependency()
-
-    reports_session_factory = providers.Singleton(
-        ReportSessionContainer,
-        employee_service=employee_service,
-    )
-
-    protocols_session = providers.Singleton(
-        ProtocolSessionContainer,
-        employee_service=employee_service,
-    )
-
-    reports_window = providers.Singleton(ReportsWindow)
-
-    reports_coordinator = providers.Singleton(
+    reports_coordinator = providers.Factory(
         ReportsCoordinator,
         reports_window=reports_window,
         employee_service=employee_service,
-        reports_session_factory=reports_session_factory,
     )

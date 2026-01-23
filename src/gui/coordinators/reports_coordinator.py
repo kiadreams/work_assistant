@@ -2,15 +2,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from dependency_injector.providers import Factory
-
-import src.gui.coordinators.reports as coordinators
-from di.sessions_container import ReportSessionContainer
+from core.interfaces.coordinators import ViewCoordinatorProtocol
 from src.core.constants import ReportsViews as ViewEnum
 from src.gui.views.reports_window import ReportsWindow
 
 if TYPE_CHECKING:
-    from core.interfaces.coordinators import ViewCoordinatorProtocol
+    import gui.coordinators.reports as reports
     from core.interfaces.services import EmployeeServiceProtocol
 
 
@@ -19,41 +16,34 @@ class ReportsCoordinator:
         self,
         employee_service: EmployeeServiceProtocol,
         report_window: ReportsWindow,
-        reports_session_factory: Factory[ReportSessionContainer],
+        divisions_coordinator: reports.DivisionsCoordinator,
+        staff_coordinator: reports.StaffCoordinator,
+        work_types_coordinator: reports.WorkTypesCoordinator,
+        works_coordinator: reports.WorksCoordinator,
+        orders_coordinator: reports.OrdersCoordinator,
+        work_events_coordinator: reports.WorkEventsCoordinator,
     ) -> None:
         self.employee_service = employee_service
         self._reports_window = report_window
-        self._view_coordinators: dict[ViewEnum, ViewCoordinatorProtocol] = {}
+        self._view_coordinators: dict[ViewEnum, ViewCoordinatorProtocol] = {
+            ViewEnum.DIVISIONS: divisions_coordinator,
+            ViewEnum.STAFF: staff_coordinator,
+            ViewEnum.WORKS: works_coordinator,
+            ViewEnum.ORDERS: orders_coordinator,
+            ViewEnum.WORK_EVENTS: work_events_coordinator,
+            ViewEnum.WORK_TYPES: work_types_coordinator,
+        }
 
     @property
     def session_window(self) -> ReportsWindow:
         return self._reports_window
 
-    def start_session(self) -> None:
+    def start(self) -> None:
         self._connect_signals()
         self._initialize_all_views()
         self.open_divisions_view()
 
     def _initialize_all_views(self) -> None:
-        self._view_coordinators[ViewEnum.DIVISIONS] = coordinators.DivisionsCoordinator(
-            self.employee_service
-        )
-        self._view_coordinators[ViewEnum.STAFF] = coordinators.StaffCoordinator(
-            self.employee_service
-        )
-        self._view_coordinators[ViewEnum.WORK_TYPES] = coordinators.WorkTypesCoordinator(
-            self.employee_service
-        )
-        self._view_coordinators[ViewEnum.WORKS] = coordinators.WorksCoordinator(
-            self.employee_service
-        )
-        self._view_coordinators[ViewEnum.ORDERS] = coordinators.OrdersCoordinator(
-            self.employee_service
-        )
-        self._view_coordinators[ViewEnum.WORK_EVENTS] = coordinators.WorkEventsCoordinator(
-            self.employee_service
-        )
-
         for view_enum, coordinator in self._view_coordinators.items():
             coordinator.start_view()
             self.session_window.add_view(view_enum, coordinator.view)
@@ -87,5 +77,4 @@ class ReportsCoordinator:
     def teardown(self) -> None:
         """Очистка всех внутренних ресурсов сессии."""
         for coordinator in self._view_coordinators.values():
-            if hasattr(coordinator, "teardown"):
-                coordinator.teardown()
+            coordinator.teardown()

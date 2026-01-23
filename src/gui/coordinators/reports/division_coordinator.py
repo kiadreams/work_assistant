@@ -2,8 +2,6 @@ from pydantic import ValidationError
 from PySide6.QtWidgets import QMessageBox
 
 from core.validators.division_validator import DivisionValidator
-from gui.viewmodels.dialogs.add_division_dialog_model import AddDivisionDialogModel
-from src.core.interfaces.services import EmployeeServiceProtocol
 from src.core.models.division_domain import DivisionDomain
 from src.gui.dto.models import DivisionDto
 from src.gui.models.reports.division_report_table_models import (
@@ -27,7 +25,7 @@ class DivisionsCoordinator:
         self._view = DivisionReportView(self.division_table_model, self.department_table_model)
         self.dialog_view: BaseDialogView | None = None
 
-    def start_view(self) -> None:
+    def start(self) -> None:
         self._connect_signals()
         self.vm.init_model_data()
         self._view.init_content_view()
@@ -41,7 +39,7 @@ class DivisionsCoordinator:
 
     def handle_add_new_division_button(self) -> None:
         division_validator = DivisionValidator(self.employee_service)
-        add_division_viewmodel = AddDivisionDialogModel(division_validator)
+        # add_division_viewmodel = AddDivisionDialogModel(division_validator)
         self.dialog_view = AddDivisionDialogView(self._view)
         self.dialog_view.init_content_widget()
         self.dialog_view.buttonBox_exit.accepted.connect(self.validate_new_division)
@@ -79,3 +77,6 @@ class DivisionsCoordinator:
                 "Служба с таким наименованием уже существует...",
             )
         return None
+
+    def teardown(self) -> None:
+        pass
