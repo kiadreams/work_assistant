@@ -1,44 +1,33 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from pydantic import ValidationError
 from PySide6.QtCore import QObject, Signal
 
-from core.models.division_domain import DivisionDomain
-from gui.dto.models import DivisionDto
-
-if TYPE_CHECKING:
-    from core.interfaces.validators import DivisionValidatorProtocol
+from src.core.exceptions import DivisionExistsError
+from src.core.models.division_domain import DivisionDomain
+from src.gui.dto.pipeline_services import DivisionPipelineService
 
 
 class AddDivisionDialogModel(QObject):
-    close_dialog_signal = Signal()
-    show_error_signal = Signal()
+    close_dialog_with_data_signal = Signal(DivisionDomain)
+    show_error_signal = Signal(str)
 
-    def __init__(self, division_validator: DivisionValidatorProtocol):
+    def __init__(self, division_pipeline_service: DivisionPipelineService):
         super().__init__()
-        self._division_validator = division_validator
+        self.division_pipeline_service = division_pipeline_service
         self._new_division: DivisionDomain | None = None
 
-    def handle_ok_button_pressed(self, division_data: dict[str, str]) -> None:
+    def validate_accepted_data_dialog(self, division_data: dict[str, str]) -> None:
+        division: DivisionDomain | None = None
         try:
-            division_dto = DivisionDto.model_validate(division_data)
+            division = self.division_pipeline_service.process_raw_data_to_domain(division_data)
         except ValidationError as e:
-            self.show_error_signal.emit(f"Ошибка формата: {e.errors()[0]['msg']}")
-            return
-        division = DivisionDomain.division_from_data(division_dto)
-        if self._division_validator.is_valid_division(division):
-            self.close_dialog_signal.emit(True)
-        else:
-            self.show_error_signal.emit("Служба с таким наименованием уже существует.")
+            self.show_error_signal.emit(f"{e}")
+        except DivisionExistsError as e:
+            self.show_error_signal.emit(f"{e}")
+        if division:
+            self.close_dialog_with_data_signal.emit(division)
 
     @property
     def division(self) -> DivisionDomain | None:
         return self._new_division
-
-    def teardown(self) -> None:
-        """Очистка всех внутренних ресурсов сессии."""
-        for coordinator in self._view_coordinators.values():
-            if hasattr(coordinator, "teardown"):
-                coordinator.teardown()

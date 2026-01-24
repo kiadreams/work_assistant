@@ -1,75 +1,104 @@
-from pydantic import ValidationError
-from PySide6.QtWidgets import QMessageBox
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from dependency_injector.providers import Factory
 
 from src.core.models.division_domain import DivisionDomain
-from src.core.validators.division_validator import DivisionValidator
-from src.gui.dto.models import DivisionDto
 from src.gui.viewmodels import DivisionViewModel
-from src.gui.views import AddDivisionDialogView
-from src.gui.views.dialogs.add_division_dialog_view import BaseDialogView
+from src.gui.viewmodels.dialogs.add_division_dialog_model import AddDivisionDialogModel
+from src.gui.views.dialogs.base_dialog_view import BaseDialogView
 from src.gui.views.reports import DivisionReportView
+
+if TYPE_CHECKING:
+    from src.di.report_container import DivisionDialogContainer
 
 
 class DivisionsCoordinator:
     def __init__(
-        self, division_viewmodel: DivisionViewModel, division_report_view: DivisionReportView
+        self,
+        division_viewmodel: DivisionViewModel,
+        division_report_view: DivisionReportView,
+        division_dialog_factory: Factory[DivisionDialogContainer],
     ) -> None:
-        self.vm = division_viewmodel
+        self._vm = division_viewmodel
         self._view = division_report_view
-        self.dialog_view: BaseDialogView | None = None
-
-    def start(self) -> None:
-        self._connect_signals()
-        self.vm.init_model_data()
-        self._view.init_content_view()
+        self._division_dialog_factory = division_dialog_factory
+        self._current_dialog_vm: AddDivisionDialogModel | None = None
+        self._current_dialog_view: BaseDialogView | None = None
 
     @property
     def view(self) -> DivisionReportView:
         return self._view
 
+    def start(self) -> None:
+        self._connect_signals()
+        self._vm.init_model_data()
+        self._view.init_content_view()
+
     def _connect_signals(self) -> None:
-        self.view.add_new_division_signal.connect(self.handle_add_new_division_button)
+        self._view.add_new_division_signal.connect(self.handle_add_new_division_button)
+        self._view.delete_division_signal.connect(self._vm.delete_current_division)
+        self._view.edit_division_signal.connect(self.handle_edit_division_button)
+        self._view.add_new_department_signal.connect(self.handle_add_new_department_button)
+        self._view.delete_department_signal.connect(self._vm.delete_current_department)
+        self._view.edit_department_signal.connect(self.handle_edit_department_button)
+
+    def _disconnect_signals(self) -> None:
+        self._view.add_new_division_signal.disconnect(self.handle_add_new_division_button)
+        self._view.delete_division_signal.disconnect(self._vm.delete_current_division)
+        self._view.edit_division_signal.disconnect(self.handle_edit_division_button)
+        self._view.add_new_department_signal.disconnect(self.handle_add_new_department_button)
+        self._view.delete_department_signal.disconnect(self._vm.delete_current_department)
+        self._view.edit_department_signal.disconnect(self.handle_edit_department_button)
 
     def handle_add_new_division_button(self) -> None:
-        # division_validator = DivisionValidator(self.employee_service)
-        # add_division_viewmodel = AddDivisionDialogModel(division_validator)
-        self.dialog_view = AddDivisionDialogView(self._view)
-        self.dialog_view.init_content_widget()
-        self.dialog_view.buttonBox_exit.accepted.connect(self.validate_new_division)
-        if self.dialog_view.exec():
-            self.vm.add_new_division()
-        self.dialog_view.buttonBox_exit.accepted.disconnect(self.validate_new_division)
-        self.dialog_view = None
-        print(f"удаляем экземпляр диалога: {self.dialog_view}")
+        dialog = self._division_dialog_factory()
+        self._current_dialog_vm = dialog.add_division_dialog_model()
+        self._current_dialog_view = dialog.add_division_dialog_view()
+        self._connect_current_dialog_signals()
+        self._current_dialog_view.exec()
+        self._disconnect_current_dialog_signals()
+        self._current_dialog_view.deleteLater()
 
-    def validate_new_division(self) -> None:
-        if not self.dialog_view:
-            return None
-        division_dto = None
-        try:
-            division_dto = DivisionDto.model_validate(self.dialog_view.get_data())
-        except ValidationError as e:
-            field = e.errors()[0]["loc"][0]
-            match field:
-                case "name":
-                    text = "Укажите правильно название службы"
-            QMessageBox.warning(
-                self.dialog_view,
-                "Ошибка формата данных",
-                f"Некорректно указаны данные: \n{text}",
+    def handle_edit_division_button(self, division_name: str) -> None:
+        print(f"Нажали править службу с текущим именем: {division_name}")
+
+    def handle_add_new_department_button(self) -> None:
+        print("Нажали добавить новый отдел...")
+
+    def handle_edit_department_button(self, department_name: str) -> None:
+        print(f"Нажали править отдел с текущим именем: {department_name}")
+
+    def _connect_current_dialog_signals(self) -> None:
+        if self._current_dialog_vm and self._current_dialog_view:
+            self._current_dialog_view.init_content_widget()
+            self._current_dialog_vm.show_error_signal.connect(
+                self._current_dialog_view.show_warning_massage
             )
-        if not division_dto:
-            return None
-        division = DivisionDomain.division_from_data(division_dto)
-        if self.vm.check_division(division):
-            self.dialog_view.accept()
-        else:
-            QMessageBox.warning(
-                self.dialog_view,
-                "Ошибка данных",
-                "Служба с таким наименованием уже существует...",
+            self._current_dialog_view.data_accepted_signal.connect(
+                self._current_dialog_vm.validate_accepted_data_dialog
             )
-        return None
+            self._current_dialog_vm.close_dialog_with_data_signal.connect(
+                self._close_add_division_dialog
+            )
+
+    def _disconnect_current_dialog_signals(self) -> None:
+        if self._current_dialog_vm and self._current_dialog_view:
+            self._current_dialog_vm.show_error_signal.disconnect(
+                self._current_dialog_view.show_warning_massage
+            )
+            self._current_dialog_view.data_accepted_signal.disconnect(
+                self._current_dialog_vm.validate_accepted_data_dialog
+            )
+            self._current_dialog_vm.close_dialog_with_data_signal.disconnect(
+                self._close_add_division_dialog
+            )
+
+    def _close_add_division_dialog(self, division: DivisionDomain) -> None:
+        self._vm.add_new_division(division)
+        if self._current_dialog_view:
+            self._current_dialog_view.accept()
 
     def teardown(self) -> None:
-        pass
+        self._disconnect_signals()

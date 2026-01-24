@@ -14,6 +14,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)  # type: ignore[no-untyped-call]
         self.setStyleSheet(ResourceLoader(QtStyleResources.MAIN_WINDOW_STYLE).load_style())
         self.resize(1280, 800)
+        self.setWindowTitle("Рабочий помощник КИА")
 
     def add_window(self, index: PageStructure, widget: QWidget) -> None:
         layout_widget = self.get_widget_to_insert(widget)

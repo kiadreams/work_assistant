@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from src.core.models.department_domain import DepartmentDomain
 
 if TYPE_CHECKING:
-    from core.interfaces.data_protocols import DepartmentDataProtocol, DivisionDataProtocol
+    from src.core.interfaces.data_protocols import DepartmentDataProtocol, DivisionDataProtocol
 
 
 class DivisionDomain:

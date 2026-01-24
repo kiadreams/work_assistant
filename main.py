@@ -28,7 +28,6 @@ if __name__ == "__main__":
     # Загрузка записей во все таблицы из JSON файлов
     # db_manager.import_from_json_files()
 
-
     app = QApplication(sys.argv)
     coordinator = app_container.app_coordinator()
     coordinator.start()

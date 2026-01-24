@@ -3,7 +3,6 @@ from __future__ import annotations
 from dependency_injector import containers, providers
 
 from src.core.services import EmployeeService
-from src.core.validators.division_validator import DivisionValidator
 from src.di.report_container import ReportSessionContainer
 from src.gui.coordinators.app_coordinator import AppCoordinator
 from src.gui.views import MainMenuWindow, MainWindow
@@ -20,15 +19,12 @@ class AppContainer(containers.DeclarativeContainer):
 
     employee_service = providers.Singleton(EmployeeService, division_repository=division_repository)
 
-    division_validator = providers.Singleton(DivisionValidator, employee_service=employee_service)
-
     main_window = providers.Singleton(MainWindow)
     main_menu_window = providers.Singleton(MainMenuWindow)
 
     report_container = providers.Factory(
         ReportSessionContainer,
         employee_service=employee_service,
-        division_validator=division_validator,
     )
 
     app_coordinator = providers.Singleton(

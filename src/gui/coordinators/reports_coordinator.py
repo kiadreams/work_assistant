@@ -15,7 +15,7 @@ class ReportsCoordinator:
     def __init__(
         self,
         employee_service: EmployeeServiceProtocol,
-        report_window: ReportsWindow,
+        reports_window: ReportsWindow,
         divisions_coordinator: reports.DivisionsCoordinator,
         staff_coordinator: reports.StaffCoordinator,
         work_types_coordinator: reports.WorkTypesCoordinator,
@@ -24,7 +24,7 @@ class ReportsCoordinator:
         work_events_coordinator: reports.WorkEventsCoordinator,
     ) -> None:
         self.employee_service = employee_service
-        self._reports_window = report_window
+        self._reports_window = reports_window
         self._view_coordinators: dict[ViewEnum, ViewCoordinatorProtocol] = {
             ViewEnum.DIVISIONS: divisions_coordinator,
             ViewEnum.STAFF: staff_coordinator,
@@ -56,6 +56,14 @@ class ReportsCoordinator:
         self.session_window.open_work_types_view_signal.connect(self.open_work_types_view)
         self.session_window.open_orders_view_signal.connect(self.open_orders_view)
 
+    def _disconnect_signals(self) -> None:
+        self.session_window.open_divisions_view_signal.disconnect(self.open_divisions_view)
+        self.session_window.open_staff_view_signal.disconnect(self.open_staff_view)
+        self.session_window.open_works_view_signal.disconnect(self.open_works_view)
+        self.session_window.open_work_events_view_signal.disconnect(self.open_work_events_view)
+        self.session_window.open_work_types_view_signal.disconnect(self.open_work_types_view)
+        self.session_window.open_orders_view_signal.disconnect(self.open_orders_view)
+
     def open_divisions_view(self) -> None:
         self.session_window.change_view(ViewEnum.DIVISIONS)
 
@@ -76,5 +84,6 @@ class ReportsCoordinator:
 
     def teardown(self) -> None:
         """Очистка всех внутренних ресурсов сессии."""
+        self._disconnect_signals()
         for coordinator in self._view_coordinators.values():
             coordinator.teardown()

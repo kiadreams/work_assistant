@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QDialog, QWidget
+from PySide6.QtWidgets import QDialog, QMessageBox, QWidget
 
 from src.core.constants import QtStyleResources
 from src.gui.generated.ui.ui_base_dialog_view import Ui_BaseDialogView
@@ -9,7 +9,7 @@ from src.gui.utils import ResourceLoader
 
 
 class BaseDialogView(QDialog, Ui_BaseDialogView):
-    data_accepted_signal = Signal()
+    data_accepted_signal = Signal(dict)
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -20,7 +20,13 @@ class BaseDialogView(QDialog, Ui_BaseDialogView):
 
     def setup_connections(self) -> None:
         self.buttonBox_exit.rejected.connect(self.reject)
-        self.buttonBox_exit.accepted.connect(self.data_accepted_signal.emit)
+        self.buttonBox_exit.accepted.connect(self._accepted_data_validate)
+
+    def show_warning_massage(self, text: str) -> None:
+        QMessageBox.warning(self, "Ошибка данных", text)
+
+    def _accepted_data_validate(self) -> None:
+        self.data_accepted_signal.emit(self.get_data())
 
     def get_data(self) -> dict[str, str] | None:
         pass

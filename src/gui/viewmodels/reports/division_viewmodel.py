@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 
 from PySide6.QtCore import QObject, Signal
 
-from src.core.interfaces.validators import DivisionValidatorProtocol
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
@@ -19,11 +18,9 @@ class DivisionViewModel(QObject):
     def __init__(
         self,
         employee_service: EmployeeServiceProtocol,
-        division_validator: DivisionValidatorProtocol,
     ) -> None:
         super().__init__()
         self._employee_service = employee_service
-        self._division_validator = division_validator
         self._divisions: list[DivisionDomain] = []
         self._current_division: DivisionDomain | None = None
         self._departments: list[DepartmentDomain] = []
@@ -73,7 +70,7 @@ class DivisionViewModel(QObject):
 
     @property
     def can_delete_current_division(self) -> bool:
-        if self.current_division:
+        if self.current_division and not self.departments:
             return True
         return False
 
@@ -131,26 +128,20 @@ class DivisionViewModel(QObject):
         department = next((d for d in self.departments if d.name == department_name), None)
         self.current_department = department
 
-    def add_new_division(self) -> None:
-        print("Добавляем новую службу...")
+    def add_new_division(self, division: DivisionDomain) -> None:
+        print(f"Добавляем новую службу...{division.name}")
 
-    def add_new_department(self) -> None:
-        print("Добавляем новый отдел...")
+    def add_new_department(self, department: DepartmentDomain) -> None:
+        print(f"Добавляем новый отдел...{department.name}")
 
-    def check_division(self, division: DivisionDomain) -> bool:
-        is_unique = not any(division.name.lower() == d.name.lower() for d in self.divisions)
-        if is_unique:
-            self._new_division = division
-            return True
-        else:
-            self._new_division = None
-            return False
+    def delete_current_division(self, division_name: str) -> None:
+        print(f"Нажали удалить службу...{division_name}")
 
-    def check_department(self, department: DepartmentDomain) -> bool:
-        is_unique = not any(department.name.lower() == d.name.lower() for d in self.departments)
-        if is_unique:
-            self._new_department = department
-            return True
-        else:
-            self._new_department = None
-            return False
+    def delete_current_department(self, department_name: str) -> None:
+        print(f"Нажали удалить отдел...{department_name}")
+
+    def edit_current_division(self, division: DivisionDomain) -> None:
+        print(f"Теперь текущая служба должна называться {division.name}")
+
+    def edit_current_department(self, department: DepartmentDomain) -> None:
+        print(f"Теперь текущий отдел должен называться {department.name}")
