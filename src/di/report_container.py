@@ -7,13 +7,14 @@ from dependency_injector import containers, providers
 import src.gui.coordinators.reports as report_coordinators
 from src.core.validators.division_validator import DivisionValidator
 from src.gui.coordinators.reports_coordinator import ReportsCoordinator
-from src.gui.dto.pipeline_services import DivisionPipelineService
+from src.gui.dto.model_pipeline_services import DivisionPipelineService
 from src.gui.models.reports.division_report_table_models import (
     DivisionReportDepartmentTableModel,
     DivisionReportDivisionTableModel,
 )
 from src.gui.viewmodels import DivisionViewModel
 from src.gui.viewmodels.dialogs.add_division_dialog_model import AddDivisionDialogModel
+from src.gui.viewmodels.dialogs.edit_division_dialog_model import EditDivisionDialogModel
 from src.gui.views import AddDivisionDialogView, ReportsWindow
 from src.gui.views.reports import DivisionReportView
 
@@ -35,8 +36,12 @@ class DivisionDialogContainer(containers.DeclarativeContainer):
     add_division_dialog_model = providers.Factory(
         AddDivisionDialogModel, division_pipeline_service=division_pipeline_service
     )
+    edit_division_dialog_model = providers.Factory(
+        EditDivisionDialogModel, division_pipeline_service=division_pipeline_service
+    )
 
     add_division_dialog_view = providers.Factory(AddDivisionDialogView, parent=reports_window)
+    edit_division_dialog_view = providers.Factory()
 
 
 class ReportSessionContainer(containers.DeclarativeContainer):

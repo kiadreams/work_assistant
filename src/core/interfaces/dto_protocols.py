@@ -1,36 +1,36 @@
 from __future__ import annotations
 
 import datetime
-from typing import Protocol
+from typing import Any, Protocol
 
 
-class DivisionDataProtocol(Protocol):
+class DivisionDtoProtocol(Protocol):
     id: int | None
     name: str
     full_name: str | None
-    departments: list[DepartmentDataProtocol]
+    departments: list[Any]
 
 
-class DepartmentDataProtocol(Protocol):
+class DepartmentDtoProtocol(Protocol):
     id: int | None
     name: str
     division_id: int | None
     full_name: str | None
 
 
-class EmployeePositionDataProtocol(Protocol):
+class EmployeePositionDtoProtocol(Protocol):
     id: int | None
     name: str
     number_of_position: int
     division_id: int | None
     department_id: int | None
     abbreviation: str | None
-    division: DivisionDataProtocol | None
-    department: DepartmentDataProtocol | None
-    employee: EmployeeDataProtocol | None
+    division: DivisionDtoProtocol | None
+    department: DepartmentDtoProtocol | None
+    employee: EmployeeDtoProtocol | None
 
 
-class EmployeeDataProtocol(Protocol):
+class EmployeeDtoProtocol(Protocol):
     id: int | None
     name: str
     last_name: str
@@ -38,27 +38,27 @@ class EmployeeDataProtocol(Protocol):
     service_number: str | None
     date_of_birth: datetime.date | None
     employee_position_id: int | None
-    employee_position: EmployeePositionDataProtocol
-    work_tasks: list[WorkTaskDataProtocol]
+    employee_position: EmployeePositionDtoProtocol
+    work_tasks: list[WorkTaskDtoProtocol]
 
 
-class EquipmentDataProtocol(Protocol):
+class EquipmentDtoProtocol(Protocol):
     id: int | None
     name: str
     equipment_location_id: int | None
     inventory_number: str | None
-    works: list[WorkDataProtocol]
-    location: EquipmentLocationDataProtocol
+    works: list[WorkDtoProtocol]
+    location: EquipmentLocationDtoProtocol
 
 
-class EquipmentLocationDataProtocol(Protocol):
+class EquipmentLocationDtoProtocol(Protocol):
     id: int | None
     name: str
-    equipment: list[EquipmentDataProtocol]
+    equipment: list[EquipmentDtoProtocol]
     inventory_number: str | None
 
 
-class WorkDataProtocol(Protocol):
+class WorkDtoProtocol(Protocol):
     id: int | None
     name: str
     year: int
@@ -66,31 +66,31 @@ class WorkDataProtocol(Protocol):
     work_type_id: int | None
     work_order_id: int | None
     equipment_id: int | None
-    work_type: WorkTypeDataProtocol | None
-    work_order: WorkOrderDataProtocol | None
-    work_tasks: list[WorkTaskDataProtocol]
-    equipment: list[EquipmentDataProtocol]
+    work_type: WorkTypeDtoProtocol | None
+    work_order: WorkOrderDtoProtocol | None
+    work_tasks: list[WorkTaskDtoProtocol]
+    equipment: list[EquipmentDtoProtocol]
 
 
-class WorkOrderDataProtocol(Protocol):
+class WorkOrderDtoProtocol(Protocol):
     id: int | None
     number: str
-    works: list[WorkDataProtocol]
+    works: list[WorkDtoProtocol]
 
 
-class WorkTaskDataProtocol(Protocol):
+class WorkTaskDtoProtocol(Protocol):
     id: int | None
     work_id: int | None
     employee_id: int | None
     date: datetime.date
     start_time: datetime.time
     end_time: datetime.time
-    work: WorkDataProtocol
-    employee: EmployeeDataProtocol
+    work: WorkDtoProtocol
+    employee: EmployeeDtoProtocol
 
 
-class WorkTypeDataProtocol(Protocol):
+class WorkTypeDtoProtocol(Protocol):
     id: int | None
     name: str
-    works: list[WorkDataProtocol]
+    works: list[WorkDtoProtocol]
     abbreviation: str | None

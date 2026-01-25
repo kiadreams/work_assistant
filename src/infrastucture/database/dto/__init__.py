@@ -1,6 +1,6 @@
-from .models import DepartmentDto, DivisionDto
+from .models import DbDepartmentDto, DbDivisionDto
 
 __all__ = [
-    "DivisionDto",
-    "DepartmentDto",
+    "DbDivisionDto",
+    "DbDepartmentDto",
 ]

@@ -14,7 +14,7 @@ from src.infrastucture.database.config import (
     DATABASE_URL,
     JSON_TABLE_DATA_DIR,
 )
-from src.shared.utils.file_utils import create_clean_dir
+from src.shared.file_utils import create_clean_dir
 
 
 class Base(DeclarativeBase):

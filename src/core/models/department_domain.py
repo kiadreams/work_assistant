@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.core.interfaces.data_protocols import DepartmentDataProtocol
+from src.core.interfaces.dto_protocols import DepartmentDtoProtocol
 
 
 class DepartmentDomain:
@@ -34,7 +34,7 @@ class DepartmentDomain:
         return self._full_name
 
     @classmethod
-    def model_validate(cls, department_data: DepartmentDataProtocol) -> DepartmentDomain:
+    def model_validate(cls, department_data: DepartmentDtoProtocol) -> DepartmentDomain:
         return cls(
             name=department_data.name,
             department_id=department_data.id,

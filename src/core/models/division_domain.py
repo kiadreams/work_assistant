@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from src.core.models.department_domain import DepartmentDomain
 
 if TYPE_CHECKING:
-    from src.core.interfaces.data_protocols import DepartmentDataProtocol, DivisionDataProtocol
+    from src.core.interfaces.dto_protocols import DepartmentDtoProtocol, DivisionDtoProtocol
 
 
 class DivisionDomain:
@@ -39,8 +39,8 @@ class DivisionDomain:
         return self._departments
 
     @classmethod
-    def division_from_data(cls, division_data: DivisionDataProtocol) -> DivisionDomain:
-        departments_data: list[DepartmentDataProtocol] = division_data.departments
+    def division_from_data(cls, division_data: DivisionDtoProtocol) -> DivisionDomain:
+        departments_data: list[DepartmentDtoProtocol] = division_data.departments
         departments = []
         if departments_data:
             departments = [DepartmentDomain.model_validate(d) for d in departments_data]

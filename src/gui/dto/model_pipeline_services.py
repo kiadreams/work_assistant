@@ -2,7 +2,7 @@ from src.core.models.division_domain import DivisionDomain
 from src.core.validators.division_validator import (
     DivisionValidator,
 )
-from src.gui.dto.models import DivisionDto
+from src.gui.dto.gui_dto_models import GuiDivisionDto
 
 
 class DivisionPipelineService:
@@ -13,6 +13,6 @@ class DivisionPipelineService:
         """
         Полный конвейер валидации: формат + бизнес-логика.
         """
-        division_dto = DivisionDto.model_validate(raw_data)
+        division_dto = GuiDivisionDto.model_validate(raw_data)
         division = self._core_validator.create_division(division_dto)
         return division

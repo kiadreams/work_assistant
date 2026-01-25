@@ -62,6 +62,8 @@ class DivisionsCoordinator:
         self._current_dialog_view.deleteLater()
 
     def handle_edit_division_button(self, division_name: str) -> None:
+        dialog = self._division_dialog_factory()
+        # self.
         print(f"Нажали править службу с текущим именем: {division_name}")
 
     def handle_add_new_department_button(self) -> None:

@@ -7,13 +7,14 @@ from src.core.models.division_domain import DivisionDomain
 from src.gui.dto.model_pipeline_services import DivisionPipelineService
 
 
-class AddDivisionDialogModel(QObject):
+class EditDivisionDialogModel(QObject):
     close_dialog_with_data_signal = Signal(DivisionDomain)
     show_error_signal = Signal(str)
 
     def __init__(self, division_pipeline_service: DivisionPipelineService):
         super().__init__()
         self.division_pipeline_service = division_pipeline_service
+        self._current_division: DivisionDomain | None = None
 
     def validate_accepted_data_dialog(self, division_data: dict[str, str]) -> None:
         division: DivisionDomain | None = None
