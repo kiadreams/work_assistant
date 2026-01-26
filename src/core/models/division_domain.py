@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from src.core.models.department_domain import DepartmentDomain
 
@@ -17,26 +17,10 @@ class DivisionDomain:
         departments: list[DepartmentDomain],
         division_id: int | None = None,
     ) -> None:
-        self._id = division_id
-        self._name = name
-        self._full_name = full_name
-        self._departments = departments
-
-    @property
-    def id(self) -> int | None:
-        return self._id
-
-    @property
-    def name(self) -> str:
-        return self._name
-
-    @property
-    def full_name(self) -> str | None:
-        return self._full_name
-
-    @property
-    def departments(self) -> list[DepartmentDomain]:
-        return self._departments
+        self.id = division_id
+        self.name = name
+        self.full_name = full_name
+        self.departments = departments
 
     @classmethod
     def division_from_data(cls, division_data: DivisionDtoProtocol) -> DivisionDomain:
@@ -50,3 +34,12 @@ class DivisionDomain:
             full_name=division_data.full_name,
             departments=departments,
         )
+
+    @property
+    def model_data(self) -> dict[str, Any]:
+        division_data = {}
+        for name, value in vars(self).items():
+            if isinstance(value, list):
+                value = [e.model_data for e in value]
+            division_data[name] = value
+        return division_data

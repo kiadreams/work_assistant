@@ -15,7 +15,7 @@ class BaseDivisionDto(BaseModel):
     def name_validator(cls, name: str) -> str:
         clean_name = name.strip()
         if not clean_name:
-            raise DivisionInvalidNameError("Название службы не содержит символов...")
+            raise DivisionInvalidNameError("Не указано название службы...")
         return clean_name
 
 

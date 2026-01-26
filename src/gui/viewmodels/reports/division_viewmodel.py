@@ -134,14 +134,18 @@ class DivisionViewModel(QObject):
     def add_new_department(self, department: DepartmentDomain) -> None:
         print(f"Добавляем новый отдел...{department.name}")
 
-    def delete_current_division(self, division_name: str) -> None:
-        print(f"Нажали удалить службу...{division_name}")
+    def delete_current_division(self) -> None:
+        if self.current_division:
+            print(f"Нажали править отдел с текущим именем: {self.current_division.name}")
 
-    def delete_current_department(self, department_name: str) -> None:
-        print(f"Нажали удалить отдел...{department_name}")
+    def delete_current_department(self) -> None:
+        if self.current_department:
+            print(f"Нажали править отдел с текущим именем: {self.current_department.name}")
 
-    def edit_current_division(self, division: DivisionDomain) -> None:
-        print(f"Теперь текущая служба должна называться {division.name}")
+    def edit_current_division(self) -> None:
+        if self.current_division:
+            print(f"Нажали править отдел с текущим именем: {self.current_division.name}")
 
-    def edit_current_department(self, department: DepartmentDomain) -> None:
-        print(f"Теперь текущий отдел должен называться {department.name}")
+    def edit_current_department(self) -> None:
+        if self.current_division:
+            print(f"Нажали править отдел с текущим именем: {self.current_division.name}")

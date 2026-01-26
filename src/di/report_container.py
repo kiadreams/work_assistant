@@ -13,10 +13,17 @@ from src.gui.models.reports.division_report_table_models import (
     DivisionReportDivisionTableModel,
 )
 from src.gui.viewmodels import DivisionViewModel
-from src.gui.viewmodels.dialogs.add_division_dialog_model import AddDivisionDialogModel
-from src.gui.viewmodels.dialogs.edit_division_dialog_model import EditDivisionDialogModel
-from src.gui.views import AddDivisionDialogView, ReportsWindow
+from src.gui.viewmodels.dialogs.division_dialog_models import (
+    AddDivisionDialogModel,
+    EditDivisionDialogModel,
+)
+from src.gui.views import ReportsWindow
+from src.gui.views.dialogs.division_dialog_views import (
+    AddDivisionDialogView,
+    EditDivisionDialogView,
+)
 from src.gui.views.reports import DivisionReportView
+from src.shared.mappers.division_mapper_service import DivisionMapperService
 
 if TYPE_CHECKING:
     from src.core.services import EmployeeService
@@ -25,8 +32,10 @@ if TYPE_CHECKING:
 class DivisionDialogContainer(containers.DeclarativeContainer):
     employee_service: providers.Dependency[EmployeeService] = providers.Dependency()
     reports_window: providers.Dependency[ReportsWindow] = providers.Dependency()
+    division_viewmodel: providers.Dependency[DivisionViewModel] = providers.Dependency()
 
     division_validator = providers.Factory(DivisionValidator, employee_service=employee_service)
+    division_mapper_service = providers.Factory(DivisionMapperService)
 
     division_pipeline_service = providers.Factory(
         DivisionPipelineService,
@@ -37,11 +46,14 @@ class DivisionDialogContainer(containers.DeclarativeContainer):
         AddDivisionDialogModel, division_pipeline_service=division_pipeline_service
     )
     edit_division_dialog_model = providers.Factory(
-        EditDivisionDialogModel, division_pipeline_service=division_pipeline_service
+        EditDivisionDialogModel,
+        division_pipeline_service=division_pipeline_service,
+        division_mapper_service=division_mapper_service,
+        current_division=providers.AttributeGetter(division_viewmodel, "current_division"),
     )
 
     add_division_dialog_view = providers.Factory(AddDivisionDialogView, parent=reports_window)
-    edit_division_dialog_view = providers.Factory()
+    edit_division_dialog_view = providers.Factory(EditDivisionDialogView, parent=reports_window)
 
 
 class ReportSessionContainer(containers.DeclarativeContainer):
@@ -89,6 +101,7 @@ class ReportSessionContainer(containers.DeclarativeContainer):
         DivisionDialogContainer,
         employee_service=employee_service,
         reports_window=reports_window,
+        division_viewmodel=division_viewmodel,
     )
 
     division_coordinator = providers.Singleton(

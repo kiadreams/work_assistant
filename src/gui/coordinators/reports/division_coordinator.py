@@ -6,8 +6,8 @@ from dependency_injector.providers import Factory
 
 from src.core.models.division_domain import DivisionDomain
 from src.gui.viewmodels import DivisionViewModel
-from src.gui.viewmodels.dialogs.add_division_dialog_model import AddDivisionDialogModel
-from src.gui.views.dialogs.base_dialog_view import BaseDialogView
+from src.gui.viewmodels.dialogs.division_dialog_models import BaseDialogModel
+from src.gui.views.dialogs.division_dialog_views import BaseDialogView
 from src.gui.views.reports import DivisionReportView
 
 if TYPE_CHECKING:
@@ -24,7 +24,7 @@ class DivisionsCoordinator:
         self._vm = division_viewmodel
         self._view = division_report_view
         self._division_dialog_factory = division_dialog_factory
-        self._current_dialog_vm: AddDivisionDialogModel | None = None
+        self._current_dialog_vm: BaseDialogModel | None = None
         self._current_dialog_view: BaseDialogView | None = None
 
     @property
@@ -56,21 +56,30 @@ class DivisionsCoordinator:
         dialog = self._division_dialog_factory()
         self._current_dialog_vm = dialog.add_division_dialog_model()
         self._current_dialog_view = dialog.add_division_dialog_view()
-        self._connect_current_dialog_signals()
-        self._current_dialog_view.exec()
-        self._disconnect_current_dialog_signals()
-        self._current_dialog_view.deleteLater()
+        self._start_current_dialog()
 
-    def handle_edit_division_button(self, division_name: str) -> None:
+    def handle_edit_division_button(self) -> None:
         dialog = self._division_dialog_factory()
+        self._current_dialog_vm = dialog.edit_division_dialog_model()
+        self._current_dialog_view = dialog.edit_division_dialog_view()
         # self.
-        print(f"Нажали править службу с текущим именем: {division_name}")
+        self._start_current_dialog()
+
+    def _start_current_dialog(self) -> None:
+        if self._current_dialog_vm and self._current_dialog_view:
+            self._connect_current_dialog_signals()
+            self._current_dialog_vm.init_model_data()
+            self._current_dialog_view.exec()
+            self._disconnect_current_dialog_signals()
+            self._current_dialog_view.deleteLater()
 
     def handle_add_new_department_button(self) -> None:
         print("Нажали добавить новый отдел...")
 
-    def handle_edit_department_button(self, department_name: str) -> None:
-        print(f"Нажали править отдел с текущим именем: {department_name}")
+    def handle_edit_department_button(self) -> None:
+        department = self._vm.current_department
+        if department:
+            print(f"Нажали править отдел с текущим именем: {department.name}")
 
     def _connect_current_dialog_signals(self) -> None:
         if self._current_dialog_vm and self._current_dialog_view:

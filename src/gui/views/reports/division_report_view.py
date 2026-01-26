@@ -13,11 +13,11 @@ from src.gui.views.base_views import BaseView
 
 class DivisionReportView(BaseView, Ui_DivisionReportWidget):
     add_new_division_signal = Signal()
-    edit_division_signal = Signal(str)
-    delete_division_signal = Signal(str)
+    edit_division_signal = Signal()
+    delete_division_signal = Signal()
     add_new_department_signal = Signal()
-    edit_department_signal = Signal(str)
-    delete_department_signal = Signal(str)
+    edit_department_signal = Signal()
+    delete_department_signal = Signal()
 
     def __init__(
         self,
@@ -38,11 +38,11 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
 
     def __setup_connections(self) -> None:
         self.pushButton_add_division.clicked.connect(self.add_new_division_signal.emit)
-        self.pushButton_remove_division.clicked.connect(self.handle_delete_division_button)
-        self.pushButton_edit_division.clicked.connect(self.handle_edit_division_button)
+        self.pushButton_remove_division.clicked.connect(self.delete_division_signal.emit)
+        self.pushButton_edit_division.clicked.connect(self.edit_division_signal.emit)
         self.pushButton_add_department.clicked.connect(self.add_new_department_signal.emit)
-        self.pushButton_remove_department.clicked.connect(self.handle_delete_department_button)
-        self.pushButton_edit_department.clicked.connect(self.handle_edit_department_button)
+        self.pushButton_remove_department.clicked.connect(self.delete_department_signal.emit)
+        self.pushButton_edit_department.clicked.connect(self.edit_department_signal.emit)
         self.pushButton_show_all_divisions.clicked.connect(self.show_all_divisions)
         self.pushButton_show_departments_of_division.clicked.connect(
             self.show_departments_of_division
@@ -67,22 +67,6 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
         header = self.tableView_division_data_table.horizontalHeader()
         header.setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents)
         header.setStretchLastSection(True)
-
-    def handle_delete_division_button(self) -> None:
-        division_name = self.comboBox_division_list.currentText()
-        self.delete_division_signal.emit(division_name)
-
-    def handle_edit_division_button(self) -> None:
-        division_name = self.comboBox_division_list.currentText()
-        self.edit_division_signal.emit(division_name)
-
-    def handle_delete_department_button(self) -> None:
-        department_name = self.comboBox_department_list.currentText()
-        self.delete_department_signal.emit(department_name)
-
-    def handle_edit_department_button(self) -> None:
-        department_name = self.comboBox_department_list.currentText()
-        self.edit_department_signal.emit(department_name)
 
     def handle_combobox_division_change(self, division_name: str) -> None:
         self.vm.change_current_division(division_name)
