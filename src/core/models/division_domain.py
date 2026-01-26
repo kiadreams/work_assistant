@@ -27,7 +27,7 @@ class DivisionDomain:
         departments_data: list[DepartmentDtoProtocol] = division_data.departments
         departments = []
         if departments_data:
-            departments = [DepartmentDomain.model_validate(d) for d in departments_data]
+            departments = [DepartmentDomain.department_from_data(d) for d in departments_data]
         return cls(
             division_id=division_data.id,
             name=division_data.name,

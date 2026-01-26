@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, field_validator
 
-from src.core.exceptions import DivisionInvalidNameError
+from src.core.exceptions import StructureInvalidNameError
 
 
 class BaseDivisionDto(BaseModel):
@@ -15,7 +15,7 @@ class BaseDivisionDto(BaseModel):
     def name_validator(cls, name: str) -> str:
         clean_name = name.strip()
         if not clean_name:
-            raise DivisionInvalidNameError("Не указано название службы...")
+            raise StructureInvalidNameError("Не указано название службы...")
         return clean_name
 
 
@@ -30,5 +30,5 @@ class BaseDepartmentDto(BaseModel):
     def name_validator(cls, name: str) -> str:
         clean_name = name.strip()
         if not clean_name:
-            raise DivisionInvalidNameError("Название отдела не содержит символов...")
+            raise StructureInvalidNameError("Название отдела не содержит символов...")
         return clean_name

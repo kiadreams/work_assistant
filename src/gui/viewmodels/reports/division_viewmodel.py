@@ -142,10 +142,10 @@ class DivisionViewModel(QObject):
         if self.current_department:
             print(f"Нажали править отдел с текущим именем: {self.current_department.name}")
 
-    def edit_current_division(self) -> None:
+    def edit_current_division(self, division: DivisionDomain) -> None:
         if self.current_division:
             print(f"Нажали править отдел с текущим именем: {self.current_division.name}")
 
-    def edit_current_department(self) -> None:
+    def edit_current_department(self, department: DepartmentDomain) -> None:
         if self.current_division:
             print(f"Нажали править отдел с текущим именем: {self.current_division.name}")

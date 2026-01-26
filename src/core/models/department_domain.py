@@ -20,11 +20,11 @@ class DepartmentDomain:
         self.full_name = full_name
 
     @classmethod
-    def model_validate(cls, department_data: DepartmentDtoProtocol) -> DepartmentDomain:
+    def department_from_data(cls, department_data: DepartmentDtoProtocol) -> DepartmentDomain:
         return cls(
-            name=department_data.name,
             department_id=department_data.id,
-            division_id=department_data.division_id,
+            division_id=department_data.id,
+            name=department_data.name,
             full_name=department_data.full_name,
         )
 

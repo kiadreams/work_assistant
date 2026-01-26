@@ -5,25 +5,29 @@ from typing import TYPE_CHECKING
 from dependency_injector import containers, providers
 
 import src.gui.coordinators.reports as report_coordinators
-from src.core.validators.division_validator import DivisionValidator
+from src.core.validators.division_validators import DepartmentValidator, DivisionValidator
 from src.gui.coordinators.reports_coordinator import ReportsCoordinator
-from src.gui.dto.model_pipeline_services import DivisionPipelineService
+from src.gui.dto.model_pipeline_services import DepartmentPipelineService, DivisionPipelineService
 from src.gui.models.reports.division_report_table_models import (
     DivisionReportDepartmentTableModel,
     DivisionReportDivisionTableModel,
 )
 from src.gui.viewmodels import DivisionViewModel
 from src.gui.viewmodels.dialogs.division_dialog_models import (
+    AddDepartmentDialogModel,
     AddDivisionDialogModel,
+    EditDepartmentDialogModel,
     EditDivisionDialogModel,
 )
 from src.gui.views import ReportsWindow
 from src.gui.views.dialogs.division_dialog_views import (
+    AddDepartmentDialogView,
     AddDivisionDialogView,
+    EditDepartmentDialogView,
     EditDivisionDialogView,
 )
 from src.gui.views.reports import DivisionReportView
-from src.shared.mappers.division_mapper_service import DivisionMapperService
+from src.shared.mappers.mapper_services import DepartmentMapperService, DivisionMapperService
 
 if TYPE_CHECKING:
     from src.core.services import EmployeeService
@@ -37,9 +41,16 @@ class DivisionDialogContainer(containers.DeclarativeContainer):
     division_validator = providers.Factory(DivisionValidator, employee_service=employee_service)
     division_mapper_service = providers.Factory(DivisionMapperService)
 
+    department_validator = providers.Factory(DepartmentValidator, employee_service=employee_service)
+    department_mapper_service = providers.Factory(DepartmentMapperService)
+
     division_pipeline_service = providers.Factory(
         DivisionPipelineService,
         division_validator=division_validator,
+    )
+    department_pipeline_service = providers.Factory(
+        DepartmentPipelineService,
+        department_validator=department_validator,
     )
 
     add_division_dialog_model = providers.Factory(
@@ -51,9 +62,20 @@ class DivisionDialogContainer(containers.DeclarativeContainer):
         division_mapper_service=division_mapper_service,
         current_division=providers.AttributeGetter(division_viewmodel, "current_division"),
     )
+    add_department_dialog_model = providers.Factory(
+        AddDepartmentDialogModel, department_pipeline_service=department_pipeline_service
+    )
+    edit_department_dialog_model = providers.Factory(
+        EditDepartmentDialogModel,
+        department_pipeline_service=department_pipeline_service,
+        department_mapper_service=department_mapper_service,
+        current_department=providers.AttributeGetter(division_viewmodel, "current_department"),
+    )
 
     add_division_dialog_view = providers.Factory(AddDivisionDialogView, parent=reports_window)
     edit_division_dialog_view = providers.Factory(EditDivisionDialogView, parent=reports_window)
+    add_department_dialog_view = providers.Factory(AddDepartmentDialogView, parent=reports_window)
+    edit_department_dialog_view = providers.Factory(EditDepartmentDialogView, parent=reports_window)
 
 
 class ReportSessionContainer(containers.DeclarativeContainer):

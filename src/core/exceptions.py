@@ -4,25 +4,25 @@ class BusinessLogicError(Exception):
     pass
 
 
-class DivisionError(BusinessLogicError):
+class StructureError(BusinessLogicError):
     """Базовый класс для всех ошибок, связанных с сущностью 'Подразделение'."""
 
     pass
 
 
-class DivisionExistsError(DivisionError):
+class StructureExistsError(StructureError):
     """Служба с таким наименованием уже существует."""
 
     pass
 
 
-class DivisionNotFoundError(DivisionError):
+class StructureNotFoundError(StructureError):
     """Служба не найдена."""
 
     pass
 
 
-class DivisionInvalidNameError(DivisionError):
+class StructureInvalidNameError(StructureError):
     """Некорректное имя подразделения."""
 
     pass
