@@ -32,8 +32,12 @@ class Employee(MappedAsDataclass, Base):
         ForeignKey("employee_positions.id"), nullable=False
     )
 
-    employee_position: Mapped[EmployeePosition] = relationship(back_populates="employee")
-    work_tasks: Mapped[list[WorkTask]] = relationship(back_populates="employee")
+    employee_position: Mapped[EmployeePosition] = relationship(
+        back_populates="employee", init=False
+    )
+    work_tasks: Mapped[list[WorkTask]] = relationship(
+        back_populates="employee", default_factory=list
+    )
 
     middle_name: Mapped[str] = mapped_column(String(30), nullable=True, default=None)
     service_number: Mapped[str | None] = mapped_column(unique=True, nullable=True, default=None)

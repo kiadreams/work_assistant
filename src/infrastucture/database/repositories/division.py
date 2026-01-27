@@ -1,21 +1,19 @@
+from __future__ import annotations
+
 from sqlalchemy import select
 
-from src.core.interfaces.repositories import DatabaseManagerProtocol, DivisionRepositoryProtocol
+from src.core.exceptions.db_exceptions import DepartmentNotFoundError, DivisionNotFoundError
+from src.core.interfaces.repositories import DivisionRepositoryProtocol
+from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
-from src.infrastucture.database.dto import DbDivisionDto
-from src.infrastucture.database.entities import Division
+from src.infrastucture.database import DatabaseManager
+from src.infrastucture.database.dto import DbDepartmentDto, DbDivisionDto
+from src.infrastucture.database.entities import Department, Division
 
 
 class DivisionRepository(DivisionRepositoryProtocol):
-    def __init__(self, db_manager: DatabaseManagerProtocol) -> None:
+    def __init__(self, db_manager: DatabaseManager) -> None:
         self.db_manager = db_manager
-
-    def get_division_by_id(self, division_id: int) -> DivisionDomain | None:
-        stmt = select(Division).where(Division.id == division_id)
-        with self.db_manager.session_scope() as session:
-            orm_result = session.execute(stmt).scalar()
-            division_dto = DbDivisionDto.model_validate(orm_result)
-        return DivisionDomain.division_from_data(division_dto)
 
     @property
     def all_divisions(self) -> list[DivisionDomain]:
@@ -23,7 +21,54 @@ class DivisionRepository(DivisionRepositoryProtocol):
         with self.db_manager.session_scope() as session:
             orm_result = session.execute(stmt).scalars()
             divisions_dto = [DbDivisionDto.model_validate(d) for d in orm_result]
-        return [DivisionDomain.division_from_data(division_dto) for division_dto in divisions_dto]
+        return [division_dto.to_domain() for division_dto in divisions_dto]
 
-    def add_new_division(self, division: DivisionDomain) -> None:
-        pass
+    def add_new_division(self, division: DivisionDomain) -> DivisionDomain:
+        with self.db_manager.session_scope() as session:
+            orm_division = Division.from_domain(division)
+            session.add(orm_division)
+        division_dto = DbDivisionDto.model_validate(orm_division)
+        return division_dto.to_domain()
+
+    def add_new_department(self, department: DepartmentDomain) -> DepartmentDomain:
+        with self.db_manager.session_scope() as session:
+            orm_department = Department.from_domain(department)
+            session.add(orm_department)
+        department_dto = DbDepartmentDto.model_validate(orm_department)
+        return department_dto.to_domain()
+
+    def edit_division_by_id(self, division_id: int, division: DivisionDomain) -> DivisionDomain:
+        with self.db_manager.session_scope() as session:
+            orm_division = session.get(Division, division_id)
+            if orm_division is None:
+                raise DivisionNotFoundError(division_id)
+            orm_division.name = division.name
+            orm_division.full_name = division.full_name
+        division_dto = DbDivisionDto.model_validate(orm_division)
+        return division_dto.to_domain()
+
+    def edit_department_by_id(
+        self, department_id: int, department: DepartmentDomain
+    ) -> DepartmentDomain:
+        with self.db_manager.session_scope() as session:
+            orm_department = session.get(Department, department_id)
+            if orm_department is None:
+                raise DepartmentNotFoundError(department_id)
+            orm_department.name = department.name
+            orm_department.full_name = department.full_name
+        department_dto = DbDepartmentDto.model_validate(orm_department)
+        return department_dto.to_domain()
+
+    def delete_division_by_id(self, division_id: int) -> None:
+        with self.db_manager.session_scope() as session:
+            orm_division = session.get(Division, division_id)
+            if orm_division is None:
+                raise DivisionNotFoundError(division_id)
+            session.delete(orm_division)
+
+    def delete_department_by_id(self, department_id: int) -> None:
+        with self.db_manager.session_scope() as session:
+            orm_department = session.get(Department, department_id)
+            if orm_department is None:
+                raise DepartmentNotFoundError(department_id)
+            session.delete(orm_department)

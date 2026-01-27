@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from PySide6.QtCore import Signal
 
-from src.core.exceptions import StructureExistsError, StructureInvalidNameError
+from src.core.exceptions.business_exceptions import StructureExistsError, StructureInvalidNameError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.gui.dto.gui_dto_models import GuiDivisionDto

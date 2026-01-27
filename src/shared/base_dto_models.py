@@ -1,14 +1,19 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, field_validator
+from typing import Sequence
 
-from src.core.exceptions import StructureInvalidNameError
+from pydantic import BaseModel, Field, field_validator
+
+from src.core.exceptions.business_exceptions import StructureInvalidNameError
+from src.core.models.department_domain import DepartmentDomain
+from src.core.models.division_domain import DivisionDomain
 
 
 class BaseDivisionDto(BaseModel):
     id: int | None = None
     name: str
     full_name: str | None = None
+    departments: Sequence[BaseDepartmentDto] = Field(default_factory=list)
 
     @field_validator("name")
     @classmethod
@@ -17,6 +22,16 @@ class BaseDivisionDto(BaseModel):
         if not clean_name:
             raise StructureInvalidNameError("Не указано название службы...")
         return clean_name
+
+    def to_domain(self) -> DivisionDomain:
+        departments = [d.to_domain() for d in self.departments] if self.departments else []
+        division = DivisionDomain(
+            division_id=self.id,
+            name=self.name,
+            full_name=self.full_name,
+            departments=departments,
+        )
+        return division
 
 
 class BaseDepartmentDto(BaseModel):
@@ -32,3 +47,12 @@ class BaseDepartmentDto(BaseModel):
         if not clean_name:
             raise StructureInvalidNameError("Название отдела не содержит символов...")
         return clean_name
+
+    def to_domain(self) -> DepartmentDomain:
+        department = DepartmentDomain(
+            department_id=self.id,
+            name=self.name,
+            full_name=self.full_name,
+            division_id=self.division_id,
+        )
+        return department

@@ -21,6 +21,6 @@ class WorkOrder(MappedAsDataclass, Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
 
-    works: Mapped[list[Work]] = relationship(back_populates="work_order")
+    works: Mapped[list[Work]] = relationship(back_populates="work_order", default_factory=list)
 
     number: Mapped[str] = mapped_column(String(20), nullable=False, default="V05110______")

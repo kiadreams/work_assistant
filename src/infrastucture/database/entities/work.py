@@ -33,15 +33,18 @@ class Work(MappedAsDataclass, Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
 
-    work_type: Mapped[WorkType] = relationship(back_populates="works")
-    work_order: Mapped[WorkOrder] = relationship(back_populates="works")
-    work_tasks: Mapped[list[WorkTask]] = relationship(back_populates="work")
-    equipment: Mapped[list[Equipment]] = relationship(
-        secondary=equipment_works, back_populates="works"
-    )
+    work_type: Mapped[WorkType] = relationship(back_populates="works", init=False)
+    work_order: Mapped[WorkOrder] = relationship(back_populates="works", init=False)
 
     year: Mapped[int] = mapped_column(
         SmallInteger, nullable=False, server_default=extract("year", func.now())
+    )
+
+    work_tasks: Mapped[list[WorkTask]] = relationship(back_populates="work", default_factory=list)
+    equipment: Mapped[list[Equipment]] = relationship(
+        secondary=equipment_works,
+        back_populates="works",
+        default_factory=list,
     )
     month: Mapped[int | None] = mapped_column(SmallInteger, nullable=True, default=None)
     work_type_id: Mapped[int | None] = mapped_column(
@@ -49,7 +52,4 @@ class Work(MappedAsDataclass, Base):
     )
     work_order_id: Mapped[int | None] = mapped_column(
         ForeignKey("work_orders.id"), nullable=True, default=None
-    )
-    equipment_id: Mapped[int | None] = mapped_column(
-        ForeignKey("equipment.id"), nullable=True, default=None
     )

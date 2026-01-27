@@ -10,6 +10,7 @@ from sqlalchemy.orm import (
     relationship,
 )
 
+from src.core.models.division_domain import DivisionDomain
 from src.infrastucture.database.db_manager import Base
 
 if TYPE_CHECKING:
@@ -31,3 +32,11 @@ class Division(MappedAsDataclass, Base):
     )
 
     full_name: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)
+
+    @classmethod
+    def from_domain(cls, division: DivisionDomain) -> Division:
+        orm_division = cls(
+            name=division.name,
+            full_name=division.full_name,
+        )
+        return orm_division

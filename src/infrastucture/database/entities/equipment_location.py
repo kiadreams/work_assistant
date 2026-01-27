@@ -22,6 +22,8 @@ class EquipmentLocation(MappedAsDataclass, Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
 
-    equipment: Mapped[list[Equipment]] = relationship(back_populates="location")
+    equipment: Mapped[list[Equipment]] = relationship(
+        back_populates="location", default_factory=list
+    )
 
     inventory_number: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

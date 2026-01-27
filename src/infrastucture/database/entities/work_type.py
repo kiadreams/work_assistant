@@ -22,6 +22,6 @@ class WorkType(MappedAsDataclass, Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(30), nullable=False)
 
-    works: Mapped[list[Work]] = relationship(back_populates="work_type")
+    works: Mapped[list[Work]] = relationship(back_populates="work_type", init=False)
 
     abbreviation: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

@@ -1,23 +1,39 @@
 from src.core.interfaces.repositories import DivisionRepositoryProtocol
+from src.core.interfaces.services import EmployeeServiceProtocol
+from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
 
-class EmployeeService:
-    def __init__(self, division_repository: DivisionRepositoryProtocol):
-        self.division_repository = division_repository
-
-    def is_division_deleted(self, division: DivisionDomain) -> bool:
-        return False
+class EmployeeService(EmployeeServiceProtocol):
+    def __init__(self, division_repository: DivisionRepositoryProtocol) -> None:
+        self._repository = division_repository
 
     def load_all_divisions(self) -> list[DivisionDomain]:
-        divisions = self.division_repository.all_divisions
+        divisions = self._repository.all_divisions
         return divisions
 
-    def add_new_division(self, division: DivisionDomain) -> None:
-        pass
+    def add_new_division(self, division: DivisionDomain) -> DivisionDomain:
+        division = self._repository.add_new_division(division)
+        return division
 
-    def edit_division_data(self, value: str) -> None:
-        pass
+    def edit_division_data_by_id(
+        self, division_id: int, division: DivisionDomain
+    ) -> DivisionDomain:
+        division = self._repository.edit_division_by_id(division_id, division)
+        return division
 
-    def delete_division(self, division: DivisionDomain) -> None:
-        pass
+    def delete_division_by_id(self, division_id: int) -> None:
+        self._repository.delete_division_by_id(division_id)
+
+    def add_new_department(self, department: DepartmentDomain) -> DepartmentDomain:
+        department = self._repository.add_new_department(department)
+        return department
+
+    def edit_department_data_by_id(
+        self, department_id: int, department: DepartmentDomain
+    ) -> DepartmentDomain:
+        department = self._repository.edit_department_by_id(department_id, department)
+        return department
+
+    def delete_department_by_id(self, department_id: int) -> None:
+        self._repository.delete_department_by_id(department_id)

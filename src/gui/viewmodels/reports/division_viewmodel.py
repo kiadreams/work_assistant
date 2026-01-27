@@ -133,6 +133,7 @@ class DivisionViewModel(BaseViewModel):
         print(f"Добавляем новую службу...{division.name}")
 
     def add_new_department(self, department: DepartmentDomain) -> None:
+        # self._employee_service.
         print(f"Добавляем новый отдел...{department.name}")
 
     def delete_current_division(self) -> None:

@@ -31,7 +31,9 @@ class Equipment(MappedAsDataclass, Base):
         ForeignKey("equipment_locations.id"), nullable=False
     )
 
-    location: Mapped[EquipmentLocation] = relationship(back_populates="equipment")
-    works: Mapped[list[Work]] = relationship(secondary=equipment_works, back_populates="equipment")
+    location: Mapped[EquipmentLocation] = relationship(back_populates="equipment", init=False)
+    works: Mapped[list[Work]] = relationship(
+        secondary=equipment_works, back_populates="equipment", default_factory=list
+    )
 
     inventory_number: Mapped[str | None] = mapped_column(String(20), nullable=True, default=None)

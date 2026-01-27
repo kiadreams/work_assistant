@@ -2,21 +2,21 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from src.core.exceptions import StructureExistsError
+from src.core.exceptions.business_exceptions import StructureExistsError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
 if TYPE_CHECKING:
-    from src.core.interfaces.dto_protocols import DepartmentDtoProtocol, DivisionDtoProtocol
     from src.core.interfaces.services import EmployeeServiceProtocol
+    from src.gui.dto.gui_dto_models import GuiDepartmentDto, GuiDivisionDto
 
 
 class DivisionValidator:
     def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
         self.employee_service = employee_service
 
-    def create_division(self, division_dto: DivisionDtoProtocol) -> DivisionDomain:
-        division = DivisionDomain.division_from_data(division_dto)
+    def create_division(self, division_dto: GuiDivisionDto) -> DivisionDomain:
+        division = division_dto.to_domain()
         self._validate_business_rules(division)
         return division
 
@@ -32,8 +32,8 @@ class DepartmentValidator:
     def __init__(self, employee_service: EmployeeServiceProtocol) -> None:
         self.employee_service = employee_service
 
-    def create_department(self, department_dto: DepartmentDtoProtocol) -> DepartmentDomain:
-        department = DepartmentDomain.department_from_data(department_dto)
+    def create_department(self, department_dto: GuiDepartmentDto) -> DepartmentDomain:
+        department = department_dto.to_domain()
         self._validate_business_rules(department)
         return department
 
