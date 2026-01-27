@@ -2,16 +2,17 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import Signal
 
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
+from src.gui.viewmodels.base_view_model import BaseViewModel
 
 if TYPE_CHECKING:
     from src.core.interfaces.services import EmployeeServiceProtocol
 
 
-class DivisionViewModel(QObject):
+class DivisionViewModel(BaseViewModel):
     division_data_changed_signal = Signal()
     department_data_changed_signal = Signal()
 

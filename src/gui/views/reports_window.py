@@ -22,7 +22,7 @@ class ReportsWindow(SessionWindow, Ui_ReportsWindowWidget):
         self.reports_button_group = self.create_button_group(
             "reports_button_group", self._get_report_buttons_group()
         )
-        self.__setup_connections()
+        self.setup_connections()
 
     def init_content_view(self) -> None:
         self.setupUi(self)  # type: ignore[no-untyped-call]
@@ -32,7 +32,7 @@ class ReportsWindow(SessionWindow, Ui_ReportsWindowWidget):
         self.pushButton_divisions.setChecked(True)
         self.comboBox_company.insertItem(0, self.company)
 
-    def __setup_connections(self) -> None:
+    def setup_connections(self) -> None:
         self.pushButton_go_to_main_menu.clicked.connect(self.back_main_menu_signal.emit)
         self.pushButton_divisions.clicked.connect(self.open_divisions_view_signal.emit)
         self.pushButton_staff.clicked.connect(self.open_staff_view_signal.emit)

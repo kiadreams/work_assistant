@@ -11,7 +11,7 @@ class WorkEventReportView(BaseView, Ui_WorkEventReportWidget):
     def init_content_view(self) -> None:
         self.setupUi(self)  # type: ignore[no-untyped-call]
         self.setStyleSheet(ResourceLoader(QtStyleResources.REPORT_WIDGET_STYLE).load_style())
-        self.__setup_connections()
+        self.setup_connections()
 
-    def __setup_connections(self) -> None:
+    def setup_connections(self) -> None:
         pass

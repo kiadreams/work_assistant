@@ -17,7 +17,7 @@ class BaseDialogView(QDialog, Ui_BaseDialogView):
         super().__init__(parent)
         self._structure_form = StructureFormWidget(parent=self)
 
-    def init_content_widget(self) -> None:
+    def init_content_view(self) -> None:
         self.setupUi(self)  # type: ignore[no-untyped-call]
         self.setStyleSheet(ResourceLoader(QtStyleResources.REPORT_WIDGET_STYLE).load_style())
         self.verticalLayout.insertWidget(0, self._structure_form)
@@ -27,8 +27,8 @@ class BaseDialogView(QDialog, Ui_BaseDialogView):
         self.buttonBox_exit.rejected.connect(self.reject)
         self.buttonBox_exit.accepted.connect(self._accepted_data_validate)
 
-    def show_warning_massage(self, text: str) -> None:
-        QMessageBox.warning(self, "Ошибка данных", text)
+    def show_warning_massage(self, title: str, message: str) -> None:
+        QMessageBox.warning(self, title, message)
 
     def _accepted_data_validate(self) -> None:
         self.data_accepted_signal.emit(self.get_data())
@@ -44,8 +44,8 @@ class AddDivisionDialogView(BaseDialogView):
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent=parent)
 
-    def init_content_widget(self) -> None:
-        super().init_content_widget()
+    def init_content_view(self) -> None:
+        super().init_content_view()
         self._structure_form.add_structure_name_field("Название службы:")
         self._structure_form.add_structure_full_name_field("Полное наименование службы:")
         self.setWindowTitle("Добавление новой службы")
@@ -68,8 +68,8 @@ class EditDivisionDialogView(BaseDialogView):
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent=parent)
 
-    def init_content_widget(self) -> None:
-        super().init_content_widget()
+    def init_content_view(self) -> None:
+        super().init_content_view()
         self._structure_form.add_structure_name_field("Новое название службы:")
         self._structure_form.add_structure_full_name_field("Новое полное наименование:")
         self.setWindowTitle("Изменение данных службы")
@@ -96,8 +96,8 @@ class AddDepartmentDialogView(BaseDialogView):
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent=parent)
 
-    def init_content_widget(self) -> None:
-        super().init_content_widget()
+    def init_content_view(self) -> None:
+        super().init_content_view()
         self._structure_form.add_structure_name_field("Название отдела:")
         self._structure_form.add_structure_full_name_field("Полное наименование отдела:")
         self.setWindowTitle("Добавление нового отдела")
@@ -120,8 +120,8 @@ class EditDepartmentDialogView(BaseDialogView):
     def __init__(self, parent: QWidget) -> None:
         super().__init__(parent=parent)
 
-    def init_content_widget(self) -> None:
-        super().init_content_widget()
+    def init_content_view(self) -> None:
+        super().init_content_view()
         self._structure_form.add_structure_name_field("Новое название отдела:")
         self._structure_form.add_structure_full_name_field("Новое полное наименование:")
         self.setWindowTitle("Изменение данных отдела")

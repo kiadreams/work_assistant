@@ -34,9 +34,9 @@ class DivisionReportView(BaseView, Ui_DivisionReportWidget):
         self.setStyleSheet(ResourceLoader(QtStyleResources.REPORT_WIDGET_STYLE).load_style())
         self.reload_division_combobox_items()
         self.reload_department_combobox_items()
-        self.__setup_connections()
+        self.setup_connections()
 
-    def __setup_connections(self) -> None:
+    def setup_connections(self) -> None:
         self.pushButton_add_division.clicked.connect(self.add_new_division_signal.emit)
         self.pushButton_remove_division.clicked.connect(self.delete_division_signal.emit)
         self.pushButton_edit_division.clicked.connect(self.edit_division_signal.emit)

@@ -1,34 +1,18 @@
 from __future__ import annotations
 
-from typing import Any
-
-from PySide6.QtCore import QObject, Signal
+from PySide6.QtCore import Signal
 
 from src.core.exceptions import StructureExistsError, StructureInvalidNameError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.gui.dto.gui_dto_models import GuiDivisionDto
 from src.gui.dto.model_pipeline_services import DepartmentPipelineService, DivisionPipelineService
+from src.gui.viewmodels.dialogs.base_dialog_model import BaseDialogViewModel
 from src.shared.mappers.mapper_services import DepartmentMapperService, DivisionMapperService
 
 
-class BaseDialogModel(QObject):
-    close_dialog_with_data_signal = Signal(Any)
-    show_error_signal = Signal(str)
-    set_dialog_data_signal = Signal(Any)
-
-    def init_model_data(self) -> None:
-        pass
-
-    def validate_data_dialog(self, division_data: dict[str, str]) -> None:
-        pass
-
-    def set_data_to_view(self) -> None:
-        pass
-
-
-class AddDivisionDialogModel(BaseDialogModel):
-    close_dialog_with_data_signal = Signal(DivisionDomain)
+class AddDivisionDialogModel(BaseDialogViewModel):
+    close_view_with_data_signal = Signal(DivisionDomain)
 
     def __init__(self, division_pipeline_service: DivisionPipelineService) -> None:
         super().__init__()
@@ -39,15 +23,15 @@ class AddDivisionDialogModel(BaseDialogModel):
         try:
             division = self._division_pipeline_service.process_raw_data_to_domain(division_data)
         except StructureInvalidNameError as e:
-            self.show_error_signal.emit(f"{e}")
+            self.error_generation_signal.emit("Некорректное наименование", f"{e}")
         except StructureExistsError as e:
-            self.show_error_signal.emit(f"{e}")
+            self.error_generation_signal.emit("Некорректное наименование", f"{e}")
         if division:
-            self.close_dialog_with_data_signal.emit(division)
+            self.close_view_with_data_signal.emit(division)
 
 
 class EditDivisionDialogModel(AddDivisionDialogModel):
-    set_dialog_data_signal = Signal(GuiDivisionDto)
+    set_view_data_signal = Signal(GuiDivisionDto)
 
     def __init__(
         self,
@@ -64,11 +48,11 @@ class EditDivisionDialogModel(AddDivisionDialogModel):
 
     def set_data_to_view(self) -> None:
         division_dto = self._mapper.to_dialog_view_dto(self._current_division)
-        self.set_dialog_data_signal.emit(division_dto)
+        self.set_view_data_signal.emit(division_dto)
 
 
-class AddDepartmentDialogModel(BaseDialogModel):
-    close_dialog_with_data_signal = Signal(DepartmentDomain)
+class AddDepartmentDialogModel(BaseDialogViewModel):
+    close_view_with_data_signal = Signal(DepartmentDomain)
 
     def __init__(self, department_pipeline_service: DepartmentPipelineService) -> None:
         super().__init__()
@@ -79,15 +63,15 @@ class AddDepartmentDialogModel(BaseDialogModel):
         try:
             department = self._pipeline_service.process_raw_data_to_domain(department_data)
         except StructureInvalidNameError as e:
-            self.show_error_signal.emit(f"{e}")
+            self.error_generation_signal.emit("Некорректное наименование", f"{e}")
         except StructureExistsError as e:
-            self.show_error_signal.emit(f"{e}")
+            self.error_generation_signal.emit("Некорректное наименование", f"{e}")
         if department:
-            self.close_dialog_with_data_signal.emit(department)
+            self.close_view_with_data_signal.emit(department)
 
 
 class EditDepartmentDialogModel(AddDepartmentDialogModel):
-    set_dialog_data_signal = Signal(GuiDivisionDto)
+    set_view_data_signal = Signal(GuiDivisionDto)
 
     def __init__(
         self,
@@ -104,4 +88,4 @@ class EditDepartmentDialogModel(AddDepartmentDialogModel):
 
     def set_data_to_view(self) -> None:
         department_dto = self._mapper.to_dialog_view_dto(self._current_department)
-        self.set_dialog_data_signal.emit(department_dto)
+        self.set_view_data_signal.emit(department_dto)

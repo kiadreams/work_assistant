@@ -14,13 +14,13 @@ class MainMenuWindow(BaseView, Ui_MainMenuWidget):
     def __init__(self) -> None:
         super().__init__()
         self.init_content_view()
-        self.__setup_connections()
+        self.setup_connections()
 
     def init_content_view(self) -> None:
         self.setupUi(self)  # type: ignore[no-untyped-call]
         self.setStyleSheet(ResourceLoader(QtStyleResources.MAIN_MENU_STYLE).load_style())
 
-    def __setup_connections(self) -> None:
+    def setup_connections(self) -> None:
         self.pushButton_exit.clicked.connect(self.close_app_signal.emit)
         self.pushButton_create_sheets.clicked.connect(self.open_reports_window_signal.emit)
         self.pushButton_create_protocols.clicked.connect(self.open_protocols_window_signal.emit)
