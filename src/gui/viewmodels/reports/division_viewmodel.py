@@ -9,7 +9,7 @@ from src.core.models.division_domain import DivisionDomain
 from src.gui.viewmodels.base_view_model import BaseViewModel
 
 if TYPE_CHECKING:
-    from src.core.interfaces.services import EmployeeServiceProtocol
+    from src.core.services import EmployeeService
 
 
 class DivisionViewModel(BaseViewModel):
@@ -18,7 +18,7 @@ class DivisionViewModel(BaseViewModel):
 
     def __init__(
         self,
-        employee_service: EmployeeServiceProtocol,
+        employee_service: EmployeeService,
     ) -> None:
         super().__init__()
         self._employee_service = employee_service

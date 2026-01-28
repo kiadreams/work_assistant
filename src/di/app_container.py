@@ -7,7 +7,7 @@ from src.di.report_container import ReportSessionContainer
 from src.gui.coordinators.app_coordinator import AppCoordinator
 from src.gui.views import MainMenuWindow, MainWindow
 from src.infrastucture.database import DatabaseManager
-from src.infrastucture.database.repositories import DivisionRepository
+from src.infrastucture.database.repositories import EmployeeRepository
 
 
 class AppContainer(containers.DeclarativeContainer):
@@ -15,7 +15,7 @@ class AppContainer(containers.DeclarativeContainer):
 
     db_manager = providers.Singleton(DatabaseManager)
 
-    division_repository = providers.Singleton(DivisionRepository, db_manager=db_manager)
+    division_repository = providers.Singleton(EmployeeRepository, db_manager=db_manager)
 
     employee_service = providers.Singleton(EmployeeService, division_repository=division_repository)
 

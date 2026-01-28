@@ -8,9 +8,13 @@ if TYPE_CHECKING:
     from src.core.models.division_domain import DivisionDomain
 
 
-class DivisionRepositoryProtocol(Protocol):
+class EmployeeRepositoryProtocol(Protocol):
     @property
     def all_divisions(self) -> list[DivisionDomain]: ...
+
+    def is_division_name_exists(self, name: str) -> bool: ...
+
+    def is_department_name_exists(self, name: str) -> bool: ...
 
     def add_new_division(self, division: DivisionDomain) -> DivisionDomain: ...
 

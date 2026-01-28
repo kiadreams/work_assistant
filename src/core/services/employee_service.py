@@ -1,12 +1,19 @@
-from src.core.interfaces.repositories import DivisionRepositoryProtocol
-from src.core.interfaces.services import EmployeeServiceProtocol
+from src.core.interfaces.repositories import EmployeeRepositoryProtocol
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
 
-class EmployeeService(EmployeeServiceProtocol):
-    def __init__(self, division_repository: DivisionRepositoryProtocol) -> None:
+class EmployeeService:
+    def __init__(self, division_repository: EmployeeRepositoryProtocol) -> None:
         self._repository = division_repository
+
+    def is_division_name_exists(self, division_name: str) -> bool:
+        name_is_exist = self._repository.is_division_name_exists(division_name)
+        return name_is_exist
+
+    def is_department_name_exists(self, department_name: str) -> bool:
+        name_is_exist = self._repository.is_department_name_exists(department_name)
+        return name_is_exist
 
     def load_all_divisions(self) -> list[DivisionDomain]:
         divisions = self._repository.all_divisions

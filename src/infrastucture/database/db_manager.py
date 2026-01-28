@@ -1,10 +1,10 @@
 import json
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Generator
+from typing import TYPE_CHECKING, Any, Generator
 
 import pandas as pd
-from sqlalchemy import create_engine, insert
+from sqlalchemy import create_engine, event, insert
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
@@ -16,6 +16,18 @@ from src.infrastucture.database.config import (
 )
 from src.shared.file_utils import create_clean_dir
 
+if TYPE_CHECKING:
+    from sqlite3 import Connection
+
+
+def unicode_no_case_collation(str_1: str, str_2: str) -> int:
+    if str_1.casefold() == str_2.casefold():
+        return 0
+    elif str_1.casefold() < str_2.casefold():
+        return -1
+    else:
+        return 1
+
 
 class Base(DeclarativeBase):
     pass
@@ -24,7 +36,17 @@ class Base(DeclarativeBase):
 class DatabaseManager:
     def __init__(self) -> None:
         self.engine = create_engine(DATABASE_URL)
+        self._register_event_listeners()
         self.SessionLocal = sessionmaker(autoflush=False, bind=self.engine)
+
+    def _register_event_listeners(self) -> None:
+        """Регистрирует все необходимые слушатели событий для engine."""
+
+        # Используем локальную функцию или лямбду,
+        # чтобы передать нашу функцию unicode_no_case_collation в замыкание слушателя
+        @event.listens_for(self.engine, "connect")
+        def connect(dbapi_connection: Connection, connection_record: Any) -> None:
+            dbapi_connection.create_collation("UNICODE_NO_CASE", unicode_no_case_collation)
 
     def create_db_tables(self) -> None:
         print(f"Подключение к базе данных {self.engine.url} и создание таблиц...")

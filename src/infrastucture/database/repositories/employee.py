@@ -3,15 +3,16 @@ from __future__ import annotations
 from sqlalchemy import select
 
 from src.core.exceptions.db_exceptions import DepartmentNotFoundError, DivisionNotFoundError
-from src.core.interfaces.repositories import DivisionRepositoryProtocol
+from src.core.interfaces.repositories import EmployeeRepositoryProtocol
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.infrastucture.database import DatabaseManager
+from src.infrastucture.database.config import DbCollFunc
 from src.infrastucture.database.dto import DbDepartmentDto, DbDivisionDto
 from src.infrastucture.database.entities import Department, Division
 
 
-class DivisionRepository(DivisionRepositoryProtocol):
+class EmployeeRepository(EmployeeRepositoryProtocol):
     def __init__(self, db_manager: DatabaseManager) -> None:
         self.db_manager = db_manager
 
@@ -22,6 +23,22 @@ class DivisionRepository(DivisionRepositoryProtocol):
             orm_result = session.execute(stmt).scalars()
             divisions_dto = [DbDivisionDto.model_validate(d) for d in orm_result]
         return [division_dto.to_domain() for division_dto in divisions_dto]
+
+    def is_division_name_exists(self, name: str) -> bool:
+        stmt = select(Division).where(Division.name.collate(DbCollFunc.NO_CASE.value) == name)
+        with self.db_manager.session_scope() as session:
+            orm_division = session.execute(stmt).scalar_one_or_none()
+        if orm_division is None:
+            return False
+        return True
+
+    def is_department_name_exists(self, name: str) -> bool:
+        stmt = select(Division).where(Division.name == name)
+        with self.db_manager.session_scope() as session:
+            orm_department = session.execute(stmt).scalar_one_or_none()
+        if orm_department is None:
+            return False
+        return True
 
     def add_new_division(self, division: DivisionDomain) -> DivisionDomain:
         with self.db_manager.session_scope() as session:
