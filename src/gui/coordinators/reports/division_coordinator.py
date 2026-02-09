@@ -54,84 +54,69 @@ class DivisionsCoordinator:
         self._view.edit_department_signal.disconnect(self._handle_edit_department_button)
 
     def _handle_add_new_division_button(self) -> None:
+        if self._dialog_view is not None or self._dialog_vm is not None:
+            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.add_division_dialog_model()
         self._dialog_view = dialog.add_division_dialog_view()
-
-        self._dialog_view.init_content_view()
-
         self._dialog_vm.close_view_with_data_signal.connect(self._close_add_division_dialog)
-        self._dialog_vm.error_generation_signal.connect(self._dialog_view.show_warning_massage)
-        self._dialog_view.data_accepted_signal.connect(self._dialog_vm.validate_data_dialog)
-
-        self._dialog_vm.init_model_data()
-        self._dialog_view.exec()
-
+        self._start_dialog_exec()
         self._dialog_vm.close_view_with_data_signal.disconnect(self._close_add_division_dialog)
-        self._dialog_vm.error_generation_signal.disconnect(self._dialog_view.show_warning_massage)
-        self._dialog_view.data_accepted_signal.disconnect(self._dialog_vm.validate_data_dialog)
-        self._dialog_view.deleteLater()
+        self._end_dialog()
 
     def _handle_edit_division_button(self) -> None:
+        if self._dialog_view is not None or self._dialog_vm is not None:
+            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.edit_division_dialog_model()
         self._dialog_view = dialog.edit_division_dialog_view()
-
-        self._dialog_view.init_content_view()
-
         self._dialog_vm.set_view_data_signal.connect(self._dialog_view.set_view_data)
         self._dialog_vm.close_view_with_data_signal.connect(self._close_edit_division_dialog)
-        self._dialog_vm.error_generation_signal.connect(self._dialog_view.show_warning_massage)
-        self._dialog_view.data_accepted_signal.connect(self._dialog_vm.validate_data_dialog)
-
-        self._dialog_vm.init_model_data()
-        self._dialog_view.exec()
-
+        self._start_dialog_exec()
         self._dialog_vm.set_view_data_signal.disconnect(self._dialog_view.set_view_data)
         self._dialog_vm.close_view_with_data_signal.disconnect(self._close_edit_division_dialog)
-        self._dialog_vm.error_generation_signal.disconnect(self._dialog_view.show_warning_massage)
-        self._dialog_view.data_accepted_signal.disconnect(self._dialog_vm.validate_data_dialog)
-        self._dialog_view.deleteLater()
+        self._end_dialog()
 
     def _handle_add_new_department_button(self) -> None:
+        if self._dialog_view is not None or self._dialog_vm is not None:
+            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.add_department_dialog_model()
         self._dialog_view = dialog.add_department_dialog_view()
-
-        self._dialog_view.init_content_view()
-
         self._dialog_vm.close_view_with_data_signal.connect(self._close_add_department_dialog)
-        self._dialog_vm.error_generation_signal.connect(self._dialog_view.show_warning_massage)
-        self._dialog_view.data_accepted_signal.connect(self._dialog_vm.validate_data_dialog)
-
-        self._dialog_vm.init_model_data()
-        self._dialog_view.exec()
-
+        self._start_dialog_exec()
         self._dialog_vm.close_view_with_data_signal.disconnect(self._close_add_department_dialog)
-        self._dialog_vm.error_generation_signal.disconnect(self._dialog_view.show_warning_massage)
-        self._dialog_view.data_accepted_signal.disconnect(self._dialog_vm.validate_data_dialog)
-        self._dialog_view.deleteLater()
+        self._end_dialog()
 
     def _handle_edit_department_button(self) -> None:
+        if self._dialog_view is not None or self._dialog_vm is not None:
+            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.edit_department_dialog_model()
         self._dialog_view = dialog.edit_department_dialog_view()
-
-        self._dialog_view.init_content_view()
-
         self._dialog_vm.set_view_data_signal.connect(self._dialog_view.set_view_data)
         self._dialog_vm.close_view_with_data_signal.connect(self._close_edit_department_dialog)
-        self._dialog_vm.error_generation_signal.connect(self._dialog_view.show_warning_massage)
-        self._dialog_view.data_accepted_signal.connect(self._dialog_vm.validate_data_dialog)
-
-        self._dialog_vm.init_model_data()
-        self._dialog_view.exec()
-
+        self._start_dialog_exec()
         self._dialog_vm.set_view_data_signal.disconnect(self._dialog_view.set_view_data)
         self._dialog_vm.close_view_with_data_signal.disconnect(self._close_edit_department_dialog)
-        self._dialog_vm.error_generation_signal.disconnect(self._handle_operation_error)
-        self._dialog_view.data_accepted_signal.disconnect(self._dialog_vm.validate_data_dialog)
-        self._dialog_view.deleteLater()
+
+    def _start_dialog_exec(self) -> None:
+        if self._dialog_view and self._dialog_vm:
+            self._dialog_view.init_content_view()
+            self._dialog_vm.init_model_data()
+            self._dialog_vm.error_generation_signal.connect(self._dialog_view.show_warning_massage)
+            self._dialog_view.data_accepted_signal.connect(self._dialog_vm.validate_data_dialog)
+            self._dialog_view.exec()
+
+    def _end_dialog(self) -> None:
+        if self._dialog_view and self._dialog_vm:
+            self._dialog_vm.error_generation_signal.disconnect(
+                self._dialog_view.show_warning_massage
+            )
+            self._dialog_view.data_accepted_signal.disconnect(self._dialog_vm.validate_data_dialog)
+            self._dialog_view.deleteLater()
+        self._dialog_view = None
+        self._dialog_vm = None
 
     def _close_add_division_dialog(self, division: DivisionDomain) -> None:
         self._vm.add_new_division(division)
@@ -152,11 +137,6 @@ class DivisionsCoordinator:
         self._vm.edit_current_department(department)
         if self._dialog_view:
             self._dialog_view.accept()
-
-    def _handle_operation_error(self, title: str, message: str) -> None:
-        if self._dialog_view:
-            self._dialog_view.show_warning_massage(title, message)
-        self.view.show_warning_massage(title, message)
 
     def teardown(self) -> None:
         self._disconnect_signals()

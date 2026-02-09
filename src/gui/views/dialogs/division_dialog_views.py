@@ -37,6 +37,7 @@ class BaseDialogView(QDialog, Ui_BaseDialogView):
         pass
 
     def set_view_data(self, division_dto: GuiDivisionDto) -> None:
+        print("сработал сет вью диалог")
         pass
 
 
