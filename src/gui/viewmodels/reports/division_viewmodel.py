@@ -130,15 +130,24 @@ class DivisionViewModel(BaseViewModel):
         self.current_department = department
 
     def add_new_division(self, division: DivisionDomain) -> None:
-        print(f"Добавляем новую службу...{division.name}")
+        new_division = self._employee_service.add_new_division(division)
+        self.divisions.append(new_division)
+        self.current_division = new_division
+        print(new_division)
 
     def add_new_department(self, department: DepartmentDomain) -> None:
-        # self._employee_service.
-        print(f"Добавляем новый отдел...{department.name}")
+        new_department = self._employee_service.add_new_department(department)
+        self.departments.append(new_department)
+        self.current_department = new_department
 
     def delete_current_division(self) -> None:
-        if self.current_division:
-            print(f"Нажали править отдел с текущим именем: {self.current_division.name}")
+        print("Удаляем службу")
+        if self.current_division and self.current_division.id:
+            division_id = self.current_division.id
+            self._employee_service.delete_division_by_id(division_id)
+            self.divisions.remove(self.current_division)
+            if self.divisions:
+                self.current_division = self.divisions[0]
 
     def delete_current_department(self) -> None:
         if self.current_department:

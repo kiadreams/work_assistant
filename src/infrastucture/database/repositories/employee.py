@@ -44,14 +44,14 @@ class EmployeeRepository(EmployeeRepositoryProtocol):
         with self.db_manager.session_scope() as session:
             orm_division = Division.from_domain(division)
             session.add(orm_division)
-        division_dto = DbDivisionDto.model_validate(orm_division)
+            division_dto = DbDivisionDto.model_validate(orm_division)
         return division_dto.to_domain()
 
     def add_new_department(self, department: DepartmentDomain) -> DepartmentDomain:
         with self.db_manager.session_scope() as session:
             orm_department = Department.from_domain(department)
             session.add(orm_department)
-        department_dto = DbDepartmentDto.model_validate(orm_department)
+            department_dto = DbDepartmentDto.model_validate(orm_department)
         return department_dto.to_domain()
 
     def edit_division_by_id(self, division_id: int, division: DivisionDomain) -> DivisionDomain:
@@ -61,7 +61,7 @@ class EmployeeRepository(EmployeeRepositoryProtocol):
                 raise DivisionNotFoundError(division_id)
             orm_division.name = division.name
             orm_division.full_name = division.full_name
-        division_dto = DbDivisionDto.model_validate(orm_division)
+            division_dto = DbDivisionDto.model_validate(orm_division)
         return division_dto.to_domain()
 
     def edit_department_by_id(
@@ -73,7 +73,7 @@ class EmployeeRepository(EmployeeRepositoryProtocol):
                 raise DepartmentNotFoundError(department_id)
             orm_department.name = department.name
             orm_department.full_name = department.full_name
-        department_dto = DbDepartmentDto.model_validate(orm_department)
+            department_dto = DbDepartmentDto.model_validate(orm_department)
         return department_dto.to_domain()
 
     def delete_division_by_id(self, division_id: int) -> None:
