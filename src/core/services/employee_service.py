@@ -42,5 +42,5 @@ class EmployeeService:
         department = self._repository.edit_department_by_id(department_id, department)
         return department
 
-    def delete_department_by_id(self, department_id: int | None) -> None:
+    def delete_department_by_id(self, department_id: int) -> None:
         self._repository.delete_department_by_id(department_id)

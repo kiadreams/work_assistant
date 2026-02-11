@@ -4,7 +4,8 @@ from typing import TYPE_CHECKING
 
 from PySide6.QtCore import Signal
 
-from src.core.exceptions.db_exceptions import DivisionNotFoundError
+from src.core.exceptions.db_exceptions import DivisionNotFoundError, DepartmentNotFoundError, \
+    DivisionTypeError, DepartmentTypeError, EntityAttributeTypeError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.gui.viewmodels.base_view_model import BaseViewModel
@@ -142,20 +143,27 @@ class DivisionViewModel(BaseViewModel):
         self.current_department = new_department
 
     def delete_current_division(self) -> None:
-        if self.current_division is None:
-            raise DivisionNotFoundError(division_id)
+        if not self.current_division:
+            return
         division_id = self.current_division.id
-        self._employee_service.delete_division_by_id(division_id)
-        self.divisions.remove(self.current_division)
-        if self.divisions:
-            self.current_division = self.divisions[0]
+        try:
+            self._employee_service.delete_division_by_id(division_id)
+        except EntityAttributeTypeError as e:
+            self.error_generation_signal.emit(e)
+        else:
+            self.divisions.remove(self.current_division)
+            self.current_division = self.divisions[0] if self.divisions else None
 
     def delete_current_department(self) -> None:
+        if not self.current_department:
+            return
         department_id = self.current_department.id
-        self._employee_service.delete_department_by_id(department_id)
+        try:
+            self._employee_service.delete_department_by_id(department_id)
+        except EntityAttributeTypeError as e:
+            self.error_generation_signal.emit(e)
         self.departments.remove(self.current_department)
-        if self.departments:
-            self.current_department = self.departments[0]
+        self.current_department = self.departments[0] if self.departments else None
 
     def edit_current_division(self, division: DivisionDomain) -> None:
         if self.current_division:

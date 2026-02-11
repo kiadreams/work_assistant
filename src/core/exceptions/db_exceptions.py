@@ -1,4 +1,18 @@
+from __future__ import annotations
+
 from typing import Any
+
+from src.core.models.department_domain import DepartmentDomain
+from src.core.models.division_domain import DivisionDomain
+
+
+class EntityTypeError(Exception):
+    """Исключение выбрасывается, когда вместо сущности передаётся None."""
+
+    def __init__(self, entity_type: type, expected_type: type):
+        self.entity_type = entity_type
+        self.expected_type = expected_type
+        super().__init__(f"Ожидался тип f{self.expected_type} а передан f{self.entity_type}.")
 
 
 class EntityNotFoundError(Exception):
@@ -10,22 +24,36 @@ class EntityNotFoundError(Exception):
         super().__init__(f"{entity_name} с ID={entity_id} не найдена.")
 
 
-class AttributeOfEntityNotFoundError(Exception):
-    """Исключение выбрасывается, когда атрибут сущность или отсутствует или None."""
+class EntityAttributeTypeError(Exception):
+    """Исключение выбрасывается, когда у атрибута сущности неправильный тип или значение None."""
 
-    def __init__(self, attr_name: str, attr_value: Any, entity_name: str = "Entity"):
+    def __init__(self, attr_name: str, attr_type: type, expected_type: type):
         self.attr_name = attr_name
-        self.attr_value = attr_value
-        self.entity_name = entity_name
+        self.attr_type = attr_type
+        self.expected_type = expected_type
         super().__init__(
-            f'У {self.entity_name} отсутствует атрибут "{self.entity_name}": {self.attr_value}.'
+            f"У атрибута {self.attr_name} ожидался тип {self.expected_type} а передан {self.attr_type}."
         )
+
+
+class DivisionTypeError(EntityTypeError):
+    """Исключение выбрасывается, когда вместо DivisionDomain передаётся другой тип или None."""
+
+    def __init__(self, entity: Any):
+        super().__init__(entity_type=type(entity), expected_type=type(DivisionDomain))
+
+
+class DepartmentTypeError(EntityTypeError):
+    """Исключение выбрасывается, когда вместо DepartmentDomain передаётся другой тип или None."""
+
+    def __init__(self, entity: Any):
+        super().__init__(entity_type=type(entity), expected_type=type(DepartmentDomain))
 
 
 class DivisionNotFoundError(EntityNotFoundError):
     """Специфическое исключение для службы."""
 
-    def __init__(self, division_id: int | None):
+    def __init__(self, division_id: int):
         super().__init__(division_id, entity_name="Division")
 
 
@@ -33,5 +61,5 @@ class DivisionNotFoundError(EntityNotFoundError):
 class DepartmentNotFoundError(EntityNotFoundError):
     """Специфическое исключение для отдела."""
 
-    def __init__(self, department_id: int | None):
+    def __init__(self, department_id: int):
         super().__init__(department_id, entity_name="Department")
