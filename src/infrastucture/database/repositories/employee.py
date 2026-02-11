@@ -44,6 +44,7 @@ class EmployeeRepository(EmployeeRepositoryProtocol):
         with self.db_manager.session_scope() as session:
             orm_division = Division.from_domain(division)
             session.add(orm_division)
+            session.flush()
             division_dto = DbDivisionDto.model_validate(orm_division)
         return division_dto.to_domain()
 
@@ -51,6 +52,7 @@ class EmployeeRepository(EmployeeRepositoryProtocol):
         with self.db_manager.session_scope() as session:
             orm_department = Department.from_domain(department)
             session.add(orm_department)
+            session.flush()
             department_dto = DbDepartmentDto.model_validate(orm_department)
         return department_dto.to_domain()
 
@@ -76,14 +78,18 @@ class EmployeeRepository(EmployeeRepositoryProtocol):
             department_dto = DbDepartmentDto.model_validate(orm_department)
         return department_dto.to_domain()
 
-    def delete_division_by_id(self, division_id: int) -> None:
+    def delete_division_by_id(self, division_id: int | None) -> None:
+        if division_id is None:
+            raise DivisionNotFoundError(division_id)
         with self.db_manager.session_scope() as session:
             orm_division = session.get(Division, division_id)
             if orm_division is None:
                 raise DivisionNotFoundError(division_id)
             session.delete(orm_division)
 
-    def delete_department_by_id(self, department_id: int) -> None:
+    def delete_department_by_id(self, department_id: int | None) -> None:
+        if department_id is None:
+            raise DepartmentNotFoundError(department_id)
         with self.db_manager.session_scope() as session:
             orm_department = session.get(Department, department_id)
             if orm_department is None:

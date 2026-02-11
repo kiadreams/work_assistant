@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from PySide6.QtCore import Signal
 
+from src.core.exceptions.db_exceptions import DivisionNotFoundError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.gui.viewmodels.base_view_model import BaseViewModel
@@ -141,17 +142,20 @@ class DivisionViewModel(BaseViewModel):
         self.current_department = new_department
 
     def delete_current_division(self) -> None:
-        print("Удаляем службу")
-        if self.current_division and self.current_division.id:
-            division_id = self.current_division.id
-            self._employee_service.delete_division_by_id(division_id)
-            self.divisions.remove(self.current_division)
-            if self.divisions:
-                self.current_division = self.divisions[0]
+        if self.current_division is None:
+            raise DivisionNotFoundError(division_id)
+        division_id = self.current_division.id
+        self._employee_service.delete_division_by_id(division_id)
+        self.divisions.remove(self.current_division)
+        if self.divisions:
+            self.current_division = self.divisions[0]
 
     def delete_current_department(self) -> None:
-        if self.current_department:
-            print(f"Нажали править отдел с текущим именем: {self.current_department.name}")
+        department_id = self.current_department.id
+        self._employee_service.delete_department_by_id(department_id)
+        self.departments.remove(self.current_department)
+        if self.departments:
+            self.current_department = self.departments[0]
 
     def edit_current_division(self, division: DivisionDomain) -> None:
         if self.current_division:
