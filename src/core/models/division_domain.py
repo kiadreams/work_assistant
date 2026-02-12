@@ -9,7 +9,7 @@ class DivisionDomain:
     def __init__(
         self,
         *,
-        division_id: int | None = None,
+        division_id: int,
         name: str,
         full_name: str | None = None,
         departments: list[DepartmentDomain],

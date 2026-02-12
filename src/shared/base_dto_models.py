@@ -5,6 +5,7 @@ from typing import Sequence
 from pydantic import BaseModel, Field, field_validator
 
 from src.core.exceptions.business_exceptions import StructureInvalidNameError
+from src.core.exceptions.db_exceptions import EntityAttributeTypeError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
@@ -24,6 +25,8 @@ class BaseDivisionDto(BaseModel):
         return clean_name
 
     def to_domain(self) -> DivisionDomain:
+        if self.id is None:
+            raise EntityAttributeTypeError
         departments = [d.to_domain() for d in self.departments] if self.departments else []
         division = DivisionDomain(
             division_id=self.id,

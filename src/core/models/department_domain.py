@@ -7,10 +7,10 @@ class DepartmentDomain:
     def __init__(
         self,
         *,
-        department_id: int | None = None,
+        department_id: int,
         name: str,
         full_name: str | None = None,
-        division_id: int | None = None,
+        division_id: int,
     ) -> None:
         self.id = department_id
         self.name = name
