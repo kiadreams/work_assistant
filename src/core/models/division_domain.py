@@ -11,11 +11,13 @@ class DivisionDomain:
         *,
         division_id: int,
         name: str,
+        company_id: int,
         full_name: str | None = None,
         departments: list[DepartmentDomain],
     ) -> None:
         self.id = division_id
         self.name = name
+        self.company_id = company_id
         self.full_name = full_name
         self.departments = departments
 

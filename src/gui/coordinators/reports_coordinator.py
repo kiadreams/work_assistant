@@ -4,17 +4,17 @@ from typing import TYPE_CHECKING
 
 from src.core.constants import ReportsViews as ViewEnum
 from src.core.interfaces.coordinators import ViewCoordinatorProtocol
+from src.core.services import CompanyService
 from src.gui.views.reports_window import ReportsWindow
 
 if TYPE_CHECKING:
     import src.gui.coordinators.reports as reports
-    from src.core.interfaces.services import EmployeeServiceProtocol
 
 
 class ReportsCoordinator:
     def __init__(
         self,
-        employee_service: EmployeeServiceProtocol,
+        company_service: CompanyService,
         reports_window: ReportsWindow,
         divisions_coordinator: reports.DivisionsCoordinator,
         staff_coordinator: reports.StaffCoordinator,
@@ -23,7 +23,7 @@ class ReportsCoordinator:
         orders_coordinator: reports.OrdersCoordinator,
         work_events_coordinator: reports.WorkEventsCoordinator,
     ) -> None:
-        self.employee_service = employee_service
+        self.employee_service = company_service
         self._reports_window = reports_window
         self._view_coordinators: dict[ViewEnum, ViewCoordinatorProtocol] = {
             ViewEnum.DIVISIONS: divisions_coordinator,

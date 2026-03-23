@@ -3,7 +3,7 @@ from __future__ import annotations
 from sqlalchemy import select
 
 from src.core.exceptions.db_exceptions import DepartmentNotFoundError, DivisionNotFoundError
-from src.core.interfaces.repositories import EmployeeRepositoryProtocol
+from src.core.interfaces.repositories import CompanyRepositoryProtocol
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.infrastucture.database import DatabaseManager
@@ -12,7 +12,7 @@ from src.infrastucture.database.dto import DbDepartmentDto, DbDivisionDto
 from src.infrastucture.database.entities import Department, Division
 
 
-class EmployeeRepository(EmployeeRepositoryProtocol):
+class CompanyRepository(CompanyRepositoryProtocol):
     def __init__(self, db_manager: DatabaseManager) -> None:
         self.db_manager = db_manager
 

@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from dependency_injector import containers, providers
 
-from src.core.services import EmployeeService
+from src.core.services import CompanyService
 from src.di.report_container import ReportSessionContainer
 from src.gui.coordinators.app_coordinator import AppCoordinator
 from src.gui.views import MainMenuWindow, MainWindow
 from src.infrastucture.database import DatabaseManager
-from src.infrastucture.database.repositories import EmployeeRepository
+from src.infrastucture.database.repositories import CompanyRepository
 
 
 class AppContainer(containers.DeclarativeContainer):
@@ -15,16 +15,16 @@ class AppContainer(containers.DeclarativeContainer):
 
     db_manager = providers.Singleton(DatabaseManager)
 
-    division_repository = providers.Singleton(EmployeeRepository, db_manager=db_manager)
+    company_repository = providers.Singleton(CompanyRepository, db_manager=db_manager)
 
-    employee_service = providers.Singleton(EmployeeService, division_repository=division_repository)
+    company_service = providers.Singleton(CompanyService, company_repository=company_repository)
 
     main_window = providers.Singleton(MainWindow)
     main_menu_window = providers.Singleton(MainMenuWindow)
 
     report_container = providers.Factory(
         ReportSessionContainer,
-        employee_service=employee_service,
+        company_service=company_service,
     )
 
     app_coordinator = providers.Singleton(

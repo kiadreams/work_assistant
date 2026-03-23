@@ -1,5 +1,5 @@
-from src.gui.viewmodels.reports.division_viewmodel import DivisionViewModel
+from src.gui.viewmodels.reports.company_viewmodel import CompanyViewModel
 
 __all__ = [
-    "DivisionViewModel",
+    "CompanyViewModel",
 ]

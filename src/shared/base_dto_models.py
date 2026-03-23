@@ -13,6 +13,7 @@ from src.core.models.division_domain import DivisionDomain
 class BaseDivisionDto(BaseModel):
     id: int | None = None
     name: str
+    company_id: int
     full_name: str | None = None
     departments: Sequence[BaseDepartmentDto] = Field(default_factory=list)
 
@@ -31,6 +32,7 @@ class BaseDivisionDto(BaseModel):
         division = DivisionDomain(
             division_id=self.id,
             name=self.name,
+            company_id=self.company_id,
             full_name=self.full_name,
             departments=departments,
         )

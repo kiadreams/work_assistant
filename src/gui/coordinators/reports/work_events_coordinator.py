@@ -1,10 +1,10 @@
-from src.core.services import EmployeeService
+from src.core.services import CompanyService
 from src.gui.views.reports import WorkEventReportView
 
 
 class WorkEventsCoordinator:
-    def __init__(self, employee_service: EmployeeService):
-        self.employee_service = employee_service
+    def __init__(self, company_service: CompanyService):
+        self.company_service = company_service
         self._view = WorkEventReportView()
 
     def start(self) -> None:

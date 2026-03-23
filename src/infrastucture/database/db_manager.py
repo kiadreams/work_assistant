@@ -136,6 +136,7 @@ class DatabaseManager:
         target_dir = Path(JSON_TABLE_DATA_DIR)
         # Определяем порядок таблиц для импорта, чтобы избежать ошибок внешних ключей (DbTables)
         for table_name in DbTables:
+            print(table_name)
             file_path = target_dir / f"{table_name}.json"
             if not file_path.exists():
                 print(f"Файл {file_path} не найден, пропуск.")

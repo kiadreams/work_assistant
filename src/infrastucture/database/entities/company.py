@@ -2,10 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import (
-    ForeignKey,
-    String,
-)
+from sqlalchemy import String
 from sqlalchemy.orm import (
     Mapped,
     MappedAsDataclass,
@@ -17,18 +14,13 @@ from src.infrastucture.database.db_manager import Base
 
 if TYPE_CHECKING:
     from .division import Division
-    from .employee_position import EmployeePosition
 
 
-class Department(MappedAsDataclass, Base):
-    __tablename__ = "departments"
+class Company(MappedAsDataclass, Base):
+    __tablename__ = "companies"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
-    division_id: Mapped[int] = mapped_column(ForeignKey("divisions.id"), nullable=False)
 
-    division: Mapped[Division] = relationship(back_populates="departments")
-    employee_positions: Mapped[list[EmployeePosition]] = relationship(
-        back_populates="department", default_factory=list
-    )
+    divisions: Mapped[list[Division]] = relationship(back_populates="company", default_factory=list)
     full_name: Mapped[str | None] = mapped_column(String(100), nullable=True, default=None)

@@ -1,11 +1,11 @@
-from src.core.interfaces.repositories import EmployeeRepositoryProtocol
+from src.core.interfaces.repositories import CompanyRepositoryProtocol
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
 
-class EmployeeService:
-    def __init__(self, division_repository: EmployeeRepositoryProtocol) -> None:
-        self._repository = division_repository
+class CompanyService:
+    def __init__(self, company_repository: CompanyRepositoryProtocol) -> None:
+        self._repository = company_repository
 
     def is_division_name_exists(self, division_name: str) -> bool:
         name_is_exist = self._repository.is_division_name_exists(division_name)

@@ -7,12 +7,12 @@ from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
 if TYPE_CHECKING:
-    from src.core.services import EmployeeService
+    from src.core.services import CompanyService
     from src.gui.dto.gui_dto_models import GuiDepartmentDto, GuiDivisionDto
 
 
 class DivisionValidator:
-    def __init__(self, employee_service: EmployeeService) -> None:
+    def __init__(self, employee_service: CompanyService) -> None:
         self.employee_service = employee_service
 
     def create_division(self, division_dto: GuiDivisionDto) -> DivisionDomain:
@@ -27,7 +27,7 @@ class DivisionValidator:
 
 
 class DepartmentValidator:
-    def __init__(self, employee_service: EmployeeService) -> None:
+    def __init__(self, employee_service: CompanyService) -> None:
         self.employee_service = employee_service
 
     def create_department(self, department_dto: GuiDepartmentDto) -> DepartmentDomain:
@@ -37,7 +37,8 @@ class DepartmentValidator:
 
     def _validate_business_rules(self, department: DepartmentDomain) -> None:
         # all_division = self.employee_service.load_all_divisions()
-        my_department = DepartmentDomain(name="department.name")
+
+        my_department = DepartmentDomain(name=department.name)
         all_department = [my_department]
         if any(department.name == d.name for d in all_department):
             raise StructureExistsError("Данная служба уже существует...")

@@ -6,7 +6,7 @@ from dependency_injector.providers import Factory
 
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
-from src.gui.viewmodels import DivisionViewModel
+from src.gui.viewmodels import CompanyViewModel
 from src.gui.views.dialogs.division_dialog_views import BaseDialogView
 from src.gui.views.reports import DivisionReportView
 
@@ -18,11 +18,11 @@ if TYPE_CHECKING:
 class DivisionsCoordinator:
     def __init__(
         self,
-        division_viewmodel: DivisionViewModel,
+        company_viewmodel: CompanyViewModel,
         division_report_view: DivisionReportView,
         division_dialog_factory: Factory[DivisionDialogContainer],
     ) -> None:
-        self._vm = division_viewmodel
+        self._vm = company_viewmodel
         self._view = division_report_view
         self._division_dialog_factory = division_dialog_factory
         self._dialog_vm: BaseDialogViewModel | None = None

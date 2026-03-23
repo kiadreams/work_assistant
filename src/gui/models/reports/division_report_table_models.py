@@ -5,11 +5,11 @@ from typing import TYPE_CHECKING
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, QObject, QPersistentModelIndex, Qt
 
 if TYPE_CHECKING:
-    from src.gui.viewmodels import DivisionViewModel
+    from src.gui.viewmodels import CompanyViewModel
 
 
 class DivisionReportDivisionTableModel(QAbstractTableModel):
-    def __init__(self, viewmodel: DivisionViewModel, parent: QObject | None = None):
+    def __init__(self, viewmodel: CompanyViewModel, parent: QObject | None = None):
         super().__init__(parent)
         self.vm = viewmodel
         self.headers = ["№\nп/п", "Служба", "Полное наименование"]
@@ -51,7 +51,7 @@ class DivisionReportDivisionTableModel(QAbstractTableModel):
 
 
 class DivisionReportDepartmentTableModel(QAbstractTableModel):
-    def __init__(self, viewmodel: DivisionViewModel, parent: QObject | None = None):
+    def __init__(self, viewmodel: CompanyViewModel, parent: QObject | None = None):
         super().__init__(parent)
         self.vm = viewmodel
         self.headers = ["№\nп/п", "Подразделение\n(отдел)", "Полное наименование подразделения"]

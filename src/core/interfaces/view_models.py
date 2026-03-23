@@ -11,7 +11,7 @@ class BaseViewModelProtocol(Protocol):
     def init_model_data(self) -> None: ...
 
 
-class DivisionViewModelProtocol(BaseViewModelProtocol, Protocol):
+class CompanyViewModelProtocol(BaseViewModelProtocol, Protocol):
     @property
     def divisions(self) -> list[DivisionDomain]: ...
 

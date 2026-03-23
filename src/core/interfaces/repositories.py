@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from src.core.models.division_domain import DivisionDomain
 
 
-class EmployeeRepositoryProtocol(Protocol):
+class CompanyRepositoryProtocol(Protocol):
     @property
     def all_divisions(self) -> list[DivisionDomain]: ...
 

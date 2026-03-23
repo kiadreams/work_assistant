@@ -1,16 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
 
+from src.core.services import CompanyService
 from src.gui.views.reports import OrderReportView
-
-if TYPE_CHECKING:
-    from src.core.interfaces.services import EmployeeServiceProtocol
 
 
 class OrdersCoordinator:
-    def __init__(self, employee_service: EmployeeServiceProtocol):
-        self.employee_service = employee_service
+    def __init__(self, company_service: CompanyService):
+        self.company_service = company_service
         self._view = OrderReportView()
 
     def start(self) -> None:

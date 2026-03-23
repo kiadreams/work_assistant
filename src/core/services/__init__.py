@@ -1,5 +1,5 @@
-from src.core.services.employee_service import EmployeeService
+from src.core.services.company_service import CompanyService
 
 __all__ = [
-    "EmployeeService",
+    "CompanyService",
 ]

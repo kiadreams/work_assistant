@@ -16,19 +16,19 @@ from src.core.models.division_domain import DivisionDomain
 from src.gui.viewmodels.base_view_model import BaseViewModel
 
 if TYPE_CHECKING:
-    from src.core.services import EmployeeService
+    from src.core.services import CompanyService
 
 
-class DivisionViewModel(BaseViewModel):
+class CompanyViewModel(BaseViewModel):
     division_data_changed_signal = Signal()
     department_data_changed_signal = Signal()
 
     def __init__(
         self,
-        employee_service: EmployeeService,
+        company_service: CompanyService,
     ) -> None:
         super().__init__()
-        self._employee_service = employee_service
+        self._company_service = company_service
         self._divisions: list[DivisionDomain] = []
         self._current_division: DivisionDomain | None = None
         self._departments: list[DepartmentDomain] = []
@@ -125,7 +125,7 @@ class DivisionViewModel(BaseViewModel):
         return department_names, current_department_name
 
     def load_all_divisions(self) -> None:
-        divisions = self._employee_service.load_all_divisions()
+        divisions = self._company_service.load_all_divisions()
         self.divisions = divisions
 
     def change_current_division(self, division_name: str) -> None:
@@ -137,13 +137,13 @@ class DivisionViewModel(BaseViewModel):
         self.current_department = department
 
     def add_new_division(self, division: DivisionDomain) -> None:
-        new_division = self._employee_service.add_new_division(division)
+        new_division = self._company_service.add_new_division(division)
         self.divisions.append(new_division)
         self.current_division = new_division
         print(new_division)
 
     def add_new_department(self, department: DepartmentDomain) -> None:
-        new_department = self._employee_service.add_new_department(department)
+        new_department = self._company_service.add_new_department(department)
         self.departments.append(new_department)
         self.current_department = new_department
 
@@ -152,7 +152,7 @@ class DivisionViewModel(BaseViewModel):
             return
         division_id = self.current_division.id
         try:
-            self._employee_service.delete_division_by_id(division_id)
+            self._company_service.delete_division_by_id(division_id)
         except EntityAttributeTypeError as e:
             self.error_generation_signal.emit(e)
         else:
@@ -164,7 +164,7 @@ class DivisionViewModel(BaseViewModel):
             return
         department_id = self.current_department.id
         try:
-            self._employee_service.delete_department_by_id(department_id)
+            self._company_service.delete_department_by_id(department_id)
         except EntityAttributeTypeError as e:
             self.error_generation_signal.emit(e)
         self.departments.remove(self.current_department)
