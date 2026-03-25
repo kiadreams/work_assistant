@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 from dependency_injector import containers, providers
 
 import src.gui.coordinators.reports as report_coordinators
+from src.core.services.department_service import DepartmentService
+from src.core.services.division_service import DivisionService
 from src.core.validators.division_validators import DepartmentValidator, DivisionValidator
 from src.gui.coordinators.reports_coordinator import ReportsCoordinator
 from src.gui.dto.model_pipeline_services import DepartmentPipelineService, DivisionPipelineService
@@ -80,6 +82,8 @@ class DivisionDialogContainer(containers.DeclarativeContainer):
 
 class ReportSessionContainer(containers.DeclarativeContainer):
     company_service: providers.Dependency[CompanyService] = providers.Dependency()
+    division_service: providers.Dependency[DivisionService] = providers.Dependency()
+    department_service: providers.Dependency[DepartmentService] = providers.Dependency()
 
     reports_window = providers.Singleton(ReportsWindow)
     company_viewmodel = providers.Singleton(CompanyViewModel, company_service=company_service)

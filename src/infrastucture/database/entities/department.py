@@ -13,7 +13,9 @@ from sqlalchemy.orm import (
     relationship,
 )
 
+from src.core.models.department_domain import DepartmentDomain
 from src.infrastucture.database.db_manager import Base
+from ..dto import DbDepartmentDto
 
 if TYPE_CHECKING:
     from .division import Division
@@ -27,8 +29,17 @@ class Department(MappedAsDataclass, Base):
     name: Mapped[str] = mapped_column(String(50), nullable=False)
     division_id: Mapped[int] = mapped_column(ForeignKey("divisions.id"), nullable=False)
 
-    division: Mapped[Division] = relationship(back_populates="departments")
+    division: Mapped[Division] = relationship(back_populates="departments", init=False)
     employee_positions: Mapped[list[EmployeePosition]] = relationship(
         back_populates="department", default_factory=list
     )
     full_name: Mapped[str | None] = mapped_column(String(100), nullable=True, default=None)
+
+    @classmethod
+    def from_domain(cls, department: DbDepartmentDto) -> Department:
+        orm_department = cls(
+            name=department.name,
+            full_name=department.full_name,
+            division_id=department.division_id,
+        )
+        return orm_department

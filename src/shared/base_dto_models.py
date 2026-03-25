@@ -6,8 +6,34 @@ from pydantic import BaseModel, Field, field_validator
 
 from src.core.exceptions.business_exceptions import StructureInvalidNameError
 from src.core.exceptions.db_exceptions import EntityAttributeTypeError
+from src.core.models.company_domain import CompanyDomain
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
+
+
+class BaseCompanyDto(BaseModel):
+    id: int | None = None
+    name: str
+    full_name: str | None = None
+
+    @field_validator("name")
+    @classmethod
+    def name_validator(cls, name: str) -> str:
+        clean_name = name.strip()
+        if not clean_name:
+            raise StructureInvalidNameError("Не указано название компании...")
+        return clean_name
+
+    def to_domain(self) -> CompanyDomain:
+        if self.id is None:
+            raise EntityAttributeTypeError
+        divisions = [d.to_domain() for d in self.divisions] if self.divisions else []
+        company = CompanyDomain(
+            company_id=self.id,
+            name=self.name,
+            full_name=self.full_name,
+        )
+        return company
 
 
 class BaseDivisionDto(BaseModel):

@@ -4,13 +4,7 @@ from typing import TYPE_CHECKING
 
 from PySide6.QtCore import Signal
 
-from src.core.exceptions.db_exceptions import (
-    DivisionNotFoundError,
-    DepartmentNotFoundError,
-    DivisionTypeError,
-    DepartmentTypeError,
-    EntityAttributeTypeError,
-)
+from src.core.exceptions.db_exceptions import EntityAttributeTypeError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.gui.viewmodels.base_view_model import BaseViewModel

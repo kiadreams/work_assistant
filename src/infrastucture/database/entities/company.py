@@ -24,3 +24,12 @@ class Company(MappedAsDataclass, Base):
 
     divisions: Mapped[list[Division]] = relationship(back_populates="company", default_factory=list)
     full_name: Mapped[str | None] = mapped_column(String(100), nullable=True, default=None)
+
+    @classmethod
+    def from_domain(cls, company: DbCompanyDto) -> Company:
+        orm_company = cls(
+            name=department.name,
+            full_name=department.full_name,
+            division_id=department.division_id,
+        )
+        return orm_department

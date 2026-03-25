@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pydantic import ConfigDict, Field
 
-from src.shared.base_dto_models import BaseDepartmentDto, BaseDivisionDto
+from src.shared.base_dto_models import BaseDepartmentDto, BaseDivisionDto, BaseCompanyDto
 
 
 class DbDepartmentDto(BaseDepartmentDto):
@@ -10,6 +10,12 @@ class DbDepartmentDto(BaseDepartmentDto):
 
 
 class DbDivisionDto(BaseDivisionDto):
+    model_config = ConfigDict(from_attributes=True)
+
+    departments: list[DbDepartmentDto] = Field(default_factory=list)
+
+
+class DbCompanyDto(BaseCompanyDto):
     model_config = ConfigDict(from_attributes=True)
 
     departments: list[DbDepartmentDto] = Field(default_factory=list)
