@@ -16,7 +16,7 @@ if __name__ == "__main__":
     # employee_service = EmployeeService(DivisionRepository(db_manager))
 
     # # Создание таблиц в базе данных
-    # db_manager.create_db_tables(
+    # db_manager.create_db_tables()
 
     # # Экспорт записей всех таблиц в CSV файлы
     # db_manager.export_to_csv_files()
