@@ -1,4 +1,5 @@
 from src.core.interfaces.repositories import CompanyRepositoryProtocol
+from src.core.models.company_domain import CompanyDomain
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
@@ -15,8 +16,8 @@ class CompanyService:
         name_is_exist = self._repository.is_department_name_exists(department_name)
         return name_is_exist
 
-    def load_all_divisions(self) -> list[DivisionDomain]:
-        divisions = self._repository.all_divisions
+    def load_all_companies(self) -> list[CompanyDomain]:
+        companies = self._repository.all_companies
         return divisions
 
     def add_new_division(self, division: DivisionDomain) -> DivisionDomain:

@@ -2,11 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
+from src.core.exceptions.base_exceptions import ApplicationError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 
 
-class EntityTypeError(Exception):
+class EntityTypeError(ApplicationError):
     """Исключение выбрасывается, когда вместо сущности передаётся None."""
 
     def __init__(self, entity_type: type, expected_type: type):
@@ -15,7 +16,7 @@ class EntityTypeError(Exception):
         super().__init__(f"Ожидался тип f{self.expected_type} а передан f{self.entity_type}.")
 
 
-class EntityNotFoundError(Exception):
+class EntityNotFoundError(ApplicationError):
     """Исключение выбрасывается, когда сущность не найдена в базе данных."""
 
     def __init__(self, entity_id: int, entity_name: str = "Entity"):
@@ -24,7 +25,7 @@ class EntityNotFoundError(Exception):
         super().__init__(f"{entity_name} с ID={entity_id} не найдена.")
 
 
-class EntityAttributeTypeError(Exception):
+class EntityAttributeTypeError(ApplicationError):
     """Исключение выбрасывается, когда у атрибута сущности неправильный тип или значение None."""
 
     def __init__(self, attr_name: str, attr_type: type, expected_type: type):

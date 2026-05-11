@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from src.core.constants import MainWindows as Windows
+from src.core.exceptions.base_exceptions import ViewFormError
 from src.di.report_container import ReportSessionContainer
 from src.gui.views import MainMenuWindow, MainWindow
 
@@ -49,6 +50,8 @@ class AppCoordinator:
         )
         session = self.session_reports_factory()
         self.session_coordinator = session.reports_coordinator()
+        if not self.session_coordinator:
+            raise ViewFormError
         self.session_coordinator.session_window.back_main_menu_signal.connect(
             self.open_main_menu_window
         )

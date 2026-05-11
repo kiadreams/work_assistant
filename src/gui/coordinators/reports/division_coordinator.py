@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from dependency_injector.providers import Factory
 
+from src.core.exceptions.base_exceptions import ViewFormError
 from src.core.models.department_domain import DepartmentDomain
 from src.core.models.division_domain import DivisionDomain
 from src.gui.viewmodels import CompanyViewModel
@@ -54,22 +55,22 @@ class DivisionsCoordinator:
         self._view.edit_department_signal.disconnect(self._handle_edit_department_button)
 
     def _handle_add_new_division_button(self) -> None:
-        if self._dialog_view is not None or self._dialog_vm is not None:
-            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.add_division_dialog_model()
         self._dialog_view = dialog.add_division_dialog_view()
+        if not self._dialog_vm or not self._dialog_view:
+            raise ViewFormError
         self._dialog_vm.close_view_with_data_signal.connect(self._close_add_division_dialog)
         self._start_dialog_exec()
         self._dialog_vm.close_view_with_data_signal.disconnect(self._close_add_division_dialog)
         self._end_dialog()
 
     def _handle_edit_division_button(self) -> None:
-        if self._dialog_view is not None or self._dialog_vm is not None:
-            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.edit_division_dialog_model()
         self._dialog_view = dialog.edit_division_dialog_view()
+        if not self._dialog_vm or not self._dialog_view:
+            raise ViewFormError
         self._dialog_vm.set_view_data_signal.connect(self._dialog_view.set_view_data)
         self._dialog_vm.close_view_with_data_signal.connect(self._close_edit_division_dialog)
         self._start_dialog_exec()
@@ -78,22 +79,22 @@ class DivisionsCoordinator:
         self._end_dialog()
 
     def _handle_add_new_department_button(self) -> None:
-        if self._dialog_view is not None or self._dialog_vm is not None:
-            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.add_department_dialog_model()
         self._dialog_view = dialog.add_department_dialog_view()
+        if not self._dialog_vm or not self._dialog_view:
+            raise ViewFormError
         self._dialog_vm.close_view_with_data_signal.connect(self._close_add_department_dialog)
         self._start_dialog_exec()
         self._dialog_vm.close_view_with_data_signal.disconnect(self._close_add_department_dialog)
         self._end_dialog()
 
     def _handle_edit_department_button(self) -> None:
-        if self._dialog_view is not None or self._dialog_vm is not None:
-            return
         dialog = self._division_dialog_factory()
         self._dialog_vm = dialog.edit_department_dialog_model()
         self._dialog_view = dialog.edit_department_dialog_view()
+        if not self._dialog_vm or not self._dialog_view:
+            raise ViewFormError
         self._dialog_vm.set_view_data_signal.connect(self._dialog_view.set_view_data)
         self._dialog_vm.close_view_with_data_signal.connect(self._close_edit_department_dialog)
         self._start_dialog_exec()

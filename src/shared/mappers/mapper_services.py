@@ -6,7 +6,9 @@ from src.gui.dto.gui_dto_models import GuiDepartmentDto, GuiDivisionDto
 class DivisionMapperService:
     @staticmethod
     def to_dialog_view_dto(division: DivisionDomain) -> GuiDivisionDto:
-        gui_division_dto = GuiDivisionDto(name=division.name, full_name=division.full_name)
+        gui_division_dto = GuiDivisionDto(
+            name=division.name, full_name=division.full_name, company_id=division.company_id
+        )
         return gui_division_dto
 
 

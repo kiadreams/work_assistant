@@ -12,8 +12,8 @@ if TYPE_CHECKING:
 
 
 class DivisionValidator:
-    def __init__(self, employee_service: CompanyService) -> None:
-        self.employee_service = employee_service
+    def __init__(self, company_service: CompanyService) -> None:
+        self.company_service = company_service
 
     def create_division(self, division_dto: GuiDivisionDto) -> DivisionDomain:
         division = division_dto.to_domain()
@@ -21,14 +21,14 @@ class DivisionValidator:
         return division
 
     def _validate_business_rules(self, division: DivisionDomain) -> None:
-        name_is_exists = self.employee_service.is_division_name_exists(division.name)
+        name_is_exists = self.company_service.is_division_name_exists(division.name)
         if name_is_exists:
             raise StructureExistsError("Данная служба уже существует...")
 
 
 class DepartmentValidator:
-    def __init__(self, employee_service: CompanyService) -> None:
-        self.employee_service = employee_service
+    def __init__(self, company_service: CompanyService) -> None:
+        self.company_service = company_service
 
     def create_department(self, department_dto: GuiDepartmentDto) -> DepartmentDomain:
         department = department_dto.to_domain()

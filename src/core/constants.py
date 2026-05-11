@@ -32,7 +32,7 @@ class QtStyleResources(QtResources):
 
 
 class DbTables(StrEnum):
-    COMPANIES = "companies"
+    COMPANIES = "reports"
     DIVISIONS = "divisions"
     DEPARTMENTS = "departments"
     EMPLOYEE_POSITIONS = "employee_positions"

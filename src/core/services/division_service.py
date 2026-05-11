@@ -10,8 +10,8 @@ class DivisionService:
         name_is_exist = self._repository.is_division_name_exists(division_name)
         return name_is_exist
 
-    def load_all_divisions(self) -> list[DivisionDomain]:
-        divisions = self._repository.all_divisions
+    def load_all_divisions(self, company_id: int) -> list[DivisionDomain]:
+        divisions = self._repository.get_company_divisions(company_id)
         return divisions
 
     def load_division_by_id(self, division_id: int) -> DivisionDomain:

@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from dependency_injector import containers, providers
 
 import src.gui.coordinators.reports as report_coordinators
+from src.core.services import CompanyService, DepartmentService, DivisionService
 from src.core.validators.division_validators import DepartmentValidator, DivisionValidator
 from src.gui.coordinators.reports_coordinator import ReportsCoordinator
 from src.gui.dto.model_pipeline_services import DepartmentPipelineService, DivisionPipelineService
@@ -28,11 +27,6 @@ from src.gui.views.dialogs.division_dialog_views import (
 )
 from src.gui.views.reports import DivisionReportView
 from src.shared.mappers.mapper_services import DepartmentMapperService, DivisionMapperService
-
-if TYPE_CHECKING:
-    from src.core.services import CompanyService
-    from src.core.services import DivisionService
-    from src.core.services import DepartmentService
 
 
 class DivisionDialogContainer(containers.DeclarativeContainer):
@@ -86,7 +80,12 @@ class ReportSessionContainer(containers.DeclarativeContainer):
     department_service: providers.Dependency[DepartmentService] = providers.Dependency()
 
     reports_window = providers.Singleton(ReportsWindow)
-    company_viewmodel = providers.Singleton(CompanyViewModel, company_service=company_service)
+    company_viewmodel = providers.Singleton(
+        CompanyViewModel,
+        company_service=company_service,
+        division_service=division_service,
+        department_service=department_service,
+    )
 
     division_report_division_table_model = providers.Singleton(
         DivisionReportDivisionTableModel,

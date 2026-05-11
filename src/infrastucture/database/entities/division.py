@@ -25,7 +25,7 @@ class Division(MappedAsDataclass, Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False, unique=True)
-    company_id: Mapped[int] = mapped_column(ForeignKey("companies.id"), nullable=False)
+    company_id: Mapped[int] = mapped_column(ForeignKey("reports.id"), nullable=False)
     company: Mapped[Company] = relationship(back_populates="divisions", init=False)
 
     departments: Mapped[list[Department]] = relationship(
@@ -44,4 +44,3 @@ class Division(MappedAsDataclass, Base):
             company_id=division.company_id,
         )
         return orm_division
-

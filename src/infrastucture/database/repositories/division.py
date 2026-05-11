@@ -16,7 +16,7 @@ class DivisionRepository(DivisionRepositoryProtocol):
         self.db_manager = db_manager
 
     @property
-    def all_divisions(self) -> list[DivisionDomain]:
+    def get_company_divisions(self) -> list[DivisionDomain]:
         stmt = select(Division).order_by(Division.name.asc())
         with self.db_manager.session_scope() as session:
             orm_result = session.execute(stmt).scalars()

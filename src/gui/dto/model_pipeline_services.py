@@ -15,7 +15,10 @@ class DivisionPipelineService:
         """
         Полный конвейер валидации: формат + бизнес-логика.
         """
+        print("Try to validate the division")
+
         division_dto = GuiDivisionDto.model_validate(raw_data)
+        print("end validate dto", division_dto)
         division = self._validator.create_division(division_dto)
         return division
 

@@ -1,7 +1,4 @@
-class BusinessLogicError(Exception):
-    """Базовый класс для всех ошибок бизнес-логики приложения."""
-
-    pass
+from src.core.exceptions.base_exceptions import BusinessLogicError
 
 
 class StructureError(BusinessLogicError):

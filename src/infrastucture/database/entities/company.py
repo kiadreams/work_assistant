@@ -12,12 +12,14 @@ from sqlalchemy.orm import (
 
 from src.infrastucture.database.db_manager import Base
 
+from ..dto.models import DbCompanyDto
+
 if TYPE_CHECKING:
     from .division import Division
 
 
 class Company(MappedAsDataclass, Base):
-    __tablename__ = "companies"
+    __tablename__ = "reports"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)
@@ -28,8 +30,7 @@ class Company(MappedAsDataclass, Base):
     @classmethod
     def from_domain(cls, company: DbCompanyDto) -> Company:
         orm_company = cls(
-            name=department.name,
-            full_name=department.full_name,
-            division_id=department.division_id,
+            name=company.name,
+            full_name=company.full_name,
         )
-        return orm_department
+        return orm_company
