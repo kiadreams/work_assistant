@@ -27,7 +27,6 @@ class BaseCompanyDto(BaseModel):
     def to_domain(self) -> CompanyDomain:
         if self.id is None:
             raise EntityAttributeTypeError
-        divisions = [d.to_domain() for d in self.divisions] if self.divisions else []
         company = CompanyDomain(
             company_id=self.id,
             name=self.name,

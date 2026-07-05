@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 
 
 class Company(MappedAsDataclass, Base):
-    __tablename__ = "reports"
+    __tablename__ = "companies"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, init=False)
     name: Mapped[str] = mapped_column(String(50), nullable=False)

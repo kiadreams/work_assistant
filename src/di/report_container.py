@@ -136,8 +136,8 @@ class ReportSessionContainer(containers.DeclarativeContainer):
 
     reports_coordinator = providers.Singleton(
         ReportsCoordinator,
+        company_viewmodel=company_viewmodel,
         reports_window=reports_window,
-        company_service=company_service,
         divisions_coordinator=division_coordinator,
         staff_coordinator=staff_coordinator,
         work_types_coordinator=works_types_coordinator,

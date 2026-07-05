@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from src.core.constants import ReportsViews as ViewEnum
 from src.core.interfaces.coordinators import ViewCoordinatorProtocol
-from src.core.services import CompanyService
+from src.gui.viewmodels import CompanyViewModel
 from src.gui.views.reports_window import ReportsWindow
 
 if TYPE_CHECKING:
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class ReportsCoordinator:
     def __init__(
         self,
-        company_service: CompanyService,
+        company_viewmodel: CompanyViewModel,
         reports_window: ReportsWindow,
         divisions_coordinator: reports.DivisionsCoordinator,
         staff_coordinator: reports.StaffCoordinator,
@@ -23,7 +23,7 @@ class ReportsCoordinator:
         orders_coordinator: reports.OrdersCoordinator,
         work_events_coordinator: reports.WorkEventsCoordinator,
     ) -> None:
-        self.employee_service = company_service
+        self._company_viewmodel = company_viewmodel
         self._reports_window = reports_window
         self._view_coordinators: dict[ViewEnum, ViewCoordinatorProtocol] = {
             ViewEnum.DIVISIONS: divisions_coordinator,
@@ -37,6 +37,10 @@ class ReportsCoordinator:
     @property
     def session_window(self) -> ReportsWindow:
         return self._reports_window
+
+    @property
+    def company_model(self) -> CompanyViewModel:
+        return self._company_viewmodel
 
     def start(self) -> None:
         self._connect_signals()

@@ -61,9 +61,9 @@ class CompanyViewModel(BaseViewModel):
         return self._divisions
 
     @divisions.setter
-    def divisions(self, value: list[DivisionDomain]) -> None:
-        self._divisions = value
-        self.current_division = value[0] if value else None
+    def divisions(self, dvs: list[DivisionDomain]) -> None:
+        self._divisions = dvs
+        self.current_division = dvs[0] if dvs else None
 
     @property
     def current_division(self) -> DivisionDomain | None:
@@ -152,8 +152,7 @@ class CompanyViewModel(BaseViewModel):
 
     def load_all_divisions(self, company: CompanyDomain | None) -> None:
         if company:
-            company_id = company.id
-            self.divisions = self._division_service.load_all_divisions(company_id)
+            self.divisions = self._division_service.load_all_divisions(company.id)
 
     def change_current_division(self, division_name: str) -> None:
         division = next((d for d in self.divisions if d.name == division_name), None)

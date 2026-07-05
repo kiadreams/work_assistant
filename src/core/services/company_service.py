@@ -18,7 +18,7 @@ class CompanyService:
 
     def load_all_companies(self) -> list[CompanyDomain]:
         companies = self._repository.all_companies
-        return divisions
+        return companies
 
     def add_new_division(self, division: DivisionDomain) -> DivisionDomain:
         division = self._repository.add_new_division(division)

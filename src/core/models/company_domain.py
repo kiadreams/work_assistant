@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from src.core.models.division_domain import DivisionDomain
+
 
 class CompanyDomain:
     def __init__(

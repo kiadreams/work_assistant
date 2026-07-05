@@ -17,7 +17,7 @@ class ReportsWindow(SessionWindow, Ui_ReportsWindowWidget):
 
     def __init__(self) -> None:
         super().__init__()
-        self.company = "Кубанское ПМЭС"
+        self.company = "Кубское ПМЭС"
         self.init_content_view()
         self.reports_button_group = self.create_button_group(
             "reports_button_group", self._get_report_buttons_group()
