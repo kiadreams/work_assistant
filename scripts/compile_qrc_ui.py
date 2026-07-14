@@ -14,8 +14,8 @@ def compile_qrc() -> None:
     Запускает команду pyside6-rcc для компиляции QRC файла.
     """
     root_dir, env_bin_path = get_scripts_and_root_dir()
-    qrc_file = root_dir / "resources.qrc"
-    output_py_file = root_dir / "src/gui/generated/resources_rc.py"
+    qrc_file = root_dir / "src/presentation/assets/resources.qrc"
+    output_py_file = root_dir / "src/presentation/gui/generated/resources_rc.py"
     path_to_pyside6_rcc = env_bin_path / "pyside6-rcc"
     print(path_to_pyside6_rcc.as_posix())
     if not qrc_file.exists():
@@ -45,14 +45,14 @@ def compile_qrc() -> None:
 
 def compile_ui() -> None:
     """
-    Запускает команду pyside6-uic для компиляции ui файла.
+    Запускает команду pyside6-uic для компиляции gui файла.
     """
     root_dir, env_bin_path = get_scripts_and_root_dir()
-    ui_files = root_dir / "assets/qt_assets/forms"
-    ui_py_files = root_dir / "src/gui/generated/ui"
+    ui_files = root_dir / "src/presentation/assets/forms"
+    ui_py_files = root_dir / "src/presentation/gui/generated/ui"
     path_to_pyside6_uic = env_bin_path / "pyside6-uic"
     for elem in ui_files.iterdir():
-        if not (elem.is_file() or elem.suffix == ".ui"):
+        if not (elem.is_file() or elem.suffix == ".gui"):
             continue
         # Формируем команду для выполнения 'pyside6-uic' как имя исполняемого файла
         py_file = elem.with_suffix(".py").name

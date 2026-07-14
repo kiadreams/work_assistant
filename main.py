@@ -2,16 +2,19 @@ import sys  # noqa
 
 from PySide6.QtWidgets import QApplication
 
-from src.di.app_container import AppContainer
+from src.data.repositories import app_repository
+from src.data import DatabaseManager
+from src.presentation.gui import MainWindow
+# from src.coordinators.main_window_coordinator import MainWindowCoordinator
 
 
 def close_app() -> None:
-    coordinator.teardown()
+    # coordinator.teardown()
     print("Closing app...")
 
 
 if __name__ == "__main__":
-    app_container = AppContainer()
+    # app_container = AppContainer()
     # db_manager = app_container.db_manager()
     # employee_service = EmployeeService(DivisionRepository(db_manager))
 
@@ -29,7 +32,10 @@ if __name__ == "__main__":
     # db_manager.import_from_json_files()
 
     app = QApplication(sys.argv)
-    coordinator = app_container.app_coordinator()
-    coordinator.start()
+    db_manager = DatabaseManager()
+    app_repository = app_repository.AppRepository(db_manager)
+    main_window = MainWindow()
+    # main_coordinator = MainWindowCoordinator(main_window, db_manager, app_repository)
+    # main_coordinator.start()
     app.aboutToQuit.connect(close_app)
     sys.exit(app.exec())

@@ -4,11 +4,11 @@ from typing import Sequence
 
 from pydantic import BaseModel, Field, field_validator
 
-from src.core.exceptions.business_exceptions import StructureInvalidNameError
-from src.core.exceptions.db_exceptions import EntityAttributeTypeError
-from src.core.models.company_domain import CompanyDomain
-from src.core.models.department_domain import DepartmentDomain
-from src.core.models.division_domain import DivisionDomain
+from src.shared.exceptions.business_exceptions import StructureInvalidNameError
+from src.shared.exceptions.db_exceptions import EntityAttributeTypeError
+from src.domain.models.company_domain import CompanyDomain
+from src.domain.models.department_domain import DepartmentDomain
+from src.domain.models.division_domain import DivisionDomain
 
 
 class BaseCompanyDto(BaseModel):

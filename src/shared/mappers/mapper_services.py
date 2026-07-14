@@ -1,5 +1,5 @@
-from src.core.models.department_domain import DepartmentDomain
-from src.core.models.division_domain import DivisionDomain
+from src.domain.models.department_domain import DepartmentDomain
+from src.domain.models.division_domain import DivisionDomain
 from src.gui.dto.gui_dto_models import GuiDepartmentDto, GuiDivisionDto
 
 
