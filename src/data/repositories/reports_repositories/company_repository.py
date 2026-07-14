@@ -3,14 +3,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from config import DbCollFunc
-from entities import Company
 from sqlalchemy import select
 
-from src.domain.models import CompanyDomain
-
 if TYPE_CHECKING:
+    from entities import Company
     from mappers.staff_mapper import StaffMapper
 
+    from domain.models import CompanyDomain
     from src.data import DatabaseManager
 
 
@@ -43,8 +42,6 @@ class CompanyRepository:
             company_orm = Company.from_domain(company)
             session.add(company_orm)
             company_dmn = CompanyDomain(
-                company_id=company_orm.id,
-                name=company_orm.name,
-                full_name=company_orm.full_name
+                company_id=company_orm.id, name=company_orm.name, full_name=company_orm.full_name
             )
         return company_dmn

@@ -6,33 +6,38 @@ from mappers.staff_mapper import StaffMapper
 from reports_repositories import CompanyRepository, DepartmentRepository, DivisionRepository
 
 if TYPE_CHECKING:
-
-
     from src.data import DatabaseManager
 
 
 class AppRepository:
-    def __init__(self, db_manager: DatabaseManager) -> None:
-        self.db_manager = db_manager
-        self._company_repository = None
-        self._department_repository = None
-        self._division_repository = None
+    def __init__(
+        self,
+        *,
+        db_manager: DatabaseManager,
+        company_repo: CompanyRepository,
+        dapartment_repo: DepartmentRepository,
+        division_repo: DivisionRepository,
+    ) -> None:
+        self.__db_manager = db_manager
+        self.__company_repository = company_repo
+        self.__department_repository = None
+        self.__division_repository = None
         self.__init_repositories()
 
     def __init_repositories(self) -> None:
         __mapper = StaffMapper()
-        self._company_repository = CompanyRepository(self.db_manager, __mapper)
-        self._department_repository = DepartmentRepository(self.db_manager, __mapper)
-        self._division_repository = DivisionRepository(self.db_manager, __mapper)
+        self.__company_repository = CompanyRepository(self.__db_manager, __mapper)
+        self.__department_repository = DepartmentRepository(self.__db_manager, __mapper)
+        self.__division_repository = DivisionRepository(self.__db_manager, __mapper)
 
     @property
     def company(self) -> CompanyRepository:
-        return self._company_repository
+        return self.__company_repository
 
     @property
     def department(self) -> DepartmentRepository:
-        return self._department_repository
+        return self.__department_repository
 
     @property
     def division(self) -> DivisionRepository:
-        return self._division_repository
+        return self.__division_repository

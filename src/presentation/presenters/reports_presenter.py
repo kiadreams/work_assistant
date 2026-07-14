@@ -3,16 +3,16 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
+from src.coordinators.main_window_coordinator import MainWindowCoordinator
 from src.core.interfaces.coordinators import ViewCoordinatorProtocol
 from src.gui.viewmodels import CompanyViewModel
 from src.gui.views.reports_widget import ReportsWidget
-
-from src.coordinators.main_window_coordinator import MainWindowCoordinator
 from src.presentation.presenters.base_presenters.base_presenter import BasePresenter
 from src.shared.constants import ReportsViews as ViewEnum
 
 if TYPE_CHECKING:
-    import src.presentation.presenters.reports as reports
+    import reports
+    from
 
 
 class ReportWidgets(StrEnum):

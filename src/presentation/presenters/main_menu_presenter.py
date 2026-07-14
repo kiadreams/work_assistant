@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from src.presentation.presenters.base_presenters.base_presenter import BasePresenter
 from src.shared.constants import MainWindows as Windows
 from src.shared.exceptions.base_exceptions import ViewFormError
-from src.gui.views import MainMenuWidget
-from src.presentation.presenters.base_presenters.base_presenter import BasePresenter
 
 if TYPE_CHECKING:
-    from src.coordinators.main_window_coordinator import MainWindowCoordinator
+    from presentation.gui.views import MainMenuWidget
+    from src.coordinators import MainWindowCoordinator
 
 
 class MainMenuPresenter(BasePresenter):

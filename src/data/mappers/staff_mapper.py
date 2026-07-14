@@ -1,5 +1,4 @@
-from entities import Company
-
+from src.data.entities import Company
 from src.domain.models import CompanyDomain
 
 
