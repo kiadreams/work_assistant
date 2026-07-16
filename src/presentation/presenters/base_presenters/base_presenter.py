@@ -9,10 +9,10 @@ if TYPE_CHECKING:
 class BasePresenter:
     def __init__(
         self,
-        main_coordinator: MainWindowCoordinator,
+        coordinator: MainWindowCoordinator,
         widget_index: int,
     ) -> None:
-        self.coordinator = main_coordinator
+        self.coordinator = coordinator
         self.widget_index = widget_index
 
     def start(self) -> None:

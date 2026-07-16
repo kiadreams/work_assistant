@@ -35,10 +35,10 @@ class ReportsPresenter(BasePresenter):
         works_coordinator: reports.WorkReportPresenter,
         orders_coordinator: reports.OrderReportPresenter,
         work_events_coordinator: reports.WorkEventReportPresenter,
-        main_coordinator: MainWindowCoordinator,
+        coordinator: MainWindowCoordinator,
         widget_index: int,
     ) -> None:
-        super().__init__(main_coordinator, widget_index)
+        super().__init__(coordinator, widget_index)
         self._company_viewmodel = company_viewmodel
         self._reports_window = reports_window
         self._view_coordinators: dict[ViewEnum, ViewCoordinatorProtocol] = {

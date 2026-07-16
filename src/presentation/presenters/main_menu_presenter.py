@@ -14,11 +14,11 @@ if TYPE_CHECKING:
 class MainMenuPresenter(BasePresenter):
     def __init__(
         self,
-        main_coordinator: MainWindowCoordinator,
+        coordinator: MainWindowCoordinator,
         main_menu_widget: MainMenuWidget,
         widget_index: int,
     ) -> None:
-        super().__init__(main_coordinator, widget_index)
+        super().__init__(coordinator, widget_index)
         self.main_menu = main_menu_widget
 
     def start(self) -> None:

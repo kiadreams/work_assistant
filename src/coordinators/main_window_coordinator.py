@@ -3,12 +3,12 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from src.data import DatabaseManager
-from src.data.repositories.app_repository import AppRepository
+from coordinators.base_coordinator import BaseCoordinator
 from src.presentation.gui import MainMenuWidget, MainWindow
 from src.presentation.presenters import MainMenuPresenter
 
 if TYPE_CHECKING:
+    from di import AppFactory
     from src.presentation.presenters import BasePresenter
 
 
@@ -18,13 +18,11 @@ class WindowWidgets(StrEnum):
     PROTOCOLS = "protocols_widget"
 
 
-class MainWindowCoordinator:
-    def __init__(
-        self, main_window: MainWindow, db_manager: DatabaseManager, app_repo: AppRepository
-    ) -> None:
-        self.window = MainWindow()
-        self.db_manager = DatabaseManager()
-        self.app_repository = AppRepository(self.db_manager)
+class MainWindowCoordinator(BaseCoordinator):
+    def __init__(self, app_factory: AppFactory, main_window: MainWindow) -> None:
+        super().__init__(app_factory)
+        self.__app_factory = app_factory
+        self.window = main_window
         self.widgets: dict[str, BasePresenter] = {}
 
     def start(self) -> None:
