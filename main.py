@@ -2,14 +2,13 @@ import sys  # noqa
 
 from PySide6.QtWidgets import QApplication
 
-from src.data.repositories import app_repository
+from src.di import AppFactory
 from src.data import DatabaseManager
 from src.presentation.gui import MainWindow
-from src.coordinators.main_window_coordinator import MainWindowCoordinator
+from src.coordinators.app_coordinator import AppCoordinator
 
 
 def close_app() -> None:
-    # coordinator.teardown()
     print("Closing app...")
 
 
@@ -31,17 +30,16 @@ if __name__ == "__main__":
     # # Загрузка записей во все таблицы из JSON файлов
     # db_manager.import_from_json_files()
 
-
     # Создаем приложение, его зависимости и запускаем главный цикл
     app = QApplication(sys.argv)
 
     db_manager = DatabaseManager()
-    app_repository = app_repository.AppRepository(db_manager)
+    app_window = MainWindow()
 
-    main_window = MainWindow()
+    app_factory = AppFactory(db_connect=db_manager)
+    app_coordinator = AppCoordinator(app_factory=app_factory, main_window=app_window)
 
-    main_coordinator = MainWindowCoordinator(main_window, db_manager, app_repository)
-    main_coordinator.start()
+    app_coordinator.start()
 
     app.aboutToQuit.connect(close_app)
     sys.exit(app.exec())

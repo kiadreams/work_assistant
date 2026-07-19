@@ -1,80 +1,63 @@
 from __future__ import annotations
 
+import weakref
 from typing import TYPE_CHECKING
 
-from src.presentation.presenters.base_presenters.base_presenter import BasePresenter
-from src.shared.constants import MainWindows as Windows
-from src.shared.exceptions.base_exceptions import ViewFormError
+from PySide6.QtCore import QObject, Signal, SignalInstance
 
 if TYPE_CHECKING:
-    from presentation.gui.views import MainMenuWidget
-    from src.coordinators import MainWindowCoordinator
+    from reports_repositories.company_repository import CompanyRepository
+
+    from presentation.gui.views import MainMenuView
 
 
-class MainMenuPresenter(BasePresenter):
-    def __init__(
-        self,
-        coordinator: MainWindowCoordinator,
-        main_menu_widget: MainMenuWidget,
-        widget_index: int,
-    ) -> None:
-        super().__init__(coordinator, widget_index)
-        self.main_menu = main_menu_widget
+class MainMenuPresenter(QObject):
+    open_employees_view_signal = Signal(int)
+    open_reports_view_signal = Signal(int)
+    open_protocols_view_signal = Signal(int)
+    close_app_signal = Signal()
+
+    def __init__(self, main_menu_view: MainMenuView, company_repo: CompanyRepository, /) -> None:
+        super().__init__(main_menu_view)
+        self._view_ref = weakref.ref(main_menu_view)
+        self._company_repo = company_repo
+        self.start()
+
+    @property
+    def view(self) -> MainMenuView:
+        view = self._view_ref()
+        if view:
+            return view
+        raise AttributeError("View not found")
 
     def start(self) -> None:
         self.__connect_signals()
+        self.load_view_data()
 
     def __connect_signals(self) -> None:
-        self.main_menu.open_reports_window_signal.connect(self.__open_reports_window)
-        self.main_menu.open_protocols_window_signal.connect(self.__open_protocols_window)
-        self.main_menu.close_app_signal.connect(self.main_window.close)
+        self.view.close_app_click_signal.connect(self.close_app_signal.emit)
+        self.view.employees_view_click_signal.connect(self._open_employees_view)
+        self.view.reports_view_click_signal.connect(self._open_reports_view)
+        self.view.protocols_view_click_signal.connect(self._open_protocols_view)
 
-    def __disconnect_signals(self) -> None:
-        self.main_menu.open_reports_window_signal.disconnect(self.__open_reports_window)
-        self.main_menu.open_protocols_window_signal.disconnect(self.__open_protocols_window)
-        self.main_menu.close_app_signal.disconnect(self.main_window.close)
+    def load_view_data(self):
+        companies = self._company_repo.get_all_companies()
+        companies_data = {
+            company.full_name if company.full_name else company.name: company.id
+            for company in companies
+        }
+        print(companies_data)
+        self.view.display_companies(companies_data)
 
-    def open_main_menu_window(self) -> None:
-        self.main_window.show_widget(Windows.MAIN_MENU)
-        self._close_current_session()
+    def _open_employees_view(self, company_id: int) -> None:
+        self._emit_open_view_signal(self.open_employees_view_signal, company_id)
 
-    def __open_reports_window(self) -> None:
-        self.main_menu_window.plainTextEdit_logs.appendPlainText(
-            "Нажали кнопку открытия окна создания отчётов"
-        )
-        session = self.session_reports_factory()
-        self.session_coordinator = session.reports_coordinator()
-        if not self.session_coordinator:
-            raise ViewFormError
-        self.session_coordinator.session_window.back_main_menu_signal.connect(
-            self.open_main_menu_window
-        )
-        self.session_coordinator.start()
-        self.main_window.add_widget(Windows.REPORTS_WINDOW, self.session_coordinator.session_window)
-        self.main_window.show_widget(Windows.REPORTS_WINDOW)
+    def _open_reports_view(self, company_id: int) -> None:
+        self._emit_open_view_signal(self.open_reports_view_signal, company_id)
 
-    def __open_protocols_window(self) -> None:
-        self.main_menu_window.plainTextEdit_logs.appendPlainText(
-            "Нажали кнопку открытия окна создания протоколов"
-        )
-        self.main_window.show_widget(Windows.PROTOCOLS_WINDOW)
+    def _open_protocols_view(self, company_id: int) -> None:
+        self._emit_open_view_signal(self.open_protocols_view_signal, company_id)
 
-    def _close_current_session(self) -> None:
-        if self.session_coordinator:
-            # 1. Сначала просим сам координатор сессии очистить его внутренние ресурсы
-            if hasattr(self.session_coordinator, "teardown"):
-                self.session_coordinator.teardown()
-            # 2. Просим Qt удалить объект виджета из памяти
-            if self.session_coordinator.session_window:
-                self.session_coordinator.session_window.deleteLater()
-            # 3. Обнуляем ссылку на координатор
-            self.session_coordinator = None
-
-    def teardown(self) -> None:
-        if self.session_coordinator:
-            self.session_coordinator.teardown()
-        self.__disconnect_signals()
-        self.main_menu_window.deleteLater()
-        self.main_window.deleteLater()
-        print("Закрываем координатор")
-
+    def _emit_open_view_signal(self, signal: SignalInstance, company_id: int) -> None:
+        if self._company_repo.is_company_id_exists(company_id):
+            signal.emit(company_id)

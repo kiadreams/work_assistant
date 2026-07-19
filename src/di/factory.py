@@ -6,8 +6,8 @@ if TYPE_CHECKING:
     from data import DatabaseManager
 
 
-class BaseFactory:
+class Factory:
     def __init__(
-        self, db_manager: DatabaseManager
+        self, db_connect: DatabaseManager
     ) -> None:
-        self.db_client = db_manager
+        self.db_connect = db_connect

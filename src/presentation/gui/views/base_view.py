@@ -1,8 +1,7 @@
-from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QMessageBox, QWidget
 
 
-class BaseWidget(QWidget):
+class BaseView(QWidget):
     def init_content_view(self) -> None:
         pass
 
@@ -11,7 +10,3 @@ class BaseWidget(QWidget):
 
     def show_warning_massage(self, title: str, message: str) -> None:
         QMessageBox.warning(self, title, message)
-
-
-class SessionWindow(BaseWidget):
-    back_main_menu_signal = Signal()

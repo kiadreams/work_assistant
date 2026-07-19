@@ -38,7 +38,7 @@ class DatabaseManager:
     def __init__(self) -> None:
         self.engine = create_engine(DATABASE_URL)
         self._register_event_listeners()
-        self.SessionLocal = sessionmaker(autoflush=False, bind=self.engine)
+        self.SessionLocal = sessionmaker(autoflush=False, bind=self.engine, expire_on_commit=False)
 
     def _register_event_listeners(self) -> None:
         """Регистрирует все необходимые слушатели событий для engine."""

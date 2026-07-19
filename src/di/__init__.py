@@ -1,7 +1,7 @@
-from app_factory import AppFactory
-from base_factory import BaseFactory
+from .app_factory import AppFactory
+from .factory import Factory
 
 __all__ = [
-    "BaseFactory",
+    "Factory",
     "AppFactory",
 ]

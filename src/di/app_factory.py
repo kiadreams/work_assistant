@@ -2,22 +2,27 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from di.base_factory import BaseFactory
-from presentation.gui import MainMenuWidget
+from reports_repositories.company_repository import CompanyRepository
+
+from di.factory import Factory
+from presentation.gui import MainMenuView
 from presentation.presenters import MainMenuPresenter
 
 if TYPE_CHECKING:
     from db_manager import DatabaseManager
 
-    from presentation.gui import MainWindow
+    from coordinators import AppCoordinator
 
+class AppFactory(Factory):
+    def __init__(self, *, db_connect: DatabaseManager) -> None:
+        super().__init__(db_connect)
 
-
-class AppFactory(BaseFactory):
-    def __init__(self, db_manager: DatabaseManager, main_window: MainWindow) -> None:
-        super().__init__(db_manager)
-        self.main_window = main_window
-
-    def create_main_menu_widget(self):
-        main_menu_widget = MainMenuWidget(self.main_window)
-        main_menu_presenter = MainMenuPresenter(self.main_window)
+    def create_main_menu_screen(self, coordinator: AppCoordinator) -> MainMenuView:
+        company_repo = CompanyRepository(self.db_connect)
+        main_menu_view = MainMenuView()
+        main_menu_presenter = MainMenuPresenter(main_menu_view, company_repo)
+        main_menu_presenter.close_app_signal.connect(coordinator.close_app)
+        main_menu_presenter.open_employees_view_signal.connect(coordinator.show_employees_view)
+        main_menu_presenter.open_reports_view_signal.connect(coordinator.show_reports_view)
+        main_menu_presenter.open_protocols_view_signal.connect(coordinator.show_protocols_view)
+        return main_menu_view

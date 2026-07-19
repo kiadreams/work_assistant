@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
-    QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
+    QLabel, QPlainTextEdit, QPushButton, QSizePolicy,
+    QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_MainMenuWidget(object):
     def setupUi(self, MainMenuWidget):
@@ -56,6 +56,21 @@ class Ui_MainMenuWidget(object):
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
 
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_4.addItem(self.horizontalSpacer_5)
+
+        self.comboBox_companies = QComboBox(MainMenuWidget)
+        self.comboBox_companies.setObjectName(u"comboBox_companies")
+        self.comboBox_companies.setMinimumSize(QSize(200, 0))
+
+        self.horizontalLayout_4.addWidget(self.comboBox_companies)
+
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
+
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
@@ -68,18 +83,27 @@ class Ui_MainMenuWidget(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.pushButton_edit_employees = QPushButton(MainMenuWidget)
+        self.pushButton_edit_employees.setObjectName(u"pushButton_edit_employees")
+        self.pushButton_edit_employees.setMinimumSize(QSize(150, 0))
+
+        self.verticalLayout_2.addWidget(self.pushButton_edit_employees)
+
         self.pushButton_create_sheets = QPushButton(MainMenuWidget)
         self.pushButton_create_sheets.setObjectName(u"pushButton_create_sheets")
+        self.pushButton_create_sheets.setMinimumSize(QSize(150, 0))
 
         self.verticalLayout_2.addWidget(self.pushButton_create_sheets)
 
         self.pushButton_create_protocols = QPushButton(MainMenuWidget)
         self.pushButton_create_protocols.setObjectName(u"pushButton_create_protocols")
+        self.pushButton_create_protocols.setMinimumSize(QSize(150, 0))
 
         self.verticalLayout_2.addWidget(self.pushButton_create_protocols)
 
         self.pushButton_exit = QPushButton(MainMenuWidget)
         self.pushButton_exit.setObjectName(u"pushButton_exit")
+        self.pushButton_exit.setMinimumSize(QSize(150, 0))
 
         self.verticalLayout_2.addWidget(self.pushButton_exit)
 
@@ -105,9 +129,9 @@ class Ui_MainMenuWidget(object):
 
         self.verticalLayout_3.addWidget(self.plainTextEdit_logs)
 
-        self.verticalLayout_3.setStretch(1, 5)
-        self.verticalLayout_3.setStretch(3, 5)
-        self.verticalLayout_3.setStretch(4, 2)
+        self.verticalLayout_3.setStretch(2, 5)
+        self.verticalLayout_3.setStretch(4, 5)
+        self.verticalLayout_3.setStretch(5, 2)
 
         self.gridLayout.addLayout(self.verticalLayout_3, 0, 0, 1, 1)
 
@@ -121,8 +145,9 @@ class Ui_MainMenuWidget(object):
         MainMenuWidget.setWindowTitle(QCoreApplication.translate("MainMenuWidget", u"Form", None))
         self.label_app_title.setText(QCoreApplication.translate("MainMenuWidget", u"\u0440\u0430\u0431\u043e\u0447\u0438\u0439 \u0430\u0441\u0441\u0438\u0441\u0442\u0435\u043d\u0442", None))
         self.label_app_version.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u0435\u0440\u0441\u0438\u044f \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f: 1.1.1", None))
-        self.pushButton_create_sheets.setText(QCoreApplication.translate("MainMenuWidget", u"\u0441\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0432\u0435\u0434\u043e\u043c\u043e\u0441\u0442\u0435\u0439 \u0440\u0430\u0431\u043e\u0442", None))
-        self.pushButton_create_protocols.setText(QCoreApplication.translate("MainMenuWidget", u"\u0441\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u043e\u0432", None))
-        self.pushButton_exit.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u044b\u0439\u0442\u0438 \u0438\u0437 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f", None))
+        self.pushButton_edit_employees.setText(QCoreApplication.translate("MainMenuWidget", u"\u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
+        self.pushButton_create_sheets.setText(QCoreApplication.translate("MainMenuWidget", u"\u043e\u0442\u0447\u0451\u0442\u044b", None))
+        self.pushButton_create_protocols.setText(QCoreApplication.translate("MainMenuWidget", u"\u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u044b", None))
+        self.pushButton_exit.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u044b\u0445\u043e\u0434", None))
     # retranslateUi
 

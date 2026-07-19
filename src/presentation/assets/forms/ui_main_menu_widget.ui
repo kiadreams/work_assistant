@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,5,0,5,2">
+    <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,5,0,5,2">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
@@ -65,6 +65,33 @@
       </layout>
      </item>
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_companies">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Orientation::Vertical</enum>
@@ -93,25 +120,56 @@
         </spacer>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
+         <item>
+          <widget class="QPushButton" name="pushButton_edit_employees">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>персонал</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QPushButton" name="pushButton_create_sheets">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
-            <string>создание ведомостей работ</string>
+            <string>отчёты</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_create_protocols">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
-            <string>создание протоколов</string>
+            <string>протоколы</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_exit">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
-            <string>выйти из приложения</string>
+            <string>выход</string>
            </property>
           </widget>
          </item>

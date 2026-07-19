@@ -1,3 +1,3 @@
-from .views import MainMenuWidget, MainWindow, ReportsWidget
+from .views import MainMenuView, MainWindow
 
-__all__ = ["MainWindow", "MainMenuWidget", "ReportsWidget"]
+__all__ = ["MainWindow", "MainMenuView"]

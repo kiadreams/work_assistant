@@ -1,5 +1,12 @@
-from src.data.entities import Company
-from src.domain.models import CompanyDomain
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from domain.models import CompanyDomain
+
+if TYPE_CHECKING:
+    from entities.company import Company
+
 
 
 class StaffMapper:

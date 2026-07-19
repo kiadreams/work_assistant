@@ -9,10 +9,10 @@ class QtResources(StrEnum):
     pass
 
 
-class MainWindows(PageStructure):
+class AppWindowViews(PageStructure):
     MAIN_MENU = 0
-    REPORTS_WINDOW = 1
-    PROTOCOLS_WINDOW = 2
+    REPORTS = 1
+    PROTOCOLS = 2
 
 
 class ReportsViews(PageStructure):

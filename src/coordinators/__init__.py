@@ -1,3 +1,4 @@
-from .main_window_coordinator import MainWindowCoordinator
+from .app_coordinator import AppCoordinator
+from .coordinator import Coordinator
 
-__all__ = ["MainWindowCoordinator"]
+__all__ = ["AppCoordinator", "Coordinator"]

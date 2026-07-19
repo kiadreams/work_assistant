@@ -16,17 +16,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.resize(1280, 800)
         self.setWindowTitle("Рабочий помощник КИА")
 
-    def add_widget(self, widget: QWidget) -> int:
-        layout_widget = self.__get_widget_to_insert(widget)
-        index = self.stackedWidget_windows.addWidget(layout_widget)
-        return index
-
-    def show_widget(self, index: int) -> None:
-        self.stackedWidget_windows.setCurrentIndex(index)
-
-    @staticmethod
-    def __get_widget_to_insert(widget: QWidget) -> QWidget:
-        layout = QVBoxLayout()
-        layout.addWidget(widget)
-        widget.setLayout(layout)
-        return widget
+    # def add_widget(self, widget: QWidget) -> int:
+    #     layout_widget = self.__get_widget_to_insert(widget)
+    #     index = self.stackedWidget_windows.addWidget(layout_widget)
+    #     return index
+    #
+    # def show_widget(self, index: int) -> None:
+    #     self.stackedWidget_windows.setCurrentIndex(index)
+    #
+    # @staticmethod
+    # def __get_widget_to_insert(widget: QWidget) -> QWidget:
+    #     layout = QVBoxLayout()
+    #     layout.addWidget(widget)
+    #     widget.setLayout(layout)
+    #     return widget

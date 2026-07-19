@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QButtonGroup, QPushButton, QVBoxLayout, QWidget
 from src.shared.constants import PageStructure, QtStyleResources, ReportsViews
 
 from ..generated import ResourceLoader, Ui_ReportsWindowWidget
-from .base_widget import SessionWindow
+from .base_view import SessionWindow
 
 
 class ReportsWidget(SessionWindow, Ui_ReportsWindowWidget):

@@ -3,11 +3,10 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
-from src.coordinators.main_window_coordinator import MainWindowCoordinator
-from src.core.interfaces.coordinators import ViewCoordinatorProtocol
+from src.coordinators.app_coordinator import AppCoordinator
 from src.gui.viewmodels import CompanyViewModel
 from src.gui.views.reports_widget import ReportsWidget
-from src.presentation.presenters.base_presenters.base_presenter import BasePresenter
+from presenter import Presenter
 from src.shared.constants import ReportsViews as ViewEnum
 
 if TYPE_CHECKING:
@@ -24,7 +23,7 @@ class ReportWidgets(StrEnum):
     WORK_TYPES = "work_types_widget"
 
 
-class ReportsPresenter(BasePresenter):
+class ReportsPresenter(Presenter):
     def __init__(
         self,
         company_viewmodel: CompanyViewModel,
@@ -35,7 +34,7 @@ class ReportsPresenter(BasePresenter):
         works_coordinator: reports.WorkReportPresenter,
         orders_coordinator: reports.OrderReportPresenter,
         work_events_coordinator: reports.WorkEventReportPresenter,
-        coordinator: MainWindowCoordinator,
+        coordinator: AppCoordinator,
         widget_index: int,
     ) -> None:
         super().__init__(coordinator, widget_index)
