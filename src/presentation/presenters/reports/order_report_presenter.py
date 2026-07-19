@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 from src.domain.services import EmployeeService
 from src.gui.views.reports import OrderReportWidget
 

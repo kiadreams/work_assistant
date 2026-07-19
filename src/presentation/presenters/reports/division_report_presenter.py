@@ -4,12 +4,12 @@ from typing import TYPE_CHECKING
 
 from dependency_injector.providers import Factory
 
-from src.shared.exceptions.base_exceptions import ViewFormError
 from src.domain.models.department_domain import DepartmentDomain
 from src.domain.models.division_domain import DivisionDomain
 from src.gui.viewmodels import CompanyViewModel
 from src.gui.views.dialogs.division_dialog_views import BaseDialogView
 from src.gui.views.reports import DivisionReportWidget
+from src.shared.exceptions.base_exceptions import ViewFormError
 
 if TYPE_CHECKING:
     from src.di.report_container import DivisionDialogContainer

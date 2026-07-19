@@ -1,10 +1,9 @@
+from src.presentation.gui.generated import ResourceLoader, Ui_WorkTypeReportWidget
+from src.presentation.gui.views.base_view import BaseView
 from src.shared.constants import QtStyleResources
-from src.gui.generated import Ui_WorkTypeReportWidget
-from src.gui.utils import ResourceLoader
-from src.gui.views.base_widget import BaseWidget
 
 
-class WorkTypeReportWidget(BaseWidget, Ui_WorkTypeReportWidget):
+class WorkTypeReportWidget(BaseView, Ui_WorkTypeReportWidget):
     def __init__(self) -> None:
         super().__init__()
 

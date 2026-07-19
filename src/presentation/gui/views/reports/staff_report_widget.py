@@ -1,7 +1,7 @@
-from src.shared.constants import QtStyleResources
 from src.gui.generated import Ui_StaffReportWidget
 from src.gui.utils import ResourceLoader
 from src.gui.views.base_widget import BaseWidget
+from src.shared.constants import QtStyleResources
 
 
 class StaffReportWidget(BaseWidget, Ui_StaffReportWidget):

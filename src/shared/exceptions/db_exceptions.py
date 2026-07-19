@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
-from src.shared.exceptions.base_exceptions import ApplicationError
 from src.domain.models.department_domain import DepartmentDomain
 from src.domain.models.division_domain import DivisionDomain
+from src.shared.exceptions.base_exceptions import ApplicationError
 
 
 class EntityTypeError(ApplicationError):

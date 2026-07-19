@@ -37,6 +37,7 @@ url = "https://pypi.org/simple"
 # Замените 'src' и 'tests' на имена ваших папок с кодом.
 files = ["src", "tests", "scripts"]
 
+
 # === 2. Уровень строгости проверки (Рекомендуется для новых проектов) ===
 # Включение строгого режима активирует сразу множество проверок.
 strict = true
@@ -60,13 +61,15 @@ ignore_missing_imports = true
 
 # Пример: Игнорировать ошибки типов в папке миграций SQLAlchemy/Django
 [[tool.mypy.overrides]]
-module = ["migrations.*", "vendor.*", "src.gui.generated.*"]
+# Указываем точный путь к модулю сгенерированных файлов через точку с подстановочным знаком *
+module = "src.presentation.gui.generated.ui.*"
+
+# 1. Полностью глушим любые ошибки типов внутри этой папки
 ignore_errors = true
 
-# Пример: Сделать определенный файл менее строгим
-[[tool.mypy.overrides]]
-module = "legacy_code.old_script"
-strict = false
+# 2. Разрешаем вызывать из неё функции без аннотаций типов
+ignore_missing_imports = true
+
 
 
 # ====================================================================
@@ -106,7 +109,7 @@ ignore = ["E501"]
 
 [tool.ruff]
 # Исключить определенные файлы или директории из проверки
-exclude = [".venv", ".git", "__pycache__", "docs"]
+exclude = [".venv", ".git", "__pycache__", "docs", "src/presentation/gui/generated/ui"]
 # Увеличить длину строки по умолчанию с 88 до 100 символов
 line-length = 100
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from coordinators.coordinator import Coordinator
+from src.coordinators.coordinator import Coordinator
 from src.shared.constants import AppWindowViews as AppViews
 
 if TYPE_CHECKING:
@@ -35,11 +35,11 @@ class AppCoordinator(Coordinator):
     def close_app(self) -> None:
         self._window.close()
 
-    def show_employees_view(self, company_id) -> None:
+    def show_employees_view(self, company_id: int) -> None:
         print(f"в координатор для работников пришла компания: {company_id}")
 
-    def show_reports_view(self, company_id) -> None:
+    def show_reports_view(self, company_id: int) -> None:
         print(f"в координатор для отчетов пришла компания: {company_id}")
 
-    def show_protocols_view(self, company_id) -> None:
+    def show_protocols_view(self, company_id: int) -> None:
         print(f"в координатор для протоколов пришла компания: {company_id}")

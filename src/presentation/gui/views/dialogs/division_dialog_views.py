@@ -3,11 +3,11 @@ from __future__ import annotations
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QDialog, QDialogButtonBox, QMessageBox, QWidget
 
-from src.shared.constants import QtStyleResources
 from src.gui.dto.gui_dto_models import GuiDivisionDto
 from src.gui.generated.ui.ui_base_dialog_view import Ui_BaseDialogView
 from src.gui.utils import ResourceLoader
 from src.gui.views.dialogs.forms.dialog_forms import StructureFormWidget
+from src.shared.constants import QtStyleResources
 
 
 class BaseDialogView(QDialog, Ui_BaseDialogView):

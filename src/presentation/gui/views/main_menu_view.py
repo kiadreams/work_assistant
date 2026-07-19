@@ -43,5 +43,6 @@ class MainMenuView(BaseView, Ui_MainMenuWidget):
 
     def _get_selected_company_id(self) -> int:
         if self.comboBox_companies.currentIndex() != -1:
-            return self.comboBox_companies.currentData()
+            company_id: int = self.comboBox_companies.currentData()
+            return company_id
         return -1
