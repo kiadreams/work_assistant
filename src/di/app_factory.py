@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from reports_repositories.company_repository import CompanyRepository
-
-from di.factory import Factory
-from presentation.gui import MainMenuView
-from presentation.presenters import MainMenuPresenter
+from src.data.repositories.reports_repositories.company_repository import CompanyRepository
+from src.di.factory import Factory
+from src.presentation.gui import MainMenuView
+from src.presentation.presenters import MainMenuPresenter
 
 if TYPE_CHECKING:
     from db_manager import DatabaseManager

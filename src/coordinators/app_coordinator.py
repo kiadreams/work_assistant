@@ -36,6 +36,7 @@ class AppCoordinator(Coordinator):
         self._window.close()
 
     def show_employees_view(self, company_id: int) -> None:
+        # if AppViews
         print(f"в координатор для работников пришла компания: {company_id}")
 
     def show_reports_view(self, company_id: int) -> None:

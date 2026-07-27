@@ -11,8 +11,9 @@ class QtResources(StrEnum):
 
 class AppWindowViews(PageStructure):
     MAIN_MENU = 0
-    REPORTS = 1
-    PROTOCOLS = 2
+    EMPLOYEES = 1
+    REPORTS = 2
+    PROTOCOLS = 3
 
 
 class ReportsViews(PageStructure):

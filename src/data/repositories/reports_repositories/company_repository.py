@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from config import DbCollFunc
-from entities.company import Company
 from sqlalchemy import select
 
-from domain.models import CompanyDomain
+from src.data.config import DbCollFunc
+from src.data.entities.company import Company
+from src.domain.models import CompanyDomain
 
 if TYPE_CHECKING:
     from src.data import DatabaseManager
