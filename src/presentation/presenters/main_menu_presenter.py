@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-import weakref
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 from PySide6.QtCore import QObject, Signal, SignalInstance
 
-if TYPE_CHECKING:
-    from reports_repositories.company_repository import CompanyRepository
+from ..gui.views import MainMenuScreen
 
-    from presentation.gui.views import MainMenuView
+if TYPE_CHECKING:
+    from employees_repository import EmployeesRepository
 
 
 class MainMenuPresenter(QObject):
@@ -17,24 +16,22 @@ class MainMenuPresenter(QObject):
     open_protocols_view_signal = Signal(int)
     close_app_signal = Signal()
 
-    def __init__(self, main_menu_view: MainMenuView, company_repo: CompanyRepository, /) -> None:
-        super().__init__(main_menu_view)
-        self._view_ref = weakref.ref(main_menu_view)
-        self._company_repo = company_repo
+    def __init__(
+        self, main_menu_screen: MainMenuScreen, employees_repo: EmployeesRepository
+    ) -> None:
+        super().__init__(main_menu_screen)
+        self._company_repo = employees_repo
         self.start()
 
     @property
-    def view(self) -> MainMenuView:
-        view = self._view_ref()
-        if view:
-            return view
-        raise AttributeError("View not found")
+    def view(self) -> MainMenuScreen:
+        return cast(MainMenuScreen, self.parent())
 
     def start(self) -> None:
-        self.__connect_signals()
+        self._connect_signals()
         self.load_view_data()
 
-    def __connect_signals(self) -> None:
+    def _connect_signals(self) -> None:
         self.view.close_app_click_signal.connect(self.close_app_signal.emit)
         self.view.employees_view_click_signal.connect(self._open_employees_view)
         self.view.reports_view_click_signal.connect(self._open_reports_view)

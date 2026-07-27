@@ -9,7 +9,7 @@ class QtResources(StrEnum):
     pass
 
 
-class AppWindowViews(PageStructure):
+class AppScreen(PageStructure):
     MAIN_MENU = 0
     EMPLOYEES = 1
     REPORTS = 2

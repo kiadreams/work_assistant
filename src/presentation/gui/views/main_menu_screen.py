@@ -1,13 +1,19 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from PySide6.QtCore import Signal
-from PySide6.QtWidgets import QWidget
 
 from src.shared.constants import QtStyleResources
 
 from ..generated import ResourceLoader, Ui_MainMenuWidget
 from .base_view import BaseView
 
+if TYPE_CHECKING:
+    from PySide6.QtWidgets import QWidget
 
-class MainMenuView(BaseView, Ui_MainMenuWidget):
+
+class MainMenuScreen(BaseView, Ui_MainMenuWidget):
     employees_view_click_signal = Signal(int)
     reports_view_click_signal = Signal(int)
     protocols_view_click_signal = Signal(int)

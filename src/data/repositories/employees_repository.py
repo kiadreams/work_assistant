@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from src.data import DatabaseManager
 
 
-class CompanyRepository:
+class EmployeesRepository:
     def __init__(self, db_manager: DatabaseManager) -> None:
         self._db_manager = db_manager
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui_staff_report_widget.ui'
+## Form generated from reading UI file 'employees_widget.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.11.1
 ##
@@ -19,12 +19,12 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView
     QLabel, QPushButton, QSizePolicy, QSpacerItem,
     QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
-class Ui_StaffReportWidget(object):
-    def setupUi(self, StaffReportWidget):
-        if not StaffReportWidget.objectName():
-            StaffReportWidget.setObjectName(u"StaffReportWidget")
-        StaffReportWidget.resize(886, 739)
-        self.verticalLayout_2 = QVBoxLayout(StaffReportWidget)
+class Ui_EmployeesWidget(object):
+    def setupUi(self, EmployeesWidget):
+        if not EmployeesWidget.objectName():
+            EmployeesWidget.setObjectName(u"EmployeesWidget")
+        EmployeesWidget.resize(886, 739)
+        self.verticalLayout_2 = QVBoxLayout(EmployeesWidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -36,22 +36,22 @@ class Ui_StaffReportWidget(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.label_division_list_title = QLabel(StaffReportWidget)
+        self.label_division_list_title = QLabel(EmployeesWidget)
         self.label_division_list_title.setObjectName(u"label_division_list_title")
 
         self.horizontalLayout_2.addWidget(self.label_division_list_title)
 
-        self.comboBox_division_list_2 = QComboBox(StaffReportWidget)
+        self.comboBox_division_list_2 = QComboBox(EmployeesWidget)
         self.comboBox_division_list_2.setObjectName(u"comboBox_division_list_2")
 
         self.horizontalLayout_2.addWidget(self.comboBox_division_list_2)
 
-        self.label_department_list_title = QLabel(StaffReportWidget)
+        self.label_department_list_title = QLabel(EmployeesWidget)
         self.label_department_list_title.setObjectName(u"label_department_list_title")
 
         self.horizontalLayout_2.addWidget(self.label_department_list_title)
 
-        self.comboBox_department_list = QComboBox(StaffReportWidget)
+        self.comboBox_department_list = QComboBox(EmployeesWidget)
         self.comboBox_department_list.setObjectName(u"comboBox_department_list")
 
         self.horizontalLayout_2.addWidget(self.comboBox_department_list)
@@ -59,29 +59,29 @@ class Ui_StaffReportWidget(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
-        self.label = QLabel(StaffReportWidget)
+        self.label = QLabel(EmployeesWidget)
         self.label.setObjectName(u"label")
 
         self.verticalLayout.addWidget(self.label)
 
-        self.comboBox_division_list = QComboBox(StaffReportWidget)
+        self.comboBox_division_list = QComboBox(EmployeesWidget)
         self.comboBox_division_list.setObjectName(u"comboBox_division_list")
 
         self.verticalLayout.addWidget(self.comboBox_division_list)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.pushButton_edit_staff = QPushButton(StaffReportWidget)
+        self.pushButton_edit_staff = QPushButton(EmployeesWidget)
         self.pushButton_edit_staff.setObjectName(u"pushButton_edit_staff")
 
         self.horizontalLayout.addWidget(self.pushButton_edit_staff)
 
-        self.pushButton_add_staff = QPushButton(StaffReportWidget)
+        self.pushButton_add_staff = QPushButton(EmployeesWidget)
         self.pushButton_add_staff.setObjectName(u"pushButton_add_staff")
 
         self.horizontalLayout.addWidget(self.pushButton_add_staff)
 
-        self.pushButton_delete_staff = QPushButton(StaffReportWidget)
+        self.pushButton_delete_staff = QPushButton(EmployeesWidget)
         self.pushButton_delete_staff.setObjectName(u"pushButton_delete_staff")
 
         self.horizontalLayout.addWidget(self.pushButton_delete_staff)
@@ -89,7 +89,7 @@ class Ui_StaffReportWidget(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
-        self.pushButton_show_all_staff = QPushButton(StaffReportWidget)
+        self.pushButton_show_all_staff = QPushButton(EmployeesWidget)
         self.pushButton_show_all_staff.setObjectName(u"pushButton_show_all_staff")
 
         self.verticalLayout.addWidget(self.pushButton_show_all_staff)
@@ -104,25 +104,25 @@ class Ui_StaffReportWidget(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
 
-        self.tableWidget_staff_data_table = QTableWidget(StaffReportWidget)
+        self.tableWidget_staff_data_table = QTableWidget(EmployeesWidget)
         self.tableWidget_staff_data_table.setObjectName(u"tableWidget_staff_data_table")
 
         self.verticalLayout_2.addWidget(self.tableWidget_staff_data_table)
 
 
-        self.retranslateUi(StaffReportWidget)
+        self.retranslateUi(EmployeesWidget)
 
-        QMetaObject.connectSlotsByName(StaffReportWidget)
+        QMetaObject.connectSlotsByName(EmployeesWidget)
     # setupUi
 
-    def retranslateUi(self, StaffReportWidget):
-        StaffReportWidget.setWindowTitle(QCoreApplication.translate("StaffReportWidget", u"Form", None))
-        self.label_division_list_title.setText(QCoreApplication.translate("StaffReportWidget", u" \u0421\u043b\u0443\u0436\u0431\u0430", None))
-        self.label_department_list_title.setText(QCoreApplication.translate("StaffReportWidget", u"\u0413\u0440\u0443\u043f\u043f\u0430 / \u0443\u0447\u0430\u0441\u0442\u043e\u043a", None))
-        self.label.setText(QCoreApplication.translate("StaffReportWidget", u"\u041f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
-        self.pushButton_edit_staff.setText(QCoreApplication.translate("StaffReportWidget", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
-        self.pushButton_add_staff.setText(QCoreApplication.translate("StaffReportWidget", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
-        self.pushButton_delete_staff.setText(QCoreApplication.translate("StaffReportWidget", u"\u0423\u0414\u0410\u041b\u0418\u0422\u042c", None))
-        self.pushButton_show_all_staff.setText(QCoreApplication.translate("StaffReportWidget", u"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0432\u0435\u0441\u044c \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
+    def retranslateUi(self, EmployeesWidget):
+        EmployeesWidget.setWindowTitle(QCoreApplication.translate("EmployeesWidget", u"Form", None))
+        self.label_division_list_title.setText(QCoreApplication.translate("EmployeesWidget", u" \u0421\u043b\u0443\u0436\u0431\u0430", None))
+        self.label_department_list_title.setText(QCoreApplication.translate("EmployeesWidget", u"\u0413\u0440\u0443\u043f\u043f\u0430 / \u0443\u0447\u0430\u0441\u0442\u043e\u043a", None))
+        self.label.setText(QCoreApplication.translate("EmployeesWidget", u"\u041f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
+        self.pushButton_edit_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
+        self.pushButton_add_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
+        self.pushButton_delete_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u0423\u0414\u0410\u041b\u0418\u0422\u042c", None))
+        self.pushButton_show_all_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0432\u0435\u0441\u044c \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
     # retranslateUi
 

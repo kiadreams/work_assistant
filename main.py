@@ -2,9 +2,9 @@ import sys  # noqa
 
 from PySide6.QtWidgets import QApplication
 
-from src.di import AppFactory
+from src.di.app_factory import AppFactory
 from src.data import DatabaseManager
-from src.presentation.gui import MainWindow
+from src.presentation.gui.views import MainWindow
 from src.coordinators.app_coordinator import AppCoordinator
 
 
