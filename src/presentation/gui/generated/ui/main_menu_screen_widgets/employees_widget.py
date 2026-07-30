@@ -15,25 +15,65 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QHeaderView,
-    QLabel, QPushButton, QSizePolicy, QSpacerItem,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
+    QHeaderView, QLabel, QPushButton, QSizePolicy,
+    QSpacerItem, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 
 class Ui_EmployeesWidget(object):
     def setupUi(self, EmployeesWidget):
         if not EmployeesWidget.objectName():
             EmployeesWidget.setObjectName(u"EmployeesWidget")
-        EmployeesWidget.resize(886, 739)
+        EmployeesWidget.resize(1005, 932)
         self.verticalLayout_2 = QVBoxLayout(EmployeesWidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.horizontalLayout_3.addItem(self.horizontalSpacer_3)
+        self.horizontalLayout_4.addItem(self.horizontalSpacer)
 
-        self.verticalLayout = QVBoxLayout()
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.pushButton_to_main_menu = QPushButton(EmployeesWidget)
+        self.pushButton_to_main_menu.setObjectName(u"pushButton_to_main_menu")
+
+        self.horizontalLayout_4.addWidget(self.pushButton_to_main_menu)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout_4)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_2.addItem(self.verticalSpacer_4)
+
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.tableWidget_employees_data_table = QTableWidget(EmployeesWidget)
+        self.tableWidget_employees_data_table.setObjectName(u"tableWidget_employees_data_table")
+
+        self.gridLayout.addWidget(self.tableWidget_employees_data_table, 2, 2, 4, 1)
+
+        self.label = QLabel(EmployeesWidget)
+        self.label.setObjectName(u"label")
+
+        self.gridLayout.addWidget(self.label, 1, 2, 1, 1)
+
+        self.horizontalSpacer_9 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_9, 3, 3, 1, 1)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_2, 5, 1, 2, 1)
+
+        self.pushButton_add_employee = QPushButton(EmployeesWidget)
+        self.pushButton_add_employee.setObjectName(u"pushButton_add_employee")
+
+        self.gridLayout.addWidget(self.pushButton_add_employee, 2, 1, 1, 1)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer, 6, 2, 1, 1)
+
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.label_division_list_title = QLabel(EmployeesWidget)
@@ -43,8 +83,17 @@ class Ui_EmployeesWidget(object):
 
         self.comboBox_division_list_2 = QComboBox(EmployeesWidget)
         self.comboBox_division_list_2.setObjectName(u"comboBox_division_list_2")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.comboBox_division_list_2.sizePolicy().hasHeightForWidth())
+        self.comboBox_division_list_2.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_2.addWidget(self.comboBox_division_list_2)
+
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer_4)
 
         self.label_department_list_title = QLabel(EmployeesWidget)
         self.label_department_list_title.setObjectName(u"label_department_list_title")
@@ -53,62 +102,33 @@ class Ui_EmployeesWidget(object):
 
         self.comboBox_department_list = QComboBox(EmployeesWidget)
         self.comboBox_department_list.setObjectName(u"comboBox_department_list")
+        sizePolicy.setHeightForWidth(self.comboBox_department_list.sizePolicy().hasHeightForWidth())
+        self.comboBox_department_list.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_2.addWidget(self.comboBox_department_list)
 
+        self.horizontalLayout_2.setStretch(0, 1)
+        self.horizontalLayout_2.setStretch(1, 4)
+        self.horizontalLayout_2.setStretch(3, 1)
+        self.horizontalLayout_2.setStretch(4, 4)
 
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.gridLayout.addLayout(self.horizontalLayout_2, 0, 2, 1, 1)
 
-        self.label = QLabel(EmployeesWidget)
-        self.label.setObjectName(u"label")
+        self.pushButton_delete_employee = QPushButton(EmployeesWidget)
+        self.pushButton_delete_employee.setObjectName(u"pushButton_delete_employee")
 
-        self.verticalLayout.addWidget(self.label)
+        self.gridLayout.addWidget(self.pushButton_delete_employee, 3, 1, 1, 1)
 
-        self.comboBox_division_list = QComboBox(EmployeesWidget)
-        self.comboBox_division_list.setObjectName(u"comboBox_division_list")
+        self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.verticalLayout.addWidget(self.comboBox_division_list)
+        self.gridLayout.addItem(self.horizontalSpacer_3, 3, 0, 1, 1)
 
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.pushButton_edit_staff = QPushButton(EmployeesWidget)
-        self.pushButton_edit_staff.setObjectName(u"pushButton_edit_staff")
+        self.gridLayout.setRowStretch(5, 1)
+        self.gridLayout.setColumnStretch(2, 1)
 
-        self.horizontalLayout.addWidget(self.pushButton_edit_staff)
+        self.verticalLayout_2.addLayout(self.gridLayout)
 
-        self.pushButton_add_staff = QPushButton(EmployeesWidget)
-        self.pushButton_add_staff.setObjectName(u"pushButton_add_staff")
-
-        self.horizontalLayout.addWidget(self.pushButton_add_staff)
-
-        self.pushButton_delete_staff = QPushButton(EmployeesWidget)
-        self.pushButton_delete_staff.setObjectName(u"pushButton_delete_staff")
-
-        self.horizontalLayout.addWidget(self.pushButton_delete_staff)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout)
-
-        self.pushButton_show_all_staff = QPushButton(EmployeesWidget)
-        self.pushButton_show_all_staff.setObjectName(u"pushButton_show_all_staff")
-
-        self.verticalLayout.addWidget(self.pushButton_show_all_staff)
-
-
-        self.horizontalLayout_3.addLayout(self.verticalLayout)
-
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_3.addItem(self.horizontalSpacer_2)
-
-
-        self.verticalLayout_2.addLayout(self.horizontalLayout_3)
-
-        self.tableWidget_staff_data_table = QTableWidget(EmployeesWidget)
-        self.tableWidget_staff_data_table.setObjectName(u"tableWidget_staff_data_table")
-
-        self.verticalLayout_2.addWidget(self.tableWidget_staff_data_table)
-
+        self.verticalLayout_2.setStretch(2, 1)
 
         self.retranslateUi(EmployeesWidget)
 
@@ -117,12 +137,11 @@ class Ui_EmployeesWidget(object):
 
     def retranslateUi(self, EmployeesWidget):
         EmployeesWidget.setWindowTitle(QCoreApplication.translate("EmployeesWidget", u"Form", None))
+        self.pushButton_to_main_menu.setText(QCoreApplication.translate("EmployeesWidget", u"\u0413\u043b\u0430\u0432\u043d\u043e\u0435 \u043c\u0435\u043d\u044e", None))
+        self.label.setText(QCoreApplication.translate("EmployeesWidget", u"\u0421\u043f\u0438\u0441\u043e\u043a \u043f\u043a\u0440\u0441\u043e\u043d\u0430\u043b\u0430:", None))
+        self.pushButton_add_employee.setText(QCoreApplication.translate("EmployeesWidget", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
         self.label_division_list_title.setText(QCoreApplication.translate("EmployeesWidget", u" \u0421\u043b\u0443\u0436\u0431\u0430", None))
         self.label_department_list_title.setText(QCoreApplication.translate("EmployeesWidget", u"\u0413\u0440\u0443\u043f\u043f\u0430 / \u0443\u0447\u0430\u0441\u0442\u043e\u043a", None))
-        self.label.setText(QCoreApplication.translate("EmployeesWidget", u"\u041f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
-        self.pushButton_edit_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u0420\u0435\u0434\u0430\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u0442\u044c", None))
-        self.pushButton_add_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c", None))
-        self.pushButton_delete_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u0423\u0414\u0410\u041b\u0418\u0422\u042c", None))
-        self.pushButton_show_all_staff.setText(QCoreApplication.translate("EmployeesWidget", u"\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0432\u0435\u0441\u044c \u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
+        self.pushButton_delete_employee.setText(QCoreApplication.translate("EmployeesWidget", u"\u0423\u0414\u0410\u041b\u0418\u0422\u042c", None))
     # retranslateUi
 

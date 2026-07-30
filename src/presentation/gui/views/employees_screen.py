@@ -14,6 +14,8 @@ if TYPE_CHECKING:
 
 
 class EmployeesScreen(BaseView, Ui_EmployeesWidget):
+    to_main_menu_click_signal = Signal()
+
     def __init__(self) -> None:
         super().__init__()
         self.init_content_view()
@@ -25,4 +27,4 @@ class EmployeesScreen(BaseView, Ui_EmployeesWidget):
         self.setup_connections()
 
     def setup_connections(self) -> None:
-        pass
+        self.pushButton_to_main_menu.clicked.connect(self.to_main_menu_click_signal.emit)
