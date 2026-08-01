@@ -6,7 +6,8 @@ from sqlalchemy import select
 
 from src.data.config import DbCollFunc
 from src.data.entities.company import Company
-from src.domain.models import CompanyDomain
+from src.data.entities.division import Division
+from src.domain.models import CompanyDomain, DivisionDomain
 
 if TYPE_CHECKING:
     from src.data import DatabaseManager
@@ -21,8 +22,7 @@ class EmployeesRepository:
         with self._db_manager.session_scope() as session:
             orm_result = session.execute(stmt).scalars()
             companies_dmn = [
-                CompanyDomain(company_id=c.id, name=c.name, full_name=c.full_name)
-                for c in orm_result
+                CompanyDomain(id=c.id, name=c.name, full_name=c.full_name) for c in orm_result
             ]
         return companies_dmn
 
@@ -50,3 +50,13 @@ class EmployeesRepository:
     #         company_id=company_orm.id, name=company_orm.name, full_name=company_orm.full_name
     #     )
     #     return company_dmn
+
+    def get_company_divisions(self, company_id: int) -> list[DivisionDomain]:
+        stmt = select(Division).order_by(Division.name.asc())
+        with self._db_manager.session_scope() as session:
+            orm_result = session.execute(stmt).scalars()
+            divisions_dmn = [
+                DivisionDomain(id=d.id, name=d.name, company_id=d.company_id, full_name=d.full_name)
+                for d in orm_result
+            ]
+        return divisions_dmn

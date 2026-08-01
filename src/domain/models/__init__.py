@@ -1,7 +1,4 @@
-from .company_domain import CompanyDomain
-from .department_domain import DepartmentDomain
-from .division_domain import DivisionDomain
-from .employee_domain import EmployeeDomain
+from .staff_domain_models import CompanyDomain, DepartmentDomain, DivisionDomain, EmployeeDomain
 
 __all__ = [
     "CompanyDomain",

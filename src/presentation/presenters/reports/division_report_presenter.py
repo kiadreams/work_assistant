@@ -36,7 +36,7 @@ class DivisionReportPresenter:
     def start(self) -> None:
         self._connect_signals()
         self._vm.init_model_data()
-        self._view.init_content_view()
+        self._view._init_content_view()
 
     def _connect_signals(self) -> None:
         self._view.add_new_division_signal.connect(self._handle_add_new_division_button)

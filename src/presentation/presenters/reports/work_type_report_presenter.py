@@ -8,7 +8,7 @@ class WorkTypeReportPresenter:
         self._view = WorkTypeReportWidget()
 
     def start(self) -> None:
-        self._view.init_content_view()
+        self._view._init_content_view()
         self._connect_signals()
 
     @property

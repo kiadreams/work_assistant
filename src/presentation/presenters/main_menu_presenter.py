@@ -43,7 +43,6 @@ class MainMenuPresenter(QObject):
             company.full_name if company.full_name else company.name: company.id
             for company in companies
         }
-        print(companies_data)
         self.view.display_companies(companies_data)
 
     def _open_employees_view(self, company_id: int) -> None:

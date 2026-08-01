@@ -81,15 +81,15 @@ class Ui_EmployeesWidget(object):
 
         self.horizontalLayout_2.addWidget(self.label_division_list_title)
 
-        self.comboBox_division_list_2 = QComboBox(EmployeesWidget)
-        self.comboBox_division_list_2.setObjectName(u"comboBox_division_list_2")
+        self.comboBox_division_list = QComboBox(EmployeesWidget)
+        self.comboBox_division_list.setObjectName(u"comboBox_division_list")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.comboBox_division_list_2.sizePolicy().hasHeightForWidth())
-        self.comboBox_division_list_2.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(self.comboBox_division_list.sizePolicy().hasHeightForWidth())
+        self.comboBox_division_list.setSizePolicy(sizePolicy)
 
-        self.horizontalLayout_2.addWidget(self.comboBox_division_list_2)
+        self.horizontalLayout_2.addWidget(self.comboBox_division_list)
 
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 

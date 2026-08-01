@@ -6,7 +6,7 @@ from PySide6.QtCore import Signal
 
 from src.shared.constants import QtStyleResources
 
-from ..generated import ResourceLoader, Ui_MainMenuWidget
+from ..generated import Ui_MainMenuWidget
 from .base_view import BaseView
 
 if TYPE_CHECKING:
@@ -21,14 +21,9 @@ class MainMenuScreen(BaseView, Ui_MainMenuWidget):
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
-        self.init_content_view()
-        self.setup_connections()
+        self._init_content_view(QtStyleResources.MAIN_MENU_STYLE)
 
-    def init_content_view(self) -> None:
-        self.setupUi(self)  # type: ignore[no-untyped-call]
-        self.setStyleSheet(ResourceLoader(QtStyleResources.MAIN_MENU_STYLE).load_style())
-
-    def setup_connections(self) -> None:
+    def _setup_connections(self) -> None:
         self.pushButton_exit.clicked.connect(self.close_app_click_signal.emit)
         self.pushButton_edit_employees.clicked.connect(self._open_employees_view)
         self.pushButton_create_sheets.clicked.connect(self._open_reports_view)
