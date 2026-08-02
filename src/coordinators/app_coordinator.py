@@ -39,8 +39,8 @@ class AppCoordinator:
             self._stacked_widgets.addWidget(employees_screen)
         self._stacked_widgets.setCurrentWidget(self._widgets[AppScreen.EMPLOYEES])
 
-    def show_reports_view(self, company_id: int) -> None:
+    def show_reports_screen(self, company_id: int) -> None:
         print(f"в координатор для отчетов пришла компания: {company_id}")
 
-    def show_protocols_view(self, company_id: int) -> None:
+    def show_protocols_screen(self, company_id: int) -> None:
         print(f"в координатор для протоколов пришла компания: {company_id}")

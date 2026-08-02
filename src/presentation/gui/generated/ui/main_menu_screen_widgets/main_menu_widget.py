@@ -36,15 +36,15 @@ class Ui_MainMenuWidget(object):
 
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label_app_title = QLabel(MainMenuWidget)
-        self.label_app_title.setObjectName(u"label_app_title")
+        self.app_title = QLabel(MainMenuWidget)
+        self.app_title.setObjectName(u"app_title")
 
-        self.verticalLayout.addWidget(self.label_app_title)
+        self.verticalLayout.addWidget(self.app_title)
 
-        self.label_app_version = QLabel(MainMenuWidget)
-        self.label_app_version.setObjectName(u"label_app_version")
+        self.app_version = QLabel(MainMenuWidget)
+        self.app_version.setObjectName(u"app_version")
 
-        self.verticalLayout.addWidget(self.label_app_version)
+        self.verticalLayout.addWidget(self.app_version)
 
 
         self.horizontalLayout_2.addLayout(self.verticalLayout)
@@ -62,11 +62,11 @@ class Ui_MainMenuWidget(object):
 
         self.horizontalLayout_4.addItem(self.horizontalSpacer_5)
 
-        self.comboBox_companies = QComboBox(MainMenuWidget)
-        self.comboBox_companies.setObjectName(u"comboBox_companies")
-        self.comboBox_companies.setMinimumSize(QSize(200, 0))
+        self.company_list = QComboBox(MainMenuWidget)
+        self.company_list.setObjectName(u"company_list")
+        self.company_list.setMinimumSize(QSize(200, 0))
 
-        self.horizontalLayout_4.addWidget(self.comboBox_companies)
+        self.horizontalLayout_4.addWidget(self.company_list)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
@@ -83,29 +83,29 @@ class Ui_MainMenuWidget(object):
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.pushButton_edit_employees = QPushButton(MainMenuWidget)
-        self.pushButton_edit_employees.setObjectName(u"pushButton_edit_employees")
-        self.pushButton_edit_employees.setMinimumSize(QSize(150, 0))
+        self.edit_employee_data_btn = QPushButton(MainMenuWidget)
+        self.edit_employee_data_btn.setObjectName(u"edit_employee_data_btn")
+        self.edit_employee_data_btn.setMinimumSize(QSize(150, 0))
 
-        self.verticalLayout_2.addWidget(self.pushButton_edit_employees)
+        self.verticalLayout_2.addWidget(self.edit_employee_data_btn)
 
-        self.pushButton_create_sheets = QPushButton(MainMenuWidget)
-        self.pushButton_create_sheets.setObjectName(u"pushButton_create_sheets")
-        self.pushButton_create_sheets.setMinimumSize(QSize(150, 0))
+        self.create_reports_btn = QPushButton(MainMenuWidget)
+        self.create_reports_btn.setObjectName(u"create_reports_btn")
+        self.create_reports_btn.setMinimumSize(QSize(150, 0))
 
-        self.verticalLayout_2.addWidget(self.pushButton_create_sheets)
+        self.verticalLayout_2.addWidget(self.create_reports_btn)
 
-        self.pushButton_create_protocols = QPushButton(MainMenuWidget)
-        self.pushButton_create_protocols.setObjectName(u"pushButton_create_protocols")
-        self.pushButton_create_protocols.setMinimumSize(QSize(150, 0))
+        self.create_protocols_btn = QPushButton(MainMenuWidget)
+        self.create_protocols_btn.setObjectName(u"create_protocols_btn")
+        self.create_protocols_btn.setMinimumSize(QSize(150, 0))
 
-        self.verticalLayout_2.addWidget(self.pushButton_create_protocols)
+        self.verticalLayout_2.addWidget(self.create_protocols_btn)
 
-        self.pushButton_exit = QPushButton(MainMenuWidget)
-        self.pushButton_exit.setObjectName(u"pushButton_exit")
-        self.pushButton_exit.setMinimumSize(QSize(150, 0))
+        self.exit_btn = QPushButton(MainMenuWidget)
+        self.exit_btn.setObjectName(u"exit_btn")
+        self.exit_btn.setMinimumSize(QSize(150, 0))
 
-        self.verticalLayout_2.addWidget(self.pushButton_exit)
+        self.verticalLayout_2.addWidget(self.exit_btn)
 
 
         self.horizontalLayout.addLayout(self.verticalLayout_2)
@@ -121,13 +121,13 @@ class Ui_MainMenuWidget(object):
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
 
-        self.plainTextEdit_logs = QPlainTextEdit(MainMenuWidget)
-        self.plainTextEdit_logs.setObjectName(u"plainTextEdit_logs")
-        self.plainTextEdit_logs.setMinimumSize(QSize(0, 20))
-        self.plainTextEdit_logs.setUndoRedoEnabled(False)
-        self.plainTextEdit_logs.setReadOnly(True)
+        self.log_field = QPlainTextEdit(MainMenuWidget)
+        self.log_field.setObjectName(u"log_field")
+        self.log_field.setMinimumSize(QSize(0, 20))
+        self.log_field.setUndoRedoEnabled(False)
+        self.log_field.setReadOnly(True)
 
-        self.verticalLayout_3.addWidget(self.plainTextEdit_logs)
+        self.verticalLayout_3.addWidget(self.log_field)
 
         self.verticalLayout_3.setStretch(2, 5)
         self.verticalLayout_3.setStretch(4, 5)
@@ -143,11 +143,11 @@ class Ui_MainMenuWidget(object):
 
     def retranslateUi(self, MainMenuWidget):
         MainMenuWidget.setWindowTitle(QCoreApplication.translate("MainMenuWidget", u"Form", None))
-        self.label_app_title.setText(QCoreApplication.translate("MainMenuWidget", u"\u0440\u0430\u0431\u043e\u0447\u0438\u0439 \u0430\u0441\u0441\u0438\u0441\u0442\u0435\u043d\u0442", None))
-        self.label_app_version.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u0435\u0440\u0441\u0438\u044f \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f: 1.1.1", None))
-        self.pushButton_edit_employees.setText(QCoreApplication.translate("MainMenuWidget", u"\u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
-        self.pushButton_create_sheets.setText(QCoreApplication.translate("MainMenuWidget", u"\u043e\u0442\u0447\u0451\u0442\u044b", None))
-        self.pushButton_create_protocols.setText(QCoreApplication.translate("MainMenuWidget", u"\u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u044b", None))
-        self.pushButton_exit.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u044b\u0445\u043e\u0434", None))
+        self.app_title.setText(QCoreApplication.translate("MainMenuWidget", u"\u0440\u0430\u0431\u043e\u0447\u0438\u0439 \u0430\u0441\u0441\u0438\u0441\u0442\u0435\u043d\u0442", None))
+        self.app_version.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u0435\u0440\u0441\u0438\u044f \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u044f: 1.1.1", None))
+        self.edit_employee_data_btn.setText(QCoreApplication.translate("MainMenuWidget", u"\u043f\u0435\u0440\u0441\u043e\u043d\u0430\u043b", None))
+        self.create_reports_btn.setText(QCoreApplication.translate("MainMenuWidget", u"\u043e\u0442\u0447\u0451\u0442\u044b", None))
+        self.create_protocols_btn.setText(QCoreApplication.translate("MainMenuWidget", u"\u043f\u0440\u043e\u0442\u043e\u043a\u043e\u043b\u044b", None))
+        self.exit_btn.setText(QCoreApplication.translate("MainMenuWidget", u"\u0432\u044b\u0445\u043e\u0434", None))
     # retranslateUi
 

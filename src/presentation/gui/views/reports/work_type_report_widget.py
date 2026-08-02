@@ -1,5 +1,5 @@
 from src.presentation.gui.generated import ResourceLoader, Ui_WorkTypeReportWidget
-from src.presentation.gui.views.base_view import BaseView
+from src.presentation.gui.views.ui_components import BaseView
 from src.shared.constants import QtStyleResources
 
 

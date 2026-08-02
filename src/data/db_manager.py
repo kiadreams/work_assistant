@@ -8,6 +8,7 @@ from sqlalchemy import create_engine, event, insert
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
+from src.infrastucture.serialization.json_encoders import DateTimeEncoder
 from src.shared.constants import DbTables
 from src.shared.file_utils import create_clean_dir
 
@@ -36,7 +37,7 @@ class Base(DeclarativeBase):
 
 class DatabaseManager:
     def __init__(self) -> None:
-        self.engine = create_engine(DATABASE_URL)
+        self.engine = create_engine(DATABASE_URL, echo=False)
         self._register_event_listeners()
         self.SessionLocal = sessionmaker(autoflush=False, bind=self.engine, expire_on_commit=False)
 
@@ -130,7 +131,7 @@ class DatabaseManager:
                 clean_records.append(clean_record)
             file_path = target_dir / f"{table_name}.json"
             with open(file_path, "w", encoding="utf-8") as f:
-                json.dump(clean_records, f, ensure_ascii=False, indent=4)
+                json.dump(clean_records, f, cls=DateTimeEncoder, ensure_ascii=False, indent=4)
         print("Экспорт данных в файлы JSON закончен")
 
     def import_from_json_files(self) -> None:
@@ -144,7 +145,7 @@ class DatabaseManager:
                 continue
 
             with open(file_path, "r", encoding="utf-8") as f:
-                data_to_insert = json.load(f)
+                data_to_insert = json.load(f, object_hook=DateTimeEncoder.datetime_parser)
 
             # Вставляем полученные данные в указанную таблицу...
             try:

@@ -30,7 +30,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_to_main_menu">
+      <widget class="QPushButton" name="to_main_menu_btn">
        <property name="text">
         <string>Главное меню</string>
        </property>
@@ -52,14 +52,11 @@
     </spacer>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,1,0" columnstretch="0,0,1,0">
-     <item row="2" column="2" rowspan="4">
-      <widget class="QTableWidget" name="tableWidget_employees_data_table"/>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="label">
+    <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,1,0" columnstretch="0,0,1,0">
+     <item row="3" column="1">
+      <widget class="QPushButton" name="delete_employee_btn">
        <property name="text">
-        <string>Список пкрсонала:</string>
+        <string>УДАЛИТЬ</string>
        </property>
       </widget>
      </item>
@@ -76,7 +73,7 @@
        </property>
       </spacer>
      </item>
-     <item row="5" column="1" rowspan="2">
+     <item row="4" column="1" rowspan="2">
       <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Orientation::Vertical</enum>
@@ -89,22 +86,29 @@
        </property>
       </spacer>
      </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="employee_data_table_title">
+       <property name="text">
+        <string>Список пкрсонала:</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="1">
-      <widget class="QPushButton" name="pushButton_add_employee">
+      <widget class="QPushButton" name="add_employee_btn">
        <property name="text">
         <string>Добавить</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="2">
-      <spacer name="verticalSpacer">
+     <item row="3" column="0">
+      <spacer name="horizontalSpacer_3">
        <property name="orientation">
-        <enum>Qt::Orientation::Vertical</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>20</width>
-         <height>40</height>
+         <width>40</width>
+         <height>20</height>
         </size>
        </property>
       </spacer>
@@ -112,14 +116,14 @@
      <item row="0" column="2">
       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4,0,1,4">
        <item>
-        <widget class="QLabel" name="label_division_list_title">
+        <widget class="QLabel" name="division_list_title">
          <property name="text">
           <string> Служба</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_division_list">
+        <widget class="QComboBox" name="division_list">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -142,14 +146,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLabel" name="label_department_list_title">
+        <widget class="QLabel" name="department_list_title">
          <property name="text">
           <string>Группа / участок</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_department_list">
+        <widget class="QComboBox" name="department_list">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -160,25 +164,21 @@
        </item>
       </layout>
      </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="pushButton_delete_employee">
-       <property name="text">
-        <string>УДАЛИТЬ</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <spacer name="horizontalSpacer_3">
+     <item row="5" column="2">
+      <spacer name="verticalSpacer">
        <property name="orientation">
-        <enum>Qt::Orientation::Horizontal</enum>
+        <enum>Qt::Orientation::Vertical</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>40</width>
-         <height>20</height>
+         <width>20</width>
+         <height>40</height>
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="2" column="2" rowspan="3">
+      <widget class="QTableView" name="employee_data_table"/>
      </item>
     </layout>
    </item>

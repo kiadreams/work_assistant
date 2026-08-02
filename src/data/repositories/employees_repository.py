@@ -3,11 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 
 from src.data.config import DbCollFunc
-from src.data.entities.company import Company
-from src.data.entities.division import Division
-from src.domain.models import CompanyDomain, DivisionDomain
+from src.data.entities import Company, Department, Division, Employee, EmployeePosition
+from src.domain.models import CompanyDomain, DepartmentDomain, DivisionDomain, EmployeeDomain
 
 if TYPE_CHECKING:
     from src.data import DatabaseManager
@@ -60,3 +60,69 @@ class EmployeesRepository:
                 for d in orm_result
             ]
         return divisions_dmn
+
+    def get_division_departments(self, division_id: int) -> list[DepartmentDomain]:
+        stmt = (
+            select(Department)
+            .where(Department.division_id == division_id)
+            .order_by(Department.name.asc())
+        )
+        with self._db_manager.session_scope() as session:
+            orm_result = session.execute(stmt).scalars()
+            departments_dmn = [
+                DepartmentDomain(
+                    id=d.id, name=d.name, full_name=d.full_name, division_id=d.division_id
+                )
+                for d in orm_result
+            ]
+        return departments_dmn
+
+    def get_division_employees(self, division_id: int) -> list[EmployeeDomain]:
+        smt = (
+            select(Employee)
+            .options(joinedload(Employee.employee_position))
+            .join(EmployeePosition, Employee.employee_position_id == EmployeePosition.id)
+            .where(EmployeePosition.division_id == division_id)
+            .order_by(Employee.name.asc())
+        )
+        with self._db_manager.session_scope() as session:
+            orm_result = session.execute(smt).scalars()
+            employees_dmn = [
+                EmployeeDomain(
+                    id=employee.id,
+                    name=employee.name,
+                    last_name=employee.last_name,
+                    middle_name=employee.middle_name,
+                    employee_position=employee.employee_position.name,
+                    employee_position_id=employee.employee_position_id,
+                    service_number=employee.service_number,
+                    date_of_birth=employee.date_of_birth,
+                )
+                for employee in orm_result
+            ]
+        return employees_dmn
+
+    def get_department_employees(self, department_id: int) -> list[EmployeeDomain]:
+        smt = (
+            select(Employee)
+            .options(joinedload(Employee.employee_position))
+            .join(EmployeePosition, Employee.employee_position_id == EmployeePosition.id)
+            .where(EmployeePosition.department_id == department_id)
+            .order_by(Employee.name.asc())
+        )
+        with self._db_manager.session_scope() as session:
+            orm_result = session.execute(smt).scalars()
+            employees_dmn = [
+                EmployeeDomain(
+                    id=employee.id,
+                    name=employee.name,
+                    last_name=employee.last_name,
+                    middle_name=employee.middle_name,
+                    employee_position=employee.employee_position.name,
+                    employee_position_id=employee.employee_position_id,
+                    service_number=employee.service_number,
+                    date_of_birth=employee.date_of_birth,
+                )
+                for employee in orm_result
+            ]
+        return employees_dmn
